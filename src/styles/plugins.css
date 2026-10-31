@@ -1,0 +1,10 @@
+/* The plugin components' styles: each library's own CSS, then Tabler's restyling of them
+   (tabler-vendors), which has to come after. Import it once, after styles.css, in apps that use
+   TAdvancedSelect, TColorPicker, TDropzone or TRangeSlider. The other plugins are styled by
+   Tabler's main CSS (date picker, vector map, clipboard, sortable) or bring their own skin (the
+   rich text editor). */
+@import 'tom-select/dist/css/tom-select.bootstrap5.min.css';
+@import '@melloware/coloris/dist/coloris.css';
+@import 'dropzone/dist/dropzone.css';
+@import 'nouislider/dist/nouislider.min.css';
+@import '@tabler/core/dist/css/tabler-vendors.min.css';

@@ -1,0 +1,47 @@
+/* The preview site's own styles: example frames and code. */
+
+.preview-demo {
+  padding: 1.5rem;
+}
+
+.preview-code {
+  max-height: 28rem;
+  margin: 0;
+  overflow: auto;
+  padding: 1rem 1.25rem;
+  font-family: var(--tblr-font-monospace);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: #d4d8de;
+  background: #1c1d1d;
+  border-radius: 0 0 var(--tblr-card-border-radius) var(--tblr-card-border-radius);
+  white-space: pre;
+}
+
+/* A frame for layout components, which normally fill the window. */
+.preview-frame {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--tblr-body-bg);
+  border: var(--tblr-border-width) solid var(--tblr-border-color);
+  border-radius: var(--tblr-border-radius);
+}
+
+.preview-swatch {
+  height: 3.5rem;
+  border-radius: var(--tblr-border-radius);
+  border: var(--tblr-border-width) solid var(--tblr-border-color);
+}
+
+/* The query builder's body: filter, sort and the translated query side by side on wide screens. */
+.studio-query-grid {
+  display: grid;
+  flex: 1 1 auto;
+  gap: 1.25rem;
+  min-height: 0;
+  overflow: auto;
+}
+@media (min-width: 992px) {
+  .studio-query-grid { grid-template-columns: minmax(0, 1fr) 15rem minmax(0, 1fr); }
+}

@@ -1,0 +1,82 @@
+{
+  "name": "@gears/ui",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "The Gears Vue component library on Tabler, and a site that previews it.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles/gears.css",
+    "./plugins.css": "./src/styles/plugins.css"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "typecheck": "vue-tsc --noEmit",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "monaco-editor": "^0.57.0",
+    "vue": "^3.5.0",
+    "vue-router": "^4.6.0",
+    "tom-select": "^2.6.0",
+    "@melloware/coloris": "^0.25.0",
+    "vanilla-calendar-pro": "^3.3.2",
+    "dropzone": "^6.3.0",
+    "imask": "^7.6.0",
+    "nouislider": "^15.8.0",
+    "sortablejs": "^1.15.0",
+    "hugerte": "^1.0.0"
+  },
+  "dependencies": {
+    "@tabler/core": "1.7.1",
+    "@tabler/icons-webfont": "3.49.0"
+  },
+  "devDependencies": {
+    "@melloware/coloris": "0.25.0",
+    "@types/sortablejs": "1.15.9",
+    "@vitejs/plugin-vue": "6.0.10",
+    "dropzone": "6.3.5",
+    "hugerte": "1.0.14",
+    "imask": "7.6.1",
+    "monaco-editor": "0.57.0",
+    "nouislider": "15.8.1",
+    "sortablejs": "1.15.7",
+    "tom-select": "2.6.2",
+    "typescript": "5.9.3",
+    "vanilla-calendar-pro": "3.4.0",
+    "vite": "7.3.7",
+    "vue": "3.5.44",
+    "vue-router": "4.6.4",
+    "vue-tsc": "3.3.13"
+  },
+  "peerDependenciesMeta": {
+    "monaco-editor": {
+      "optional": true
+    },
+    "tom-select": {
+      "optional": true
+    },
+    "@melloware/coloris": {
+      "optional": true
+    },
+    "vanilla-calendar-pro": {
+      "optional": true
+    },
+    "dropzone": {
+      "optional": true
+    },
+    "imask": {
+      "optional": true
+    },
+    "nouislider": {
+      "optional": true
+    },
+    "sortablejs": {
+      "optional": true
+    },
+    "hugerte": {
+      "optional": true
+    }
+  }
+}

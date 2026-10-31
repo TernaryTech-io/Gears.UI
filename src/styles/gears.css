@@ -1,0 +1,342 @@
+/* Gears UI: Tabler, the Tabler Icons webfont (self-hosted: a Gears server may have no internet),
+   and the Gears palette and the few classes Tabler doesn't have. Import it once in the app's entry. */
+@import '@tabler/core/dist/css/tabler.min.css';
+@import '@tabler/icons-webfont/dist/tabler-icons.min.css';
+
+/* The palette: primary #3673d1, darkest black #1c1d1d. Tabler builds its shades, subtle
+   backgrounds and focus rings from these, in both themes (light-dark() picks the side). */
+:root {
+  --tblr-primary: #3673d1;
+  --tblr-primary-rgb: 54, 115, 209;
+  --tblr-link-color: light-dark(#3673d1, #5c90de);
+  --tblr-link-hover-color: light-dark(#2b5fae, #8bb2e9);
+  --tblr-font-sans-serif: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --tblr-font-monospace: ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --tblr-border-radius: 0.5rem;
+
+  /* Pages are a shade off white (darkest black in the dark theme); cards sit on them. */
+  --tblr-body-bg: light-dark(#f6f7f9, #1c1d1d);
+  --tblr-bg-surface: light-dark(#fff, #232525);
+  --tblr-bg-surface-secondary: light-dark(#f6f7f9, #1c1d1d);
+  --tblr-bg-surface-dark: #1c1d1d;
+  --tblr-border-color: light-dark(#e3e6eb, #2f3232);
+}
+
+/* The sidebar is dark in both themes, in the darkest black. */
+.navbar-vertical[data-bs-theme=dark] {
+  --tblr-navbar-bg: #1c1d1d;
+  --tblr-bg-surface: #1c1d1d;
+  --tblr-navbar-border-color: #2f3232;
+}
+
+/* An extra-small button size, under Tabler's btn-sm. */
+.btn-xs {
+  --tblr-btn-padding-y: 0.125rem;
+  --tblr-btn-padding-x: 0.375rem;
+  --tblr-btn-font-size: 0.75rem;
+  --tblr-btn-icon-size: 0.875rem;
+  --tblr-btn-line-height: 1.25rem;
+}
+
+/* Soft buttons: tinted, like Tabler's `-lt` backgrounds, with hover and active shades. */
+.btn-soft {
+  --tblr-btn-color: var(--t-tint);
+  --tblr-btn-bg: color-mix(in oklab, var(--t-tint) 12%, transparent);
+  --tblr-btn-border-color: transparent;
+  --tblr-btn-hover-color: var(--t-tint);
+  --tblr-btn-hover-bg: color-mix(in oklab, var(--t-tint) 20%, transparent);
+  --tblr-btn-hover-border-color: transparent;
+  --tblr-btn-active-color: var(--t-tint);
+  --tblr-btn-active-bg: color-mix(in oklab, var(--t-tint) 28%, transparent);
+  --tblr-btn-active-border-color: transparent;
+  --tblr-btn-icon-color: var(--t-tint);
+}
+.btn-soft-primary { --t-tint: var(--tblr-primary); }
+.btn-soft-secondary { --t-tint: var(--tblr-secondary); }
+.btn-soft-success { --t-tint: var(--tblr-success); }
+.btn-soft-warning { --t-tint: var(--tblr-warning); }
+.btn-soft-danger { --t-tint: var(--tblr-danger); }
+.btn-soft-info { --t-tint: var(--tblr-info); }
+
+/* Icons from the webfont take the size of the text around them unless told otherwise. */
+.ti.icon { line-height: 1; vertical-align: -0.125em; }
+.ti-spin { animation: t-spin 1s linear infinite; }
+@keyframes t-spin { to { transform: rotate(360deg); } }
+
+/* The sidebar's fold toggle: a small black circle with a light grey outline, on the sidebar's edge. */
+.t-fold-toggle {
+  position: absolute;
+  top: 1.375rem;
+  inset-inline-end: -12px;
+  z-index: 1031;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  color: #fff;
+  background: #1c1d1d;
+  border: 1px solid var(--tblr-navbar-border-color, #2f3232);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.t-fold-toggle:hover { border-color: #5d6470; }
+.t-fold-toggle:focus-visible { outline: 2px solid var(--tblr-primary); outline-offset: 2px; }
+.t-fold-toggle .ti { font-size: 14px; width: 14px; height: 14px; line-height: 14px; vertical-align: 0; }
+
+/* The top bar beside the sidebar keeps clear of the fold toggle on the sidebar's edge. */
+@media (min-width: 992px) {
+  .t-topbar > .container-fluid { padding-inline-start: 1.75rem; }
+}
+
+/* A page that fills the height under the top bar and scrolls inside its own panels. */
+.t-fill {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1 1 auto;
+}
+.page-wrapper:has(> .t-page-fill) {
+  height: 100svh;
+  overflow: hidden;
+}
+
+/* A work section: a secondary panel on the left and a large work area. */
+.t-section {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.t-section-panel {
+  display: flex;
+  flex-direction: column;
+  width: 16rem;
+  flex-shrink: 0;
+  background: var(--tblr-bg-surface);
+  border-inline-end: var(--tblr-border-width) solid var(--tblr-border-color);
+}
+.t-section-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem;
+  height: 3rem;
+  flex-shrink: 0;
+  padding-inline: 1rem 0.5rem;
+  border-bottom: var(--tblr-border-width) solid var(--tblr-border-color);
+}
+.t-section-work {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  gap: 0.75rem;
+  min-width: 0;
+  min-height: 0;
+  padding: 1rem;
+}
+@media (max-width: 767.98px) {
+  .t-section-panel { display: none; }
+}
+
+/* Log output: monospaced, on a slightly sunken surface. */
+.t-log {
+  overflow: auto;
+  padding: 0.75rem;
+  margin: 0;
+  font-family: var(--tblr-font-monospace);
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--tblr-bg-surface-secondary);
+  border: var(--tblr-border-width) solid var(--tblr-border-color);
+  border-radius: var(--tblr-border-radius);
+}
+.t-log-line { display: flex; gap: 0.75rem; }
+.t-log-time { flex-shrink: 0; color: var(--tblr-tertiary-color); user-select: none; }
+
+/* A stat card's tinted icon square. */
+.t-stat-icon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  border-radius: var(--tblr-border-radius);
+  font-size: 1.25rem;
+}
+
+/* A small segmented switch (Tabler has one size). */
+.nav-segmented-sm {
+  --tblr-nav-height: 2rem;
+  --tblr-nav-link-padding-x: 0.625rem;
+  --tblr-nav-link-icon-size: 1rem;
+  font-size: 0.8125rem;
+}
+
+/* A dropdown joined to the controls before or after it in a TFieldGroup (a split Save button). */
+.input-group > .dropdown:not(:first-child) .btn {
+  margin-inline-start: calc(-1 * var(--tblr-border-width));
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+.input-group > .dropdown:not(:last-child) .btn {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+/* A table whose header stays in view while it scrolls in its container. */
+.t-table-sticky {
+  min-height: 0;
+  overflow: auto;
+}
+.t-table-sticky thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: var(--tblr-bg-surface);
+  box-shadow: inset 0 -1px 0 var(--tblr-border-color);
+}
+
+/* Code editor (TCodeEditor): Monaco fills the box; the box has the input's border. */
+.t-code-editor {
+  position: relative;
+  min-height: 10rem;
+  overflow: hidden;
+  border: var(--tblr-border-width) solid var(--tblr-border-color);
+  border-radius: var(--tblr-border-radius);
+}
+.t-code-editor-flush {
+  border: 0;
+  border-radius: 0;
+}
+.t-code-editor-host,
+.t-code-editor-loading {
+  position: absolute;
+  inset: 0;
+}
+.t-code-editor-loading {
+  display: grid;
+  place-items: center;
+  background: var(--tblr-bg-surface);
+}
+
+/* Splitter (TSplitter): two flex-column panes and a handle with a grip. */
+.t-splitter {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+}
+.t-splitter-vertical { flex-direction: column; }
+.t-splitter-pane {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+.t-splitter-pane-end { flex: 1 1 0; }
+.t-splitter-handle {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  touch-action: none;
+}
+.t-splitter-horizontal > .t-splitter-handle { width: 0.75rem; cursor: col-resize; }
+.t-splitter-vertical > .t-splitter-handle { height: 0.75rem; cursor: row-resize; }
+.t-splitter-grip {
+  border-radius: 1rem;
+  background: var(--tblr-border-color);
+  transition: background-color 0.15s;
+}
+.t-splitter-horizontal .t-splitter-grip { width: 0.25rem; height: 3rem; }
+.t-splitter-vertical .t-splitter-grip { width: 3rem; height: 0.25rem; }
+.t-splitter-handle:hover .t-splitter-grip,
+.t-splitter-handle:focus-visible .t-splitter-grip,
+.t-splitter-dragging .t-splitter-grip { background: var(--tblr-primary); }
+.t-splitter-dragging { user-select: none; }
+
+/* Select menu (TSelectMenu). */
+.t-select-menu-panel { min-width: 14rem; max-width: 100vw; }
+.t-select-menu-items { max-height: 16rem; overflow-y: auto; padding-block: 0.25rem; }
+.t-select-menu-items .dropdown-item { display: flex; align-items: center; }
+
+/* Tags input (TInputTags). */
+.t-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  height: auto;
+  cursor: text;
+}
+.t-tags.disabled { background: var(--tblr-bg-surface-secondary); cursor: default; }
+.t-tag { display: inline-flex; align-items: center; gap: 0.25rem; }
+.t-tag .btn-close { width: 0.5rem; height: 0.5rem; padding: 0; background-size: 0.5rem; }
+.t-tags-input {
+  flex: 1 1 4rem;
+  min-width: 4rem;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+/* Panel list (TPanelList): compact items in a section's side panel. */
+.t-panel-list { display: flex; flex-direction: column; gap: 2px; padding: 0.5rem; }
+.t-panel-list-heading {
+  padding: 0.5rem 0.5rem 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: var(--tblr-font-weight-semibold);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tblr-tertiary-color);
+}
+.t-panel-list-empty { margin: 0; padding: 0.25rem 0.5rem; font-size: 0.75rem; color: var(--tblr-secondary-color); }
+.t-panel-list-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.375rem 0.5rem;
+  font-size: 0.875rem;
+  color: inherit;
+  text-align: start;
+  background: transparent;
+  border: 0;
+  border-radius: var(--tblr-border-radius);
+}
+.t-panel-list-item:hover { background: color-mix(in oklab, var(--tblr-body-color) 6%, transparent); }
+.t-panel-list-item.active { color: var(--tblr-primary); background: color-mix(in oklab, var(--tblr-primary) 10%, transparent); }
+.t-panel-list-icon { flex-shrink: 0; opacity: 0.7; }
+.t-panel-list-trailing { flex-shrink: 0; font-size: 0.625rem; text-transform: uppercase; color: var(--tblr-secondary-color); }
+
+/* Color picker (TColorPicker): the color beside the value. */
+.t-color-swatch {
+  display: block;
+  width: 1.75rem;
+  height: 100%;
+  min-height: 1.5rem;
+  border-radius: calc(var(--tblr-border-radius) - 2px);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+  background-image: none;
+}
+
+/* Range slider (TRangeSlider): room for the handles, and above them for tooltips. */
+.t-range-slider { margin: 0.75rem 0.5rem; }
+.t-range-slider-tooltips { margin-top: 2.75rem; }
+
+/* Sortable (TSortable): handles show they can be dragged. */
+.t-sortable .sortable-handle { cursor: grab; touch-action: none; }
+.t-sortable:not(.t-sortable-handles) > * { cursor: grab; }
+
+/* The rich text editor (TRichEditor) keeps its corners with the inputs'. */
+.t-rich-editor .tox-hugerte { border-radius: var(--tblr-border-radius); }
+
+/* Copy button (TCopyButton): Tabler's clipboard plugin hides one label and shows the other. */
+.t-copy-part { display: inline-flex; align-items: center; }
+.t-copy-part[hidden] { display: none; }
