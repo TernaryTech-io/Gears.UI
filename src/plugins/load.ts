@@ -1,3 +1,4 @@
+/// <reference path="../shims.d.ts" />
 // Loads the plugin components' libraries the first time one is shown, so an app downloads only the
 // ones it uses (each is an optional peer dependency). Only the `@gears/ui/plugins` entry reaches
 // this module, so apps that don't use it never need these libraries. Tabler's own wrappers for the date picker,
