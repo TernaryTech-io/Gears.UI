@@ -95,10 +95,10 @@
   min-height: 0;
   flex: 1 1 auto;
 }
-.page-wrapper:has(> .t-page-fill) {
-  height: 100svh;
-  overflow: hidden;
-}
+/* The shell is at least the window's height; a filling page takes what the top bar leaves (its
+   basis is 0, so it never grows the page past the window) and scrolls inside. */
+.t-shell { min-height: 100svh; }
+.t-page-fill { flex: 1 1 0; overflow: hidden; }
 
 /* A work section: a secondary panel on the left and a large work area. */
 .t-section {

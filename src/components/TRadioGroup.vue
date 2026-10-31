@@ -27,7 +27,7 @@ const options = computed<SelectItem<T>[]>(() =>
 <template>
   <div role="radiogroup" :aria-label="legend">
     <div v-if="legend" class="form-label">{{ legend }}</div>
-    <div v-if="variant === 'cards'" class="form-selectgroup form-selectgroup-boxes row g-3 mx-0">
+    <div v-if="variant === 'cards'" class="form-selectgroup-boxes row g-3">
       <label v-for="(option, i) in options" :key="i" :class="['form-selectgroup-item ps-0', columns > 1 && `col-sm-${12 / columns}`]">
         <input type="radio" :name="name" class="form-selectgroup-input" :checked="option.value === model" :disabled="disabled || option.disabled"
           @change="model = option.value">

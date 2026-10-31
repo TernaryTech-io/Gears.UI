@@ -35,7 +35,7 @@ watch(() => route.fullPath, () => { menuOpen.value = false })
 </script>
 
 <template>
-  <div class="page">
+  <div class="page t-shell">
     <aside :class="['navbar navbar-vertical navbar-expand-lg', { 'navbar-folded': folded }]" data-bs-theme="dark">
       <div class="container-fluid">
         <button type="button" class="navbar-toggler" :aria-expanded="menuOpen" aria-label="Menu" @click="menuOpen = !menuOpen">
