@@ -10,7 +10,8 @@
     "./plugins": "./src/plugins/index.ts",
     "./code-editor": "./src/code-editor.ts",
     "./styles.css": "./src/styles/gears.css",
-    "./plugins.css": "./src/styles/plugins.css"
+    "./plugins.css": "./src/styles/plugins.css",
+    "./components/*": "./src/components/*"
   },
   "scripts": {
     "dev": "vite",

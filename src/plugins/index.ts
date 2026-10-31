@@ -1,6 +1,6 @@
 // Gears UI's plugin components, on the libraries Tabler's plugins use. Each library is an optional
-// peer dependency that loads the first time its component is shown; install the ones you use, and
-// import `@gears/ui/plugins.css` after the main styles.
+// peer dependency that loads the first time its component is shown. Installing this plugin needs
+// all of them; to use only some, import those components from `@gears/ui/components/…` instead.
 import type { App } from 'vue'
 import TAdvancedSelect from '../components/TAdvancedSelect.vue'
 import TColorPicker from '../components/TColorPicker.vue'
@@ -22,7 +22,7 @@ export {
   TSortable
 }
 
-export type { RichEditorPlugin } from './load'
+export type { RichEditorPlugin } from './richEditor'
 
 const components = {
   TAdvancedSelect, TColorPicker, TDatePicker, TDropzone, TInputMask, TRangeSlider, TRichEditor,

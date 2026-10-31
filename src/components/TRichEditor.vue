@@ -1,13 +1,13 @@
 <script setup lang="ts">
 // A rich text editor with Tabler's WYSIWYG plugin (HugeRTE, an open-source fork of TinyMCE).
 // v-model is the HTML. `toolbar` and `plugins` use HugeRTE's names; the plugins offered are those
-// in src/plugins/load.ts. It follows the light and dark theme (switching rebuilds the editor). Nothing
+// in src/plugins/richEditor.ts. It follows the light and dark theme (switching rebuilds the editor). Nothing
 // is fetched: the editor, its skins and plugins are bundled and load on first use.
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { Editor } from 'hugerte'
 import { useColorMode } from '../composables/useColorMode'
 import { useField } from '../composables/useField'
-import { loadRichEditor, type RichEditorPlugin } from '../plugins/load'
+import { loadRichEditor, type RichEditorPlugin } from '../plugins/richEditor'
 
 const props = withDefaults(defineProps<{
   height?: number

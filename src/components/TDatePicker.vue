@@ -7,7 +7,7 @@ import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { Datepicker } from '@tabler/core'
 import TIcon from './TIcon.vue'
 import { useField } from '../composables/useField'
-import { loadDatepicker } from '../plugins/load'
+import { loadDatepicker } from '../plugins/datepicker'
 
 const props = withDefaults(defineProps<{
   mode?: 'single' | 'multiple' | 'range'

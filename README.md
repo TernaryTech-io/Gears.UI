@@ -42,6 +42,12 @@ it uses:
 | `@gears/ui` | Everything else | Nothing more |
 | `@gears/ui/code-editor` | `TCodeEditor` (install with `GearsUICodeEditor`) | `monaco-editor` |
 | `@gears/ui/plugins` | `TAdvancedSelect`, `TColorPicker`, `TDatePicker`, `TDropzone`, `TInputMask`, `TRangeSlider`, `TRichEditor`, `TSortable` (install with `GearsUIPlugins`) | Each one's library; and `@gears/ui/plugins.css` |
+| `@gears/ui/components/T….vue` | Any one component on its own | Only that component's library |
+
+`GearsUIPlugins` and `plugins.css` need all eight libraries. To use only some plugins, import those
+components directly (`import TSortable from '@gears/ui/components/TSortable.vue'`; each loads only its
+own library) and the CSS they need: Tom Select's `tom-select.bootstrap5.min.css`, and
+`@tabler/core/dist/css/tabler-vendors.min.css` after it for the select, color picker, dropzone and slider.
 
 From another repo, depend on a pinned commit: `"@gears/ui": "github:TernaryTech-io/Gears.UI#<commit>"`. The
 package ships its sources, so the app's Vite compiles them; exclude it from pre-bundling with

@@ -6,7 +6,7 @@
 import { computed, onBeforeUnmount, onMounted, watch } from 'vue'
 import { useColorMode } from '../composables/useColorMode'
 import { useField } from '../composables/useField'
-import { loadColoris } from '../plugins/load'
+import { loadColoris } from '../plugins/coloris'
 
 const props = withDefaults(defineProps<{
   format?: 'hex' | 'rgb' | 'hsl' | 'auto' | 'mixed'

@@ -4,7 +4,7 @@
 // loads on first use.
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { API } from 'nouislider'
-import { loadSlider } from '../plugins/load'
+import { loadSlider } from '../plugins/slider'
 
 const props = withDefaults(defineProps<{
   min?: number
