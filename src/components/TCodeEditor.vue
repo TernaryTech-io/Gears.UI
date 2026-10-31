@@ -61,10 +61,12 @@ onMounted(async () => {
   loading.value = false
 })
 
+// The editor goes before its model: a model disposed under a live editor throws "Model is disposed!".
 onBeforeUnmount(() => {
   completionProvider?.dispose()
-  editor.value?.getModel()?.dispose()
+  const model = editor.value?.getModel()
   editor.value?.dispose()
+  model?.dispose()
 })
 
 watch(value, text => {
