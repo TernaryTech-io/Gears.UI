@@ -1,6 +1,6 @@
 // Drives a Bootstrap modal or offcanvas from a v-model: opening the model shows it, and closing it
 // any way (the close button, Esc, the backdrop) sets the model back. Content renders while it's
-// open and until it has faded out.
+// open and until it has faded out. `afterEnter` runs once it has opened (and taken focus).
 import { onBeforeUnmount, onMounted, ref, watch, type Ref } from 'vue'
 
 interface Overlay {
@@ -10,7 +10,7 @@ interface Overlay {
 }
 
 export function useOverlay(el: Ref<HTMLElement | undefined>, kind: 'modal' | 'offcanvas', open: Ref<boolean>,
-  create: (el: HTMLElement) => Overlay, afterLeave: () => void) {
+  create: (el: HTMLElement) => Overlay, afterLeave: () => void, afterEnter?: () => void) {
   const rendered = ref(open.value)
   let overlay: Overlay | null = null
   let shown = false
@@ -19,6 +19,7 @@ export function useOverlay(el: Ref<HTMLElement | undefined>, kind: 'modal' | 'of
     const element = el.value!
     overlay = create(element)
     element.addEventListener(`show.bs.${kind}`, () => { shown = true })
+    element.addEventListener(`shown.bs.${kind}`, () => afterEnter?.())
     element.addEventListener(`hide.bs.${kind}`, () => {
       shown = false
       if (open.value) open.value = false

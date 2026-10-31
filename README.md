@@ -68,9 +68,9 @@ add a page, add an entry to `preview/registry.ts` and a folder of examples.
 | Group | Components |
 | --- | --- |
 | Elements | `TButton`, `TBadge`, `TAvatar`, `TAlert`, `TCard`, `TIcon`, `TTooltip`, `TEmpty`, `TSpinner`, `TSkeleton`, `TProgress`, `TSeparator` |
-| Forms | `TFormField`, `TInput`, `TTextarea`, `TSelect`, `TSelectMenu`, `TInputTags`, `TCheckbox`, `TSwitch`, `TRadioGroup`, `TFieldGroup`, `TCodeEditor` |
+| Forms | `TFormField`, `TInput`, `TInputNumber`, `TTextarea`, `TSelect`, `TSelectMenu`, `TInputTags`, `TCheckbox`, `TSwitch`, `TRadioGroup`, `TFieldGroup`, `TFileUpload`, `TCodeEditor` |
 | Overlays | `TModal`, `TSlideover`, `TDropdown` |
-| Navigation | `TTabs`, `TPagination`, `TSteps`, `TNav`, `TPanelList` |
+| Navigation | `TTabs`, `TPagination`, `TSteps`, `TNav`, `TPanelList`, `TCommandPalette`, `TSearchButton` |
 | Data | `TTable`, `TStatCard`, `TLogView` |
 | Layout | `TShell`, `TTopbar`, `TPage`, `TSectionLayout`, `TSplitter`, `TAuthLayout`, `TColorModeButton` |
 | Plugins | `TAdvancedSelect`, `TCopyButton`, `TColorPicker`, `TDatePicker`, `TDropzone`, `TInputMask`, `TRangeSlider`, `TSortable`, `TVectorMap`, `TRichEditor` |
@@ -103,6 +103,8 @@ Tabler's restyling of them (`tabler-vendors.css`), which must come after.
 | `UFormField`, `UInput`, `UTextarea`, `USelect`, `UCheckbox`, `USwitch`, `URadioGroup`, `UFieldGroup` | `TFormField` (`help` → `description`), `TInput`, `TTextarea`, `TSelect`, `TCheckbox`, `TSwitch`, `TRadioGroup`, `TFieldGroup` |
 | `UModal`, `USlideover`, `UDropdownMenu` | `TModal`, `TSlideover`, `TDropdown` (same item groups; `onSelect`, `to`, `type: 'label'`) |
 | `UTabs`, `UPagination`, `UStepper`, `UTable` | `TTabs` (`:content="false"` switches become `variant="segmented"`), `TPagination`, `TSteps`, `TTable` (cell slots get the row itself, not `row.original`; `#cell` draws any cell, `sticky` keeps the header) |
+| `UInputNumber`, `UFileUpload` | `TInputNumber` (Tabler's number input: minus and plus, `min`, `max`, `step`), `TFileUpload` (`accept`, `multiple`; v-model holds the File, nothing uploads) |
+| `UDashboardSearch`, `UDashboardSearchButton` | `TCommandPalette` (`groups` of items with `to` or `onSelect`; Ctrl+K / ⌘K) and `TSearchButton` (`collapsed` for the icon only). They share their open state; `useCommandPalette()` opens it from code |
 | `USelectMenu`, `UInputTags`, `USplitter` | `TSelectMenu` (`multiple`; items take a `group` instead of `type: 'label'` rows), `TInputTags`, `TSplitter` (`#start` and `#end` slots, `storageKey`) |
 | `UDashboardGroup` + `UDashboardSidebar` + `UNavigationMenu` | `TShell` with `nav` items (`TNav`) |
 | `UDashboardPanel` + `UDashboardNavbar` | `TTopbar` + `TPage` |
@@ -113,11 +115,10 @@ Tabler's restyling of them (`tabler-vendors.css`), which must come after.
 | `CodePanel`, `QueryPanel`, `FilterGroupEditor` | Stay in the Studio (they call its API). Rebuilt on Gears UI in the preview's Studio pages, against mock data in `preview/studio/`: the side-panel lists are `TPanelList`, and the results card is a component of its own instead of VueUse's reusable template |
 | `StudioPage`, `ProjectSwitcher`, user menu | Compositions of `TTopbar`, `TDropdown`, `TAvatar` and `TPage`: see the Top bar and Dropdown pages |
 
-### Not built yet
+### Still to do
 
-These Nuxt UI components are used in the Studio and have no Gears UI version yet: `UInputNumber` (a
-number `TInput` covers most uses), `UFileUpload`, and `UDashboardSearch` with `UDashboardSearchButton` (the
-Ctrl+K command palette). The preview site has no generated props tables yet; the examples are the reference.
+Every Nuxt UI component the Studio uses now has a Gears UI version. The preview site has no generated
+props tables yet; the examples are the reference.
 
 ## License
 

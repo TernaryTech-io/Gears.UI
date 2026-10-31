@@ -2,7 +2,7 @@
 // The preview site's frame: a TShell whose sidebar lists the component pages by group.
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import type { NavItem } from '@gears/ui'
+import { useColorMode, type CommandGroup, type NavItem } from '@gears/ui'
 import { groups, pages } from './registry'
 
 const route = useRoute()
@@ -22,6 +22,21 @@ const nav = computed<NavItem[]>(() => [
 ])
 
 const current = computed(() => pages.find(p => p.slug === route.params.slug))
+
+// Ctrl+K: every page, found by its name, its group, its components and its description.
+const { toggle } = useColorMode()
+const searchGroups = computed<CommandGroup[]>(() => [
+  {
+    id: 'pages',
+    label: 'Pages',
+    items: [
+      { label: 'Getting started', icon: 'rocket', to: '/' },
+      { label: 'Foundations', icon: 'palette', to: '/foundations', keywords: ['colors', 'type'] },
+      ...pages.map(p => ({ label: p.name, icon: icons[p.group], suffix: p.group, keywords: [...p.components, p.description], to: `/components/${p.slug}` }))
+    ]
+  },
+  { id: 'actions', label: 'Actions', items: [{ label: 'Switch the light or dark theme', icon: 'moon', onSelect: toggle }] }
+])
 </script>
 
 <template>
@@ -38,10 +53,13 @@ const current = computed(() => pages.find(p => p.slug === route.params.slug))
         </template>
       </template>
       <template #right>
+        <TSearchButton label="Search components…" class="d-none d-lg-inline-flex" />
+        <TSearchButton collapsed class="d-lg-none" />
         <TButton href="https://docs.tabler.io/ui" target="_blank" color="neutral" variant="ghost" icon="book" label="Tabler" />
         <TColorModeButton />
       </template>
     </TTopbar>
     <RouterView :key="route.fullPath" />
+    <TCommandPalette :groups="searchGroups" placeholder="Search components and pages…" />
   </TShell>
 </template>

@@ -112,3 +112,21 @@ export interface PanelListItem<T = string> {
   trailing?: string
   title?: string
 }
+
+// An item of TCommandPalette: a page to go to (`to`) or an action (`onSelect`).
+export interface CommandItem {
+  label: string
+  icon?: string
+  // Shown after the label, smaller; searched too (a project's namespace, a page's section).
+  suffix?: string
+  // More words that find the item without being shown.
+  keywords?: string[]
+  to?: Target
+  onSelect?: () => void
+}
+
+export interface CommandGroup {
+  id: string
+  label?: string
+  items: CommandItem[]
+}

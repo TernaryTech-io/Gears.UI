@@ -15,16 +15,19 @@ import TCheckbox from './components/TCheckbox.vue'
 import TCodeEditor from './components/TCodeEditor.vue'
 import TColorModeButton from './components/TColorModeButton.vue'
 import TColorPicker from './components/TColorPicker.vue'
+import TCommandPalette from './components/TCommandPalette.vue'
 import TCopyButton from './components/TCopyButton.vue'
 import TDatePicker from './components/TDatePicker.vue'
 import TDropdown from './components/TDropdown.vue'
 import TDropzone from './components/TDropzone.vue'
 import TEmpty from './components/TEmpty.vue'
 import TFieldGroup from './components/TFieldGroup.vue'
+import TFileUpload from './components/TFileUpload.vue'
 import TFormField from './components/TFormField.vue'
 import TIcon from './components/TIcon.vue'
 import TInput from './components/TInput.vue'
 import TInputMask from './components/TInputMask.vue'
+import TInputNumber from './components/TInputNumber.vue'
 import TInputTags from './components/TInputTags.vue'
 import TLogView from './components/TLogView.vue'
 import TModal from './components/TModal.vue'
@@ -36,6 +39,7 @@ import TProgress from './components/TProgress.vue'
 import TRadioGroup from './components/TRadioGroup.vue'
 import TRangeSlider from './components/TRangeSlider.vue'
 import TRichEditor from './components/TRichEditor.vue'
+import TSearchButton from './components/TSearchButton.vue'
 import TSectionLayout from './components/TSectionLayout.vue'
 import TSelect from './components/TSelect.vue'
 import TSelectMenu from './components/TSelectMenu.vue'
@@ -68,16 +72,19 @@ export {
   TCodeEditor,
   TColorModeButton,
   TColorPicker,
+  TCommandPalette,
   TCopyButton,
   TDatePicker,
   TDropdown,
   TDropzone,
   TEmpty,
   TFieldGroup,
+  TFileUpload,
   TFormField,
   TIcon,
   TInput,
   TInputMask,
+  TInputNumber,
   TInputTags,
   TLogView,
   TModal,
@@ -89,6 +96,7 @@ export {
   TRadioGroup,
   TRangeSlider,
   TRichEditor,
+  TSearchButton,
   TSectionLayout,
   TSelect,
   TSelectMenu,
@@ -112,16 +120,18 @@ export {
 
 export * from './types'
 export { useColorMode, type ColorMode } from './composables/useColorMode'
+export { useCommandPalette } from './composables/useCommandPalette'
 export { useField } from './composables/useField'
 export type { RichEditorPlugin } from './plugins'
 
 const components = {
   TAdvancedSelect, TAlert, TAuthLayout, TAvatar, TBadge, TButton, TCard, TCheckbox, TCodeEditor,
-  TColorModeButton, TColorPicker, TCopyButton, TDatePicker, TDropdown, TDropzone, TEmpty,
-  TFieldGroup, TFormField, TIcon, TInput, TInputMask, TInputTags, TLogView, TModal, TNav, TPage,
-  TPagination, TPanelList, TProgress, TRadioGroup, TRangeSlider, TRichEditor, TSectionLayout,
-  TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSortable, TSpinner, TSplitter,
-  TStatCard, TSteps, TSwitch, TTable, TTabs, TTextarea, TTooltip, TTopbar, TVectorMap
+  TColorModeButton, TColorPicker, TCommandPalette, TCopyButton, TDatePicker, TDropdown, TDropzone,
+  TEmpty, TFieldGroup, TFileUpload, TFormField, TIcon, TInput, TInputMask, TInputNumber,
+  TInputTags, TLogView, TModal, TNav, TPage, TPagination, TPanelList, TProgress, TRadioGroup,
+  TRangeSlider, TRichEditor, TSearchButton, TSectionLayout, TSelect, TSelectMenu, TSeparator,
+  TShell, TSkeleton, TSlideover, TSortable, TSpinner, TSplitter, TStatCard, TSteps, TSwitch,
+  TTable, TTabs, TTextarea, TTooltip, TTopbar, TVectorMap
 }
 
 export default {
@@ -143,16 +153,19 @@ declare module 'vue' {
     TCodeEditor: typeof TCodeEditor
     TColorModeButton: typeof TColorModeButton
     TColorPicker: typeof TColorPicker
+    TCommandPalette: typeof TCommandPalette
     TCopyButton: typeof TCopyButton
     TDatePicker: typeof TDatePicker
     TDropdown: typeof TDropdown
     TDropzone: typeof TDropzone
     TEmpty: typeof TEmpty
     TFieldGroup: typeof TFieldGroup
+    TFileUpload: typeof TFileUpload
     TFormField: typeof TFormField
     TIcon: typeof TIcon
     TInput: typeof TInput
     TInputMask: typeof TInputMask
+    TInputNumber: typeof TInputNumber
     TInputTags: typeof TInputTags
     TLogView: typeof TLogView
     TModal: typeof TModal
@@ -164,6 +177,7 @@ declare module 'vue' {
     TRadioGroup: typeof TRadioGroup
     TRangeSlider: typeof TRangeSlider
     TRichEditor: typeof TRichEditor
+    TSearchButton: typeof TSearchButton
     TSectionLayout: typeof TSectionLayout
     TSelect: typeof TSelect
     TSelectMenu: typeof TSelectMenu

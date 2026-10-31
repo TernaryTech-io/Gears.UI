@@ -27,6 +27,8 @@ export const pages: ComponentPage[] = [
   { slug: 'input', name: 'Form field & input', group: 'Forms', components: ['TFormField', 'TInput', 'TTextarea'], description: 'Labelled fields, text inputs and validation.' },
   { slug: 'select', name: 'Select', group: 'Forms', components: ['TSelect'], description: 'One choice from a list.' },
   { slug: 'choices', name: 'Checkbox, switch & radio', group: 'Forms', components: ['TCheckbox', 'TSwitch', 'TRadioGroup'], description: 'Yes or no, on or off, one of a few.' },
+  { slug: 'input-number', name: 'Number input', group: 'Forms', components: ['TInputNumber'], description: 'Numbers with minus and plus buttons, within limits.' },
+  { slug: 'file-upload', name: 'File upload', group: 'Forms', components: ['TFileUpload'], description: 'Choose files by dropping or clicking, without uploading.' },
   { slug: 'select-menu', name: 'Select menu & tags', group: 'Forms', components: ['TSelectMenu', 'TInputTags'], description: 'Searchable and multiple choice; lists of typed values.' },
   { slug: 'code-editor', name: 'Code editor', group: 'Forms', components: ['TCodeEditor'], description: 'Monaco, in the light and dark theme.' },
   { slug: 'field-group', name: 'Field group', group: 'Forms', components: ['TFieldGroup'], description: 'An input joined with buttons or fixed text.' },
@@ -37,6 +39,7 @@ export const pages: ComponentPage[] = [
 
   { slug: 'tabs', name: 'Tabs', group: 'Navigation', components: ['TTabs'], description: 'Views of one thing, side by side.' },
   { slug: 'pagination', name: 'Pagination', group: 'Navigation', components: ['TPagination'], description: 'Pages of a long list.' },
+  { slug: 'command-palette', name: 'Command palette', group: 'Navigation', components: ['TCommandPalette', 'TSearchButton'], description: 'Ctrl+K search over pages and things.' },
   { slug: 'panel-list', name: 'Panel list', group: 'Navigation', components: ['TPanelList'], description: 'Compact choices in a section\'s side panel.' },
   { slug: 'steps', name: 'Steps', group: 'Navigation', components: ['TSteps'], description: 'A wizard\'s progress.' },
 
