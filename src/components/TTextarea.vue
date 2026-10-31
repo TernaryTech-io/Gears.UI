@@ -1,5 +1,6 @@
 <script setup lang="ts">
-// A multi-line text input. `autoresize` grows it with its text instead of scrolling.
+// A multi-line text input. `autoresize` grows it with its text instead of scrolling; `autofocus`
+// focuses it when it appears.
 import { nextTick, onMounted, ref, watch } from 'vue'
 import { useField } from '../composables/useField'
 
@@ -12,6 +13,7 @@ const props = withDefaults(defineProps<{
   disabled?: boolean
   readonly?: boolean
   invalid?: boolean
+  autofocus?: boolean
   id?: string
 }>(), { rows: 3 })
 
@@ -25,7 +27,10 @@ function resize() {
   el.value.style.height = `${el.value.scrollHeight + 2}px`
 }
 
-onMounted(resize)
+onMounted(() => {
+  resize()
+  if (props.autofocus) el.value?.focus()
+})
 watch(model, () => nextTick(resize))
 </script>
 
