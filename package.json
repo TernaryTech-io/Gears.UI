@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "type": "module",
   "description": "The Gears Vue component library on Tabler, and a site that previews it.",
+  "license": "MPL-2.0",
   "exports": {
     ".": "./src/index.ts",
     "./styles.css": "./src/styles/gears.css",

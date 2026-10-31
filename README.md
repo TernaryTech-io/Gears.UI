@@ -10,6 +10,13 @@ npm run typecheck
 npm run build      # type-checks, then builds the preview site into dist/
 ```
 
+Or run the preview site in Docker, at <http://localhost:5175>:
+
+```shell
+docker compose up -d   # builds the image every time (pull_policy: build), then serves it with nginx
+docker compose down
+```
+
 ## Using it
 
 ```ts
@@ -111,3 +118,7 @@ Tabler's restyling of them (`tabler-vendors.css`), which must come after.
 These Nuxt UI components are used in the Studio and have no Gears UI version yet: `UInputNumber` (a
 number `TInput` covers most uses), `UFileUpload`, and `UDashboardSearch` with `UDashboardSearchButton` (the
 Ctrl+K command palette). The preview site has no generated props tables yet; the examples are the reference.
+
+## License
+
+[Mozilla Public License 2.0](LICENSE), as Ternary.Data.

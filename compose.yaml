@@ -1,0 +1,12 @@
+# The preview site at http://localhost:5175. `pull_policy: build` rebuilds the image on every
+# `docker compose up`, so it always shows the current code.
+name: gears-ui
+
+services:
+  preview:
+    build: .
+    image: gears-ui-preview
+    pull_policy: build
+    ports:
+      - "5175:80"
+    restart: unless-stopped
