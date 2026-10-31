@@ -4,6 +4,7 @@
 // them don't need the library: `@gears/ui/code-editor` (Monaco) and `@gears/ui/plugins` (Tom
 // Select, Coloris, Vanilla Calendar Pro, Dropzone, IMask, noUiSlider, SortableJS, HugeRTE).
 import type { App } from 'vue'
+import TAdvancedTable from './components/TAdvancedTable.vue'
 import TAlert from './components/TAlert.vue'
 import TAuthLayout from './components/TAuthLayout.vue'
 import TAvatar from './components/TAvatar.vue'
@@ -53,6 +54,7 @@ import TTopbar from './components/TTopbar.vue'
 import TVectorMap from './components/TVectorMap.vue'
 
 export {
+  TAdvancedTable,
   TAlert,
   TAuthLayout,
   TAvatar,
@@ -109,7 +111,7 @@ export { useField } from './composables/useField'
 export { useToast, type Toast } from './composables/useToast'
 
 const components = {
-  TAlert, TAuthLayout, TAvatar, TBadge, TButton, TCard, TCheckbox, TColorModeButton,
+  TAdvancedTable, TAlert, TAuthLayout, TAvatar, TBadge, TButton, TCard, TCheckbox, TColorModeButton,
   TCommandPalette, TCopyButton, TDropdown, TEmpty, TFieldGroup, TFileUpload, TFormField, TIcon,
   TInput, TInputNumber, TInputTags, TLogView, TModal, TNav, TPage, TPagination, TPanelList,
   TProgress, TRadioGroup, TSearchButton, TSectionLayout, TSelect, TSelectMenu, TSeparator, TShell,
@@ -125,6 +127,7 @@ export default {
 
 declare module 'vue' {
   export interface GlobalComponents {
+    TAdvancedTable: typeof TAdvancedTable
     TAlert: typeof TAlert
     TAuthLayout: typeof TAuthLayout
     TAvatar: typeof TAvatar

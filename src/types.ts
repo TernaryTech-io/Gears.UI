@@ -74,6 +74,8 @@ export interface TableColumn<Row = Record<string, unknown>> {
   align?: 'start' | 'center' | 'end'
   width?: string
   sortable?: boolean
+  // TAdvancedTable: whether the column has a filter (on unless false; columns without a label have none).
+  filterable?: boolean
   // Shown when the cell has no slot; defaults to `row[key]`.
   value?: (row: Row) => unknown
 }
@@ -81,6 +83,14 @@ export interface TableColumn<Row = Record<string, unknown>> {
 export interface TableSort {
   key: string
   direction: 'asc' | 'desc'
+}
+
+// How a TAdvancedTable column filter compares a cell with its value.
+export type TableFilterOperator = 'equals' | 'notEquals' | 'contains' | 'greaterThan' | 'lessThan' | 'atLeast' | 'atMost'
+
+export interface TableFilter {
+  operator: TableFilterOperator
+  value: string
 }
 
 export interface StepItem {

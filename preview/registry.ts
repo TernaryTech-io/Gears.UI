@@ -44,7 +44,8 @@ export const pages: ComponentPage[] = [
   { slug: 'panel-list', name: 'Panel list', group: 'Navigation', components: ['TPanelList'], description: 'Compact choices in a section\'s side panel.' },
   { slug: 'steps', name: 'Steps', group: 'Navigation', components: ['TSteps'], description: 'A wizard\'s progress.' },
 
-  { slug: 'table', name: 'Table', group: 'Data', components: ['TTable'], description: 'Rows and columns, with sorting and custom cells.' },
+  { slug: 'table', name: 'Table', group: 'Data', components: ['TTable'], description: 'Rows and columns, with sorting, custom cells and selectable rows.' },
+  { slug: 'advanced-table', name: 'Advanced table', group: 'Data', components: ['TAdvancedTable'], description: 'A table that filters its rows by each column.' },
   { slug: 'stat-card', name: 'Stat card', group: 'Data', components: ['TStatCard'], description: 'Figures on an overview page.' },
   { slug: 'log-view', name: 'Log view', group: 'Data', components: ['TLogView'], description: 'Build logs and live app output.' },
 

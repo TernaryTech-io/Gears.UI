@@ -87,7 +87,7 @@ add a page, add an entry to `preview/registry.ts` and a folder of examples.
 | Forms | `TFormField`, `TInput`, `TInputNumber`, `TTextarea`, `TSelect`, `TSelectMenu`, `TInputTags`, `TCheckbox`, `TSwitch`, `TRadioGroup`, `TFieldGroup`, `TFileUpload`, `TCodeEditor` |
 | Overlays | `TModal`, `TSlideover`, `TDropdown`, `TToaster` (with `useToast()`) |
 | Navigation | `TTabs`, `TPagination`, `TSteps`, `TNav`, `TPanelList`, `TCommandPalette`, `TSearchButton` |
-| Data | `TTable`, `TStatCard`, `TLogView` |
+| Data | `TTable` (sorting, `selectable` rows), `TAdvancedTable` (filters by column), `TStatCard`, `TLogView` |
 | Layout | `TShell`, `TTopbar`, `TPage`, `TSectionLayout`, `TSplitter`, `TAuthLayout`, `TColorModeButton` |
 | Plugins | `TAdvancedSelect`, `TCopyButton`, `TColorPicker`, `TDatePicker`, `TDropzone`, `TInputMask`, `TRangeSlider`, `TSortable`, `TVectorMap`, `TRichEditor` |
 

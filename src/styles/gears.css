@@ -192,6 +192,25 @@
  */
 .table-sort { background: transparent; }
 
+/* TAdvancedTable: a heading with its filter icon at the right, and the filter opened under it. */
+.t-table-heading { display: flex; align-items: center; gap: 0.25rem; }
+/* The label takes the room, aligned as the column is (start, center or end). */
+.t-table-heading-label { flex: 1 1 auto; min-width: 0; }
+.t-table-heading .table-sort { width: auto; margin: 0; padding: 0; }
+.t-table-heading .t-table-filter-toggle { flex-shrink: 0; margin-block: -0.25rem; }
+.t-table-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 15rem;
+  margin-top: 0.375rem;
+  font-weight: var(--tblr-font-weight-normal);
+  text-transform: none;
+  letter-spacing: normal;
+}
+.t-table-filter > select { flex: 0 0 7.5rem; }
+.t-table-filter > div { flex: 1 1 auto; min-width: 5rem; }
+
 /* A table whose header stays in view while it scrolls in its container. */
 .t-table-sticky {
   min-height: 0;
