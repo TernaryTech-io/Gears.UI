@@ -147,6 +147,8 @@
   line-height: 1.25rem;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+  /* Tabler gives a pre light text, for its dark background; this one sits on the surface. */
+  color: var(--tblr-body-color);
   background: var(--tblr-bg-surface-secondary);
   border: var(--tblr-border-width) solid var(--tblr-border-color);
   border-radius: var(--tblr-border-radius);
