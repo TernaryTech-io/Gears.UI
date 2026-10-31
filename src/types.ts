@@ -111,6 +111,8 @@ export interface PanelListItem<T = string> {
   // Small text at the item's end, such as a count or a tag.
   trailing?: string
   title?: string
+  // Shown in red: something in it needs fixing.
+  invalid?: boolean
 }
 
 // An item of TCommandPalette: a page to go to (`to`) or an action (`onSelect`).

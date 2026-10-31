@@ -312,6 +312,7 @@
 }
 .t-panel-list-item:hover { background: color-mix(in oklab, var(--tblr-body-color) 6%, transparent); }
 .t-panel-list-item.active { color: var(--tblr-primary); background: color-mix(in oklab, var(--tblr-primary) 10%, transparent); }
+.t-panel-list-item.invalid { color: var(--tblr-danger); }
 .t-panel-list-icon { flex-shrink: 0; opacity: 0.7; }
 .t-panel-list-trailing { flex-shrink: 0; font-size: 0.625rem; text-transform: uppercase; color: var(--tblr-secondary-color); }
 
