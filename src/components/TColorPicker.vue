@@ -3,10 +3,10 @@
 // a picker on focus. `format` is how the value is written (hex by default); `alpha` allows
 // transparency; `swatches` offers preset colors, and `swatchesOnly` limits the choice to them.
 // Coloris loads on first use.
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, watch } from 'vue'
 import { useColorMode } from '../composables/useColorMode'
 import { useField } from '../composables/useField'
-import { loadColoris } from '../plugins'
+import { loadColoris } from '../plugins/load'
 
 const props = withDefaults(defineProps<{
   format?: 'hex' | 'rgb' | 'hsl' | 'auto' | 'mixed'
@@ -23,7 +23,6 @@ const props = withDefaults(defineProps<{
 const model = defineModel<string | null | undefined>()
 const field = useField(props)
 const { isDark } = useColorMode()
-const input = ref<HTMLInputElement>()
 let coloris: Awaited<ReturnType<typeof loadColoris>> | null = null
 
 const selector = computed(() => `#${CSS.escape(field.id.value)}`)
@@ -54,7 +53,7 @@ onBeforeUnmount(() => coloris?.removeInstance(selector.value))
     <span class="input-group-text p-1">
       <span class="t-color-swatch" :style="{ background: model || 'transparent' }" />
     </span>
-    <input :id="field.id.value" ref="input" type="text" :value="model ?? ''" :placeholder="placeholder ?? (format === 'hex' ? '#3673d1' : '')"
+    <input :id="field.id.value" type="text" :value="model ?? ''" :placeholder="placeholder ?? (format === 'hex' ? '#3673d1' : '')"
       :disabled="disabled" autocomplete="off" spellcheck="false" :aria-describedby="field.describedBy.value"
       :class="['form-control t-color-input font-monospace', { 'is-invalid': field.invalid.value }]"
       @input="model = ($event.target as HTMLInputElement).value">

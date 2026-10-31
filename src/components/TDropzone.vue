@@ -6,7 +6,7 @@
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type Dropzone from 'dropzone'
 import TIcon from './TIcon.vue'
-import { loadDropzone } from '../plugins'
+import { loadDropzone } from '../plugins/load'
 
 const props = withDefaults(defineProps<{
   url?: string

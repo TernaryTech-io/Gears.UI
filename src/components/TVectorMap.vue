@@ -6,7 +6,7 @@
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type VectorMap from '@tabler/core/dist/types/src/vector-map'
 import type { VectorMapLine, VectorMapMarker, VectorMapTooltipItem } from '@tabler/core/dist/types/src/vector-map'
-import { loadVectorMap } from '../plugins'
+import { loadVectorMap } from '../vectorMap'
 
 const props = withDefaults(defineProps<{
   values?: Record<string, number>

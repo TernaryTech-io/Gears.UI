@@ -7,7 +7,7 @@ import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { InputMask } from '@tabler/core'
 import TIcon from './TIcon.vue'
 import { useField } from '../composables/useField'
-import { loadInputMask } from '../plugins'
+import { loadInputMask } from '../plugins/load'
 
 type Mask = { value: string; unmaskedValue: string; on(event: 'accept', handler: () => void): void }
 

@@ -1,5 +1,6 @@
 // Loads the plugin components' libraries the first time one is shown, so an app downloads only the
-// ones it uses (each is an optional peer dependency). Tabler's own wrappers for the date picker,
+// ones it uses (each is an optional peer dependency). Only the `@gears/ui/plugins` entry reaches
+// this module, so apps that don't use it never need these libraries. Tabler's own wrappers for the date picker,
 // input mask and sortable find their library on `window`, so those loaders put it there.
 
 type Globals = { VanillaCalendarPro?: unknown; IMask?: unknown; Sortable?: unknown }
@@ -38,14 +39,6 @@ export const loadDropzone = once(async () => (await import('dropzone')).default)
 
 export const loadSlider = once(async () => (await import('nouislider')).default)
 
-export const loadVectorMap = once(async () => {
-  const [{ VectorMap }, { world }] = await Promise.all([
-    import('@tabler/core/dist/js/tabler-vector-map.esm.js'),
-    import('@tabler/core/dist/js/maps/world.esm.js')
-  ])
-  VectorMap.addMap('world', world)
-  return VectorMap
-})
 
 // HugeRTE with everything bundled: theme, model, icons, both skins and both content styles, and
 // the plugins TRichEditor offers. Skins are registered as resources, so nothing is fetched.

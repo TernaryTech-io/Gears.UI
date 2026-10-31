@@ -8,9 +8,32 @@
     "noEmit": true,
     "isolatedModules": true,
     "skipLibCheck": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "types": ["vite/client"],
-    "paths": { "@gears/ui": ["./src/index.ts"] }
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "types": [
+      "vite/client"
+    ],
+    "paths": {
+      "@gears/ui": [
+        "./src/index.ts"
+      ],
+      "@gears/ui/plugins": [
+        "./src/plugins/index.ts"
+      ],
+      "@gears/ui/code-editor": [
+        "./src/code-editor.ts"
+      ]
+    },
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
-  "include": ["src/**/*.ts", "src/**/*.vue", "preview/**/*.ts", "preview/**/*.vue"]
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "preview/**/*.ts",
+    "preview/**/*.vue"
+  ]
 }

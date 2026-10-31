@@ -419,3 +419,8 @@
 .t-file-upload-area:focus-within { box-shadow: 0 0 0 0.25rem var(--tblr-focus-ring-color); }
 .t-file-upload-area.is-invalid { border-color: var(--tblr-danger); }
 .t-file-upload-area.disabled { cursor: default; opacity: 0.6; }
+
+/* Toasts (TToaster): slide in from the side, and a colored edge for success and errors. */
+.t-toast { min-width: 18rem; }
+.t-toast-enter-active, .t-toast-leave-active { transition: opacity 0.2s, transform 0.2s; }
+.t-toast-enter-from, .t-toast-leave-to { opacity: 0; transform: translateX(1rem); }

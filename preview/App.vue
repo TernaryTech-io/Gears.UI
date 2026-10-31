@@ -61,5 +61,6 @@ const searchGroups = computed<CommandGroup[]>(() => [
     </TTopbar>
     <RouterView :key="route.fullPath" />
     <TCommandPalette :groups="searchGroups" placeholder="Search components and pages…" />
+    <TToaster />
   </TShell>
 </template>

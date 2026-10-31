@@ -10,6 +10,8 @@ export default defineConfig({
     // The package's entry points, as package.json `exports` names them.
     alias: [
       { find: /^@gears\/ui$/, replacement: fileURLToPath(new URL('./src/index.ts', import.meta.url)) },
+      { find: /^@gears\/ui\/plugins$/, replacement: fileURLToPath(new URL('./src/plugins/index.ts', import.meta.url)) },
+      { find: /^@gears\/ui\/code-editor$/, replacement: fileURLToPath(new URL('./src/code-editor.ts', import.meta.url)) },
       { find: /^@gears\/ui\/styles\.css$/, replacement: fileURLToPath(new URL('./src/styles/gears.css', import.meta.url)) },
       { find: /^@gears\/ui\/plugins\.css$/, replacement: fileURLToPath(new URL('./src/styles/plugins.css', import.meta.url)) }
     ]

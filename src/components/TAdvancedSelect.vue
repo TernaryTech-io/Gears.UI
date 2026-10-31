@@ -6,7 +6,7 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type TomSelect from 'tom-select'
 import { useField } from '../composables/useField'
-import { loadTomSelect } from '../plugins'
+import { loadTomSelect } from '../plugins/load'
 import type { AdvancedSelectItem } from '../types'
 
 const props = withDefaults(defineProps<{

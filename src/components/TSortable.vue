@@ -5,7 +5,7 @@
 // "div" and "div" (the default) or "ul" and "li". SortableJS loads on first use.
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { Sortable } from '@tabler/core'
-import { loadSortable } from '../plugins'
+import { loadSortable } from '../plugins/load'
 
 const props = withDefaults(defineProps<{
   itemKey?: string | ((item: T) => string | number)

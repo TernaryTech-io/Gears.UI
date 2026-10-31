@@ -32,12 +32,22 @@ createApp(App).use(router).use(GearsUI).mount('#app')
 Apps that use the plugin components also import `@gears/ui/plugins.css`, after `styles.css`.
 
 The plugin registers every component globally (typed for templates). Components can also be imported
-one by one: `import { TButton } from '@gears/ui'`. `vue` and `vue-router` are peer dependencies;
-`monaco-editor` is too, for apps that use `TCodeEditor` (it loads Monaco the first time an editor shows,
-with bundled workers, so it works offline).
+one by one: `import { TButton } from '@gears/ui'`. `vue` and `vue-router` are peer dependencies.
+
+Components that need an optional library have entry points of their own, so an app installs only what
+it uses:
+
+| Entry | Components | Needs |
+| --- | --- | --- |
+| `@gears/ui` | Everything else | Nothing more |
+| `@gears/ui/code-editor` | `TCodeEditor` (install with `GearsUICodeEditor`) | `monaco-editor` |
+| `@gears/ui/plugins` | `TAdvancedSelect`, `TColorPicker`, `TDatePicker`, `TDropzone`, `TInputMask`, `TRangeSlider`, `TRichEditor`, `TSortable` (install with `GearsUIPlugins`) | Each one's library; and `@gears/ui/plugins.css` |
+
+From another repo, depend on a pinned commit: `"@gears/ui": "github:TernaryTech-io/Gears.UI#<commit>"`. The
+package ships its sources, so the app's Vite compiles them; exclude it from pre-bundling with
+`optimizeDeps: { exclude: ['@gears/ui'] }`.
 
 The package ships its sources (`exports` points at `src/`), so it's consumed by a Vite app, as the Studio is.
-Within the repo, an app can depend on it with `"@gears/ui": "file:../../Gears.UI"`.
 
 ## How it's built
 
@@ -69,7 +79,7 @@ add a page, add an entry to `preview/registry.ts` and a folder of examples.
 | --- | --- |
 | Elements | `TButton`, `TBadge`, `TAvatar`, `TAlert`, `TCard`, `TIcon`, `TTooltip`, `TEmpty`, `TSpinner`, `TSkeleton`, `TProgress`, `TSeparator` |
 | Forms | `TFormField`, `TInput`, `TInputNumber`, `TTextarea`, `TSelect`, `TSelectMenu`, `TInputTags`, `TCheckbox`, `TSwitch`, `TRadioGroup`, `TFieldGroup`, `TFileUpload`, `TCodeEditor` |
-| Overlays | `TModal`, `TSlideover`, `TDropdown` |
+| Overlays | `TModal`, `TSlideover`, `TDropdown`, `TToaster` (with `useToast()`) |
 | Navigation | `TTabs`, `TPagination`, `TSteps`, `TNav`, `TPanelList`, `TCommandPalette`, `TSearchButton` |
 | Data | `TTable`, `TStatCard`, `TLogView` |
 | Layout | `TShell`, `TTopbar`, `TPage`, `TSectionLayout`, `TSplitter`, `TAuthLayout`, `TColorModeButton` |
@@ -109,6 +119,7 @@ Tabler's restyling of them (`tabler-vendors.css`), which must come after.
 | `UDashboardGroup` + `UDashboardSidebar` + `UNavigationMenu` | `TShell` with `nav` items (`TNav`) |
 | `UDashboardPanel` + `UDashboardNavbar` | `TTopbar` + `TPage` |
 | `UColorModeButton` | `TColorModeButton` |
+| `useToast()` (with `UApp`) | `useToast()` from `@gears/ui`, the same `add({ title, description, color, icon })`, and a `TToaster` in the frame |
 | `StatCard`, `AuthCard`, `SectionLayout` | `TStatCard`, `TAuthLayout` (brand and logo are props), `TSectionLayout` |
 | `BuildLog`, `AppLog` | Their polling stays in the Studio; the display is `TLogView` (`text`, or `lines` with times and levels, and `v-model:follow`) |
 | `CodeEditor` | `TCodeEditor` (same props; `Completion` is `CodeCompletion`; `flush` replaces the border overrides). Monaco's setup moves to `src/monaco.ts`, with themes `gears-light` and `gears-dark` |

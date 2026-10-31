@@ -20,6 +20,7 @@ export const pages: ComponentPage[] = [
   { slug: 'card', name: 'Card', group: 'Elements', components: ['TCard'], description: 'The surface most content sits on.' },
   { slug: 'icon', name: 'Icon', group: 'Elements', components: ['TIcon'], description: 'Tabler Icons, self-hosted as a webfont.' },
   { slug: 'tooltip', name: 'Tooltip', group: 'Elements', components: ['TTooltip'], description: 'Short hints on hover and focus.' },
+  { slug: 'toast', name: 'Toast', group: 'Overlays', components: ['TToaster'], description: 'Short notices in the corner: saved, deleted, failed.' },
   { slug: 'empty', name: 'Empty state', group: 'Elements', components: ['TEmpty'], description: 'Nothing here yet, and the action that fills it.' },
   { slug: 'loading', name: 'Loading', group: 'Elements', components: ['TSpinner', 'TSkeleton', 'TProgress'], description: 'Spinners, placeholders and progress bars.' },
   { slug: 'separator', name: 'Separator', group: 'Elements', components: ['TSeparator'], description: 'Lines between things.' },
