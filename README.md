@@ -121,7 +121,7 @@ Tabler's restyling of them (`tabler-vendors.css`), which must come after.
 | `UTabs`, `UPagination`, `UStepper`, `UTable` | `TTabs` (`:content="false"` switches become `variant="segmented"`), `TPagination`, `TSteps`, `TTable` (cell slots get the row itself, not `row.original`; `#cell` draws any cell, `sticky` keeps the header) |
 | `UInputNumber`, `UFileUpload` | `TInputNumber` (Tabler's number input: minus and plus, `min`, `max`, `step`), `TFileUpload` (`accept`, `multiple`; v-model holds the File, nothing uploads) |
 | `UDashboardSearch`, `UDashboardSearchButton` | `TCommandPalette` (`groups` of items with `to` or `onSelect`; Ctrl+K / ⌘K) and `TSearchButton` (`collapsed` for the icon only). They share their open state; `useCommandPalette()` opens it from code |
-| `USelectMenu`, `UInputTags`, `USplitter` | `TSelectMenu` (`multiple`; items take a `group` instead of `type: 'label'` rows), `TInputTags`, `TSplitter` (`#start` and `#end` slots, `storageKey`) |
+| `USelectMenu`, `UInputTags`, `USplitter` | `TSelectMenu` (`multiple`; items take a `group` instead of `type: 'label'` rows; `v-model:search-term` with `ignore-filter` becomes `v-model:search` with `:filter="false"`), `TInputTags`, `TSplitter` (`#start` and `#end` slots, `storageKey`) |
 | `UDashboardGroup` + `UDashboardSidebar` + `UNavigationMenu` | `TShell` with `nav` items (`TNav`) |
 | `UDashboardPanel` + `UDashboardNavbar` | `TTopbar` + `TPage` |
 | `UColorModeButton` | `TColorModeButton` |

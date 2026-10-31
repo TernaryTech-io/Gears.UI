@@ -1,7 +1,8 @@
 <script setup lang="ts" generic="T">
 // A select with a search box, for long lists, and for picking several (`multiple`, where the model
 // is an array). Items are values or { label, value, group } objects; grouped items are listed
-// under their group's name.
+// under their group's name. The search filters the items; with `filter` off, the caller searches
+// instead (v-model:search, showing `loading` meanwhile) and passes the items it found.
 import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { Dropdown } from '@tabler/core'
 import TIcon from './TIcon.vue'
@@ -14,20 +15,23 @@ const props = withDefaults(defineProps<{
   placeholder?: string
   searchable?: boolean
   searchPlaceholder?: string
+  // Filter the items by the search; off when the caller searches.
+  filter?: boolean
+  loading?: boolean
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
   invalid?: boolean
   id?: string
-}>(), { searchable: true, searchPlaceholder: 'Search…', size: 'md' })
+}>(), { searchable: true, searchPlaceholder: 'Search…', filter: true, size: 'md' })
 
 const model = defineModel<T | T[] | null | undefined>()
+const query = defineModel<string>('search', { default: '' })
 const field = useField(props)
 
 const toggle = ref<HTMLButtonElement>()
 const search = ref<HTMLInputElement>()
 const list = ref<HTMLElement>()
 const panel = ref<HTMLElement>()
-const query = ref('')
 let dropdown: Dropdown | null = null
 
 const isItem = (item: unknown): item is SelectItem<T> =>
@@ -46,7 +50,7 @@ const summary = computed(() => {
 
 // The matching options, in their groups (ungrouped options have an empty group name).
 const groups = computed(() => {
-  const term = query.value.trim().toLowerCase()
+  const term = props.filter ? query.value.trim().toLowerCase() : ''
   const result: { name: string; options: SelectItem<T>[] }[] = []
   for (const option of options.value) {
     if (term && !option.label.toLowerCase().includes(term)) continue
@@ -111,7 +115,8 @@ onBeforeUnmount(() => dropdown?.dispose())
             <TIcon v-if="!multiple && isChosen(option)" name="check" class="ms-auto ps-2" />
           </button>
         </template>
-        <div v-if="!groups.length" class="dropdown-item-text text-secondary small">No matches</div>
+        <div v-if="loading && !groups.length" class="dropdown-item-text text-secondary small">Loading…</div>
+        <div v-else-if="!groups.length" class="dropdown-item-text text-secondary small">No matches</div>
       </div>
       <div v-if="multiple && chosen.length" class="border-top p-1">
         <button type="button" class="dropdown-item small text-secondary" @click="model = []">Clear the selection</button>

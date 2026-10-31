@@ -184,6 +184,12 @@
   border-end-end-radius: 0;
 }
 
+/*
+ * A sortable header's button. Tabler's inherits the cell's background color, but a cell shows its
+ * color through a box shadow, so in dark mode the button painted a box of a different shade.
+ */
+.table-sort { background: transparent; }
+
 /* A table whose header stays in view while it scrolls in its container. */
 .t-table-sticky {
   min-height: 0;
