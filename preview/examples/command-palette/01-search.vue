@@ -1,6 +1,6 @@
 <!-- This site has one: press Ctrl+K (⌘K on a Mac) or use the search in the top bar. Type to filter, arrows to move, Enter to open. Items go to a page (`to`) or run an action (`onSelect`). -->
 <script setup lang="ts">
-import { useCommandPalette } from '@gears/ui'
+import { useCommandPalette } from '@ternarytech-io/gears-ui'
 
 const { open } = useCommandPalette()
 

@@ -2,7 +2,7 @@
 // The query builder's results: a table of any columns (rows become objects keyed by position),
 // what it took, paging for builder queries, and a button to fill the section with them.
 import { computed } from 'vue'
-import type { TableColumn } from '@gears/ui'
+import type { TableColumn } from '@ternarytech-io/gears-ui'
 import type { QueryResult } from './mock'
 
 const props = defineProps<{ result: QueryResult | null; paged: boolean; page: number; pageSize: number; maximized: boolean }>()

@@ -1,6 +1,6 @@
 // Gears UI's plugin components, on the libraries Tabler's plugins use. Each library is an optional
 // peer dependency that loads the first time its component is shown. Installing this plugin needs
-// all of them; to use only some, import those components from `@gears/ui/components/…` instead.
+// all of them; to use only some, import those components from `@ternarytech-io/gears-ui/components/…` instead.
 import type { App } from 'vue'
 import TAdvancedSelect from '../components/TAdvancedSelect.vue'
 import TColorPicker from '../components/TColorPicker.vue'

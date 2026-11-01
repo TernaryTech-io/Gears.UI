@@ -1,18 +1,21 @@
 <script setup lang="ts" generic="T">
 // One choice from a few, all shown. Items are values or { label, value, description } objects.
 // `cards` shows each choice as a box (Tabler's select group), laid out in `columns` on wider
-// screens: for choices that need their description, such as a project's database.
+// screens: for choices that need their description, such as a project's database. `tiles` shows
+// each choice as a picture with its label under it (the `preview` slot draws it), in a grid of
+// tiles at least `tileWidth` wide: for choices you judge by eye, such as a theme's font.
 import { computed, useId } from 'vue'
 import type { SelectItem } from '../types'
 
 const props = withDefaults(defineProps<{
   items: (T | SelectItem<T>)[]
   orientation?: 'vertical' | 'horizontal'
-  variant?: 'list' | 'cards'
+  variant?: 'list' | 'cards' | 'tiles'
   columns?: 1 | 2 | 3
+  tileWidth?: string
   disabled?: boolean
   legend?: string
-}>(), { variant: 'list', columns: 2 })
+}>(), { variant: 'list', columns: 2, tileWidth: '7rem' })
 
 const model = defineModel<T | null | undefined>()
 const name = useId()
@@ -38,6 +41,19 @@ const options = computed<SelectItem<T>[]>(() =>
             <span v-if="option.description" class="d-block small text-secondary mt-1">{{ option.description }}</span>
           </span>
         </span>
+      </label>
+    </div>
+    <div v-else-if="variant === 'tiles'" class="t-radio-tiles" :style="{ '--t-tile-width': tileWidth }">
+      <label v-for="(option, i) in options" :key="i" :class="['t-radio-tile', { active: option.value === model, disabled: disabled || option.disabled }]">
+        <input type="radio" :name="name" class="t-radio-tile-input" :checked="option.value === model" :disabled="disabled || option.disabled"
+          @change="model = option.value">
+        <span class="t-radio-tile-check" aria-hidden="true" />
+        <span class="t-radio-tile-preview">
+          <slot name="preview" :item="option" :selected="option.value === model">
+            <span class="fw-medium">{{ option.label }}</span>
+          </slot>
+        </span>
+        <span class="t-radio-tile-label">{{ option.label }}</span>
       </label>
     </div>
     <template v-else>

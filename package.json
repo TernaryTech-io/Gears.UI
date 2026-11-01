@@ -1,10 +1,28 @@
 {
-  "name": "@gears/ui",
-  "private": true,
+  "name": "@ternarytech-io/gears-ui",
   "version": "0.1.0",
   "type": "module",
-  "description": "The Gears Vue component library on Tabler, and a site that previews it.",
+  "description": "Gears UI: Vue 3 components on Tabler, used by the Gears Studio and the applications it builds.",
   "license": "MPL-2.0",
+  "author": "Ternary Tech",
+  "homepage": "https://github.com/TernaryTech-io/Gears.UI#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TernaryTech-io/Gears.UI.git"
+  },
+  "bugs": "https://github.com/TernaryTech-io/Gears.UI/issues",
+  "keywords": ["vue", "vue3", "tabler", "components", "ui", "gears"],
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     ".": "./src/index.ts",
     "./plugins": "./src/plugins/index.ts",

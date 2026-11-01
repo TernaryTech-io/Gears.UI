@@ -1,6 +1,6 @@
 <!-- `useToast().add({ title, description, color, icon })` shows a notice in the corner; it closes by itself after 5 seconds. The app's frame has one TToaster. -->
 <script setup lang="ts">
-import { useToast } from '@gears/ui'
+import { useToast } from '@ternarytech-io/gears-ui'
 
 const toast = useToast()
 </script>

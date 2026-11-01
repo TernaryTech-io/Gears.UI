@@ -1,6 +1,6 @@
 <!-- Every variant comes in every color. Neutral solid is Tabler's plain button: the card color with a border. -->
 <script setup lang="ts">
-import type { Color } from '@gears/ui'
+import type { Color } from '@ternarytech-io/gears-ui'
 
 const colors: Color[] = ['primary', 'neutral', 'success', 'warning', 'error', 'info']
 const variants = ['solid', 'soft', 'outline', 'ghost'] as const

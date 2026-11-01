@@ -28,6 +28,8 @@ export const pages: ComponentPage[] = [
   { slug: 'input', name: 'Form field & input', group: 'Forms', components: ['TFormField', 'TInput', 'TTextarea'], description: 'Labelled fields, text inputs and validation.' },
   { slug: 'select', name: 'Select', group: 'Forms', components: ['TSelect'], description: 'One choice from a list.' },
   { slug: 'choices', name: 'Checkbox, switch & radio', group: 'Forms', components: ['TCheckbox', 'TSwitch', 'TRadioGroup'], description: 'Yes or no, on or off, one of a few.' },
+  { slug: 'image-upload', name: 'Image upload', group: 'Forms', components: ['TImageUpload'], description: 'One image, such as a logo, checked for its shape and size.' },
+  { slug: 'theme', name: 'Theme settings', group: 'Forms', components: ['TAccentPicker', 'TFontPicker', 'TRadiusPicker', 'TThemeBasePicker', 'TThemeScope'], description: 'An application\'s accent, font, corners and grays, and a scope that applies them.' },
   { slug: 'input-number', name: 'Number input', group: 'Forms', components: ['TInputNumber'], description: 'Numbers with minus and plus buttons, within limits.' },
   { slug: 'file-upload', name: 'File upload', group: 'Forms', components: ['TFileUpload'], description: 'Choose files by dropping or clicking, without uploading.' },
   { slug: 'select-menu', name: 'Select menu & tags', group: 'Forms', components: ['TSelectMenu', 'TInputTags'], description: 'Searchable and multiple choice; lists of typed values.' },

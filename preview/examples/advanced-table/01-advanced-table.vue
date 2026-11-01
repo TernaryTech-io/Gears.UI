@@ -1,7 +1,7 @@
 <!-- The filter icon at the right of a heading filters the rows the table has: pick a comparison and type a value. Filters combine, stay when closed (the icon turns blue), and Escape or × clears one. Numbers compare as numbers, dates as dates. -->
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { TableColumn, TableFilter } from '@gears/ui'
+import type { TableColumn, TableFilter } from '@ternarytech-io/gears-ui'
 
 interface Order { id: number; number: string; customer: string; placed: string; items: number; total: number; status: string }
 

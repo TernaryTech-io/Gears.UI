@@ -1,6 +1,6 @@
 <!-- Sortable columns sort here; `{key}-cell` slots draw cells. -->
 <script setup lang="ts">
-import type { TableColumn } from '@gears/ui'
+import type { TableColumn } from '@ternarytech-io/gears-ui'
 
 interface Model { id: number; name: string; category: string; fields: number; rows: number; built: boolean }
 

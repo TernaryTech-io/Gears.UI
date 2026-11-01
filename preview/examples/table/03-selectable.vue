@@ -1,7 +1,7 @@
 <!-- `selectable` adds a checkbox to each row, and one in the header for all of them; v-model:selected holds the chosen rows' keys. Clicking a row checks it too. -->
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { TableColumn } from '@gears/ui'
+import type { TableColumn } from '@ternarytech-io/gears-ui'
 
 interface Member { id: number; name: string; email: string; role: string }
 

@@ -17,13 +17,13 @@
       "vite/client"
     ],
     "paths": {
-      "@gears/ui": [
+      "@ternarytech-io/gears-ui": [
         "./src/index.ts"
       ],
-      "@gears/ui/plugins": [
+      "@ternarytech-io/gears-ui/plugins": [
         "./src/plugins/index.ts"
       ],
-      "@gears/ui/code-editor": [
+      "@ternarytech-io/gears-ui/code-editor": [
         "./src/code-editor.ts"
       ]
     },

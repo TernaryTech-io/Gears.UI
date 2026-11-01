@@ -1,6 +1,6 @@
 <!-- Soft is the default and suits most statuses; solid draws the eye; outline is the quietest. -->
 <script setup lang="ts">
-import type { Color } from '@gears/ui'
+import type { Color } from '@ternarytech-io/gears-ui'
 
 const colors: Color[] = ['primary', 'neutral', 'success', 'warning', 'error', 'info']
 </script>

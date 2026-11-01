@@ -1,7 +1,7 @@
 <!-- Type to filter; descriptions are searched too. Icons or avatar initials show beside the labels. -->
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { AdvancedSelectItem } from '@gears/ui'
+import type { AdvancedSelectItem } from '@ternarytech-io/gears-ui'
 
 const owner = ref<number | null>(2)
 const people: AdvancedSelectItem<number>[] = [

@@ -1,7 +1,7 @@
 <!-- Compact choices for a section's side panel, with a heading, icons and a tag at the end. -->
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { PanelListItem } from '@gears/ui'
+import type { PanelListItem } from '@ternarytech-io/gears-ui'
 
 const chosen = ref('q1')
 const mine: PanelListItem[] = [

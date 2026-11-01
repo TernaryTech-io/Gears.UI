@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { groups, pages } from '../registry'
 
-const install = `npm install @gears/ui`
+const install = `npm install @ternarytech-io/gears-ui`
 
 const setup = `// main.ts
-import '@gears/ui/styles.css'
+import '@ternarytech-io/gears-ui/styles.css'
 import { createApp } from 'vue'
-import GearsUI, { useColorMode } from '@gears/ui'
+import GearsUI, { useColorMode } from '@ternarytech-io/gears-ui'
 
 useColorMode()   // applies the saved light/dark choice to <html>
 createApp(App).use(router).use(GearsUI).mount('#app')`

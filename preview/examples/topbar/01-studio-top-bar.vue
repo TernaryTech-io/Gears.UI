@@ -1,6 +1,6 @@
 <!-- The Studio's top bar: the project switcher on the left; search, the page's actions, the theme and the user menu on the right. -->
 <script setup lang="ts">
-import type { DropdownItem } from '@gears/ui'
+import type { DropdownItem } from '@ternarytech-io/gears-ui'
 
 const projects: DropdownItem[][] = [[{ label: 'Online Shop', icon: 'box', trailingIcon: 'check' }, { label: 'Inventory', icon: 'box' }]]
 const user: DropdownItem[][] = [[{ type: 'label', label: 'Jordan Diaz', description: 'jordan@example.com' }], [{ label: 'Sign out', icon: 'logout' }]]

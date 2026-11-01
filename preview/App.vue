@@ -2,7 +2,7 @@
 // The preview site's frame: a TShell whose sidebar lists the component pages by group.
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useColorMode, type CommandGroup, type NavItem } from '@gears/ui'
+import { useColorMode, type CommandGroup, type NavItem } from '@ternarytech-io/gears-ui'
 import { groups, pages } from './registry'
 
 const route = useRoute()
@@ -42,7 +42,7 @@ const searchGroups = computed<CommandGroup[]>(() => [
 <template>
   <TShell :nav="nav" brand="Gears UI" tagline="Components" logo="/gears-logo.png" storage-key="gears-ui-preview">
     <template #sidebar-footer="{ folded }">
-      <div v-if="!folded" class="px-3 small text-secondary">@gears/ui 0.1.0 · Tabler 1.7.1</div>
+      <div v-if="!folded" class="px-3 small text-secondary">@ternarytech-io/gears-ui 0.1.0 · Tabler 1.7.1</div>
     </template>
     <TTopbar>
       <template #left>

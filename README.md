@@ -17,41 +17,59 @@ docker compose up -d   # builds the image every time (pull_policy: build), then 
 docker compose down
 ```
 
+## Installing
+
+```shell
+npm install @ternarytech-io/gears-ui vue vue-router
+```
+
+The package ships its Vue and TypeScript source, not a build: the app's bundler compiles it. That
+needs Vite (or another bundler) with `@vitejs/plugin-vue`, and in Vite the package left out of
+dependency pre-bundling, so its `.vue` files are compiled with the app's:
+
+```ts
+// vite.config.ts
+export default defineConfig({
+  plugins: [vue()],
+  optimizeDeps: { exclude: ['@ternarytech-io/gears-ui'] }
+})
+```
+
 ## Using it
 
 ```ts
 // main.ts
-import '@gears/ui/styles.css'
+import '@ternarytech-io/gears-ui/styles.css'
 import { createApp } from 'vue'
-import GearsUI, { useColorMode } from '@gears/ui'
+import GearsUI, { useColorMode } from '@ternarytech-io/gears-ui'
 
 useColorMode()   // applies the saved light/dark choice to <html>
 createApp(App).use(router).use(GearsUI).mount('#app')
 ```
 
-Apps that use the plugin components also import `@gears/ui/plugins.css`, after `styles.css`.
+Apps that use the plugin components also import `@ternarytech-io/gears-ui/plugins.css`, after `styles.css`.
 
 The plugin registers every component globally (typed for templates). Components can also be imported
-one by one: `import { TButton } from '@gears/ui'`. `vue` and `vue-router` are peer dependencies.
+one by one: `import { TButton } from '@ternarytech-io/gears-ui'`. `vue` and `vue-router` are peer dependencies.
 
 Components that need an optional library have entry points of their own, so an app installs only what
 it uses:
 
 | Entry | Components | Needs |
 | --- | --- | --- |
-| `@gears/ui` | Everything else | Nothing more |
-| `@gears/ui/code-editor` | `TCodeEditor` (install with `GearsUICodeEditor`) | `monaco-editor` |
-| `@gears/ui/plugins` | `TAdvancedSelect`, `TColorPicker`, `TDatePicker`, `TDropzone`, `TInputMask`, `TRangeSlider`, `TRichEditor`, `TSortable` (install with `GearsUIPlugins`) | Each one's library; and `@gears/ui/plugins.css` |
-| `@gears/ui/components/T….vue` | Any one component on its own | Only that component's library |
+| `@ternarytech-io/gears-ui` | Everything else | Nothing more |
+| `@ternarytech-io/gears-ui/code-editor` | `TCodeEditor` (install with `GearsUICodeEditor`) | `monaco-editor` |
+| `@ternarytech-io/gears-ui/plugins` | `TAdvancedSelect`, `TColorPicker`, `TDatePicker`, `TDropzone`, `TInputMask`, `TRangeSlider`, `TRichEditor`, `TSortable` (install with `GearsUIPlugins`) | Each one's library; and `@ternarytech-io/gears-ui/plugins.css` |
+| `@ternarytech-io/gears-ui/components/T….vue` | Any one component on its own | Only that component's library |
 
 `GearsUIPlugins` and `plugins.css` need all eight libraries. To use only some plugins, import those
-components directly (`import TSortable from '@gears/ui/components/TSortable.vue'`; each loads only its
+components directly (`import TSortable from '@ternarytech-io/gears-ui/components/TSortable.vue'`; each loads only its
 own library) and the CSS they need: Tom Select's `tom-select.bootstrap5.min.css`, and
 `@tabler/core/dist/css/tabler-vendors.min.css` after it for the select, color picker, dropzone and slider.
 
-From another repo, depend on a pinned commit: `"@gears/ui": "github:TernaryTech-io/Gears.UI#<commit>"`. The
+From another repo, depend on a pinned commit: `"@ternarytech-io/gears-ui": "github:TernaryTech-io/Gears.UI#<commit>"`. The
 package ships its sources, so the app's Vite compiles them; exclude it from pre-bundling with
-`optimizeDeps: { exclude: ['@gears/ui'] }`.
+`optimizeDeps: { exclude: ['@ternarytech-io/gears-ui'] }`.
 
 The package ships its sources (`exports` points at `src/`), so it's consumed by a Vite app, as the Studio is.
 
@@ -84,7 +102,8 @@ add a page, add an entry to `preview/registry.ts` and a folder of examples.
 | Group | Components |
 | --- | --- |
 | Elements | `TButton`, `TBadge`, `TAvatar`, `TAlert`, `TCard`, `TIcon`, `TTooltip`, `TEmpty`, `TSpinner`, `TSkeleton`, `TProgress`, `TSeparator` |
-| Forms | `TFormField`, `TInput`, `TInputNumber`, `TTextarea`, `TSelect`, `TSelectMenu`, `TInputTags`, `TCheckbox`, `TSwitch`, `TRadioGroup`, `TFieldGroup`, `TFileUpload`, `TCodeEditor` |
+| Forms | `TFormField`, `TInput`, `TInputNumber`, `TTextarea`, `TSelect`, `TSelectMenu`, `TInputTags`, `TCheckbox`, `TSwitch`, `TRadioGroup` (list, cards or tiles with a picture), `TFieldGroup`, `TFileUpload`, `TImageUpload` (one image, checked for shape and size), `TCodeEditor` |
+| Theme | `TAccentPicker`, `TFontPicker`, `TRadiusPicker`, `TThemeBasePicker` (Tabler's theme settings as pickers), `TThemeScope` (applies a `ThemeSettings` to what's inside it); `themeAccents`, `themeFonts`, `themeBases`, `themeRadii` |
 | Overlays | `TModal`, `TSlideover`, `TDropdown`, `TToaster` (with `useToast()`) |
 | Navigation | `TTabs`, `TPagination`, `TSteps`, `TNav`, `TPanelList`, `TCommandPalette`, `TSearchButton` |
 | Data | `TTable` (sorting, `selectable` rows), `TAdvancedTable` (filters by column), `TStatCard`, `TLogView` |
@@ -95,7 +114,7 @@ add a page, add an entry to `preview/registry.ts` and a folder of examples.
 
 The components for [Tabler's plugins](https://docs.tabler.io/ui/plugins). Each library is an optional peer
 dependency and loads the first time its component is shown (`src/plugins.ts`), so an app installs and
-downloads only what it uses. Their CSS is in `@gears/ui/plugins.css`: each library's own styles, then
+downloads only what it uses. Their CSS is in `@ternarytech-io/gears-ui/plugins.css`: each library's own styles, then
 Tabler's restyling of them (`tabler-vendors.css`), which must come after.
 
 | Component | Library | Notes |
@@ -125,7 +144,7 @@ Tabler's restyling of them (`tabler-vendors.css`), which must come after.
 | `UDashboardGroup` + `UDashboardSidebar` + `UNavigationMenu` | `TShell` with `nav` items (`TNav`) |
 | `UDashboardPanel` + `UDashboardNavbar` | `TTopbar` + `TPage` |
 | `UColorModeButton` | `TColorModeButton` |
-| `useToast()` (with `UApp`) | `useToast()` from `@gears/ui`, the same `add({ title, description, color, icon })`, and a `TToaster` in the frame |
+| `useToast()` (with `UApp`) | `useToast()` from `@ternarytech-io/gears-ui`, the same `add({ title, description, color, icon })`, and a `TToaster` in the frame |
 | `StatCard`, `AuthCard`, `SectionLayout` | `TStatCard`, `TAuthLayout` (brand and logo are props), `TSectionLayout` |
 | `BuildLog`, `AppLog` | Their polling stays in the Studio; the display is `TLogView` (`text`, or `lines` with times and levels, and `v-model:follow`) |
 | `CodeEditor` | `TCodeEditor` (same props; `Completion` is `CodeCompletion`; `flush` replaces the border overrides). Monaco's setup moves to `src/monaco.ts`, with themes `gears-light` and `gears-dark` |

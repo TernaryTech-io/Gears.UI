@@ -1,9 +1,10 @@
-// Gears UI: Vue components on Tabler. Import the styles once (`@gears/ui/styles.css`), then either
+// Gears UI: Vue components on Tabler. Import the styles once (`@ternarytech-io/gears-ui/styles.css`), then either
 // install the plugin (registers every component globally) or import components one by one.
 // Components that need an optional library have their own entry points, so apps that don't use
-// them don't need the library: `@gears/ui/code-editor` (Monaco) and `@gears/ui/plugins` (Tom
+// them don't need the library: `@ternarytech-io/gears-ui/code-editor` (Monaco) and `@ternarytech-io/gears-ui/plugins` (Tom
 // Select, Coloris, Vanilla Calendar Pro, Dropzone, IMask, noUiSlider, SortableJS, HugeRTE).
 import type { App } from 'vue'
+import TAccentPicker from './components/TAccentPicker.vue'
 import TAdvancedTable from './components/TAdvancedTable.vue'
 import TAlert from './components/TAlert.vue'
 import TAuthLayout from './components/TAuthLayout.vue'
@@ -19,8 +20,10 @@ import TDropdown from './components/TDropdown.vue'
 import TEmpty from './components/TEmpty.vue'
 import TFieldGroup from './components/TFieldGroup.vue'
 import TFileUpload from './components/TFileUpload.vue'
+import TFontPicker from './components/TFontPicker.vue'
 import TFormField from './components/TFormField.vue'
 import TIcon from './components/TIcon.vue'
+import TImageUpload from './components/TImageUpload.vue'
 import TInput from './components/TInput.vue'
 import TInputNumber from './components/TInputNumber.vue'
 import TInputTags from './components/TInputTags.vue'
@@ -32,6 +35,7 @@ import TPagination from './components/TPagination.vue'
 import TPanelList from './components/TPanelList.vue'
 import TProgress from './components/TProgress.vue'
 import TRadioGroup from './components/TRadioGroup.vue'
+import TRadiusPicker from './components/TRadiusPicker.vue'
 import TSearchButton from './components/TSearchButton.vue'
 import TSectionLayout from './components/TSectionLayout.vue'
 import TSelect from './components/TSelect.vue'
@@ -48,12 +52,15 @@ import TSwitch from './components/TSwitch.vue'
 import TTable from './components/TTable.vue'
 import TTabs from './components/TTabs.vue'
 import TTextarea from './components/TTextarea.vue'
+import TThemeBasePicker from './components/TThemeBasePicker.vue'
+import TThemeScope from './components/TThemeScope.vue'
 import TToaster from './components/TToaster.vue'
 import TTooltip from './components/TTooltip.vue'
 import TTopbar from './components/TTopbar.vue'
 import TVectorMap from './components/TVectorMap.vue'
 
 export {
+  TAccentPicker,
   TAdvancedTable,
   TAlert,
   TAuthLayout,
@@ -69,8 +76,10 @@ export {
   TEmpty,
   TFieldGroup,
   TFileUpload,
+  TFontPicker,
   TFormField,
   TIcon,
+  TImageUpload,
   TInput,
   TInputNumber,
   TInputTags,
@@ -82,6 +91,7 @@ export {
   TPanelList,
   TProgress,
   TRadioGroup,
+  TRadiusPicker,
   TSearchButton,
   TSectionLayout,
   TSelect,
@@ -98,6 +108,8 @@ export {
   TTable,
   TTabs,
   TTextarea,
+  TThemeBasePicker,
+  TThemeScope,
   TToaster,
   TTooltip,
   TTopbar,
@@ -105,18 +117,20 @@ export {
 }
 
 export * from './types'
+export { isCustomAccent, themeAccents, themeBases, themeFonts, themeRadii } from './theme'
 export { useColorMode, type ColorMode } from './composables/useColorMode'
 export { useCommandPalette } from './composables/useCommandPalette'
 export { useField } from './composables/useField'
 export { useToast, type Toast } from './composables/useToast'
 
 const components = {
-  TAdvancedTable, TAlert, TAuthLayout, TAvatar, TBadge, TButton, TCard, TCheckbox, TColorModeButton,
-  TCommandPalette, TCopyButton, TDropdown, TEmpty, TFieldGroup, TFileUpload, TFormField, TIcon,
-  TInput, TInputNumber, TInputTags, TLogView, TModal, TNav, TPage, TPagination, TPanelList,
-  TProgress, TRadioGroup, TSearchButton, TSectionLayout, TSelect, TSelectMenu, TSeparator, TShell,
-  TSkeleton, TSlideover, TSpinner, TSplitter, TStatCard, TSteps, TSwitch, TTable, TTabs,
-  TTextarea, TToaster, TTooltip, TTopbar, TVectorMap
+  TAccentPicker, TAdvancedTable, TAlert, TAuthLayout, TAvatar, TBadge, TButton, TCard, TCheckbox,
+  TColorModeButton, TCommandPalette, TCopyButton, TDropdown, TEmpty, TFieldGroup, TFileUpload,
+  TFontPicker, TFormField, TIcon, TImageUpload, TInput, TInputNumber, TInputTags, TLogView, TModal,
+  TNav, TPage, TPagination, TPanelList, TProgress, TRadioGroup, TRadiusPicker, TSearchButton,
+  TSectionLayout, TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSpinner,
+  TSplitter, TStatCard, TSteps, TSwitch, TTable, TTabs, TTextarea, TThemeBasePicker, TThemeScope,
+  TToaster, TTooltip, TTopbar, TVectorMap
 }
 
 export default {
@@ -127,6 +141,7 @@ export default {
 
 declare module 'vue' {
   export interface GlobalComponents {
+    TAccentPicker: typeof TAccentPicker
     TAdvancedTable: typeof TAdvancedTable
     TAlert: typeof TAlert
     TAuthLayout: typeof TAuthLayout
@@ -142,8 +157,10 @@ declare module 'vue' {
     TEmpty: typeof TEmpty
     TFieldGroup: typeof TFieldGroup
     TFileUpload: typeof TFileUpload
+    TFontPicker: typeof TFontPicker
     TFormField: typeof TFormField
     TIcon: typeof TIcon
+    TImageUpload: typeof TImageUpload
     TInput: typeof TInput
     TInputNumber: typeof TInputNumber
     TInputTags: typeof TInputTags
@@ -155,6 +172,7 @@ declare module 'vue' {
     TPanelList: typeof TPanelList
     TProgress: typeof TProgress
     TRadioGroup: typeof TRadioGroup
+    TRadiusPicker: typeof TRadiusPicker
     TSearchButton: typeof TSearchButton
     TSectionLayout: typeof TSectionLayout
     TSelect: typeof TSelect
@@ -171,6 +189,8 @@ declare module 'vue' {
     TTable: typeof TTable
     TTabs: typeof TTabs
     TTextarea: typeof TTextarea
+    TThemeBasePicker: typeof TThemeBasePicker
+    TThemeScope: typeof TThemeScope
     TToaster: typeof TToaster
     TTooltip: typeof TTooltip
     TTopbar: typeof TTopbar

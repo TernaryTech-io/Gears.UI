@@ -142,3 +142,19 @@ export interface CommandGroup {
   label?: string
   items: CommandItem[]
 }
+
+// An application's theme, as Tabler's theme settings (the data-bs-theme-* attributes) take it.
+export type ThemeFont = 'sans-serif' | 'serif' | 'monospace' | 'comic'
+export type ThemeBase = 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' | 'mist'
+export type ThemeRadius = '0' | '0.5' | '1' | '1.5' | '2'
+// Tabler's named colors, or a custom color as #rrggbb.
+export type ThemeAccent = 'blue' | 'azure' | 'indigo' | 'purple' | 'pink' | 'red' | 'orange' | 'yellow' | 'lime' | 'green' | 'teal' | 'cyan' | (string & {})
+
+export interface ThemeSettings {
+  accent?: ThemeAccent
+  font?: ThemeFont
+  base?: ThemeBase
+  radius?: ThemeRadius
+  // Light or dark; unset follows the surrounding page.
+  mode?: 'light' | 'dark'
+}

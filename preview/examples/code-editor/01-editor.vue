@@ -1,7 +1,7 @@
 <!-- An editable editor with completions (type “Pro” or “SEL”). Ctrl+Enter emits `run`. Monaco loads the first time an editor is shown. -->
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { CodeCompletion } from '@gears/ui'
+import type { CodeCompletion } from '@ternarytech-io/gears-ui'
 
 const sql = ref('SELECT "Name", "Price"\nFROM "Catalog_Product"\nWHERE "Stock" < 10\nORDER BY "Name"')
 const ran = ref('')

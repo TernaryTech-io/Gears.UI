@@ -1,7 +1,7 @@
 <!-- Groups split by dividers; headings, links, actions, and a destructive item in red. -->
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { DropdownItem } from '@gears/ui'
+import type { DropdownItem } from '@ternarytech-io/gears-ui'
 
 const last = ref('')
 const pick = (label: string) => () => { last.value = label }

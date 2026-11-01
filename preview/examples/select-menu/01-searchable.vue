@@ -1,7 +1,7 @@
 <!-- A search box over a long list; grouped items show under their group. -->
 <script setup lang="ts">
 import { ref } from 'vue'
-import type { SelectItem } from '@gears/ui'
+import type { SelectItem } from '@ternarytech-io/gears-ui'
 
 const model = ref<string | null>('Product')
 const items: SelectItem<string>[] = [

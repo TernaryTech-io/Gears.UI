@@ -1,7 +1,7 @@
 <!-- The Studio's QueryPanel on Gears UI, against mock data: saved queries in the panel; the builder (model, columns, filter, sort, and the SQL it makes) or the editor above the results, with a handle between them. Try "Edit as SQL", Ctrl+Enter in the editor, and saving. -->
 <script setup lang="ts">
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import type { CodeCompletion, DropdownItem, PanelListItem, SelectItem, TabItem } from '@gears/ui'
+import type { CodeCompletion, DropdownItem, PanelListItem, SelectItem, TabItem } from '@ternarytech-io/gears-ui'
 import {
   api, environmentKinds, errorText,
   type EnvironmentKind, type FilterGroup, type QueryModel, type QueryResult, type QuerySchema, type SavedQuery, type Translation

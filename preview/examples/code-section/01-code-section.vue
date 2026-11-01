@@ -1,7 +1,7 @@
 <!-- The Studio's CodePanel on Gears UI, against mock data: the C# the model generates, read-only, with the files in the panel. -->
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import type { PanelListItem } from '@gears/ui'
+import type { PanelListItem } from '@ternarytech-io/gears-ui'
 import { api, errorText } from '../../studio/mock'
 
 const files = ref<{ path: string; content: string }[] | null>(null)

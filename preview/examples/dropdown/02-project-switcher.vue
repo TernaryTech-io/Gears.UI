@@ -1,7 +1,7 @@
 <!-- The Studio's project switcher: the list loads when the menu opens, and the open project has a check. -->
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import type { DropdownItem } from '@gears/ui'
+import type { DropdownItem } from '@ternarytech-io/gears-ui'
 
 const current = ref('Online Shop')
 const projects = ref<string[]>([])

@@ -1,6 +1,6 @@
 <!-- The Studio's user menu: an avatar trigger, the person's name and email as a heading. -->
 <script setup lang="ts">
-import type { DropdownItem } from '@gears/ui'
+import type { DropdownItem } from '@ternarytech-io/gears-ui'
 
 const items: DropdownItem[][] = [
   [{ type: 'label', label: 'Jordan Diaz', description: 'jordan@example.com' }],

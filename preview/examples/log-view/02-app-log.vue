@@ -1,7 +1,7 @@
 <!-- The Studio's app output: lines with times and levels. Scrolling up stops following; the switch turns it back on. -->
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import type { LogLine } from '@gears/ui'
+import type { LogLine } from '@ternarytech-io/gears-ui'
 
 const lines = ref<LogLine[]>([])
 const follow = ref(true)

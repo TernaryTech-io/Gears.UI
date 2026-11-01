@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Color } from '@gears/ui'
+import type { Color } from '@ternarytech-io/gears-ui'
 
 const colors: { name: Color; tabler: string; use: string }[] = [
   { name: 'primary', tabler: 'primary', use: 'Main actions, links, the current item' },
