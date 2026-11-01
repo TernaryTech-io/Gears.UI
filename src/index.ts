@@ -7,6 +7,7 @@ import type { App } from 'vue'
 import TAccentPicker from './components/TAccentPicker.vue'
 import TAdvancedTable from './components/TAdvancedTable.vue'
 import TAlert from './components/TAlert.vue'
+import TAppLayout from './components/TAppLayout.vue'
 import TAuthLayout from './components/TAuthLayout.vue'
 import TAvatar from './components/TAvatar.vue'
 import TBadge from './components/TBadge.vue'
@@ -15,7 +16,9 @@ import TCard from './components/TCard.vue'
 import TCheckbox from './components/TCheckbox.vue'
 import TColorModeButton from './components/TColorModeButton.vue'
 import TCommandPalette from './components/TCommandPalette.vue'
+import TContainerPicker from './components/TContainerPicker.vue'
 import TCopyButton from './components/TCopyButton.vue'
+import TDensityPicker from './components/TDensityPicker.vue'
 import TDropdown from './components/TDropdown.vue'
 import TEmpty from './components/TEmpty.vue'
 import TFieldGroup from './components/TFieldGroup.vue'
@@ -30,12 +33,14 @@ import TInputTags from './components/TInputTags.vue'
 import TLogView from './components/TLogView.vue'
 import TModal from './components/TModal.vue'
 import TNav from './components/TNav.vue'
+import TNavPositionPicker from './components/TNavPositionPicker.vue'
 import TPage from './components/TPage.vue'
 import TPagination from './components/TPagination.vue'
 import TPanelList from './components/TPanelList.vue'
 import TProgress from './components/TProgress.vue'
 import TRadioGroup from './components/TRadioGroup.vue'
 import TRadiusPicker from './components/TRadiusPicker.vue'
+import TScaledFrame from './components/TScaledFrame.vue'
 import TSearchButton from './components/TSearchButton.vue'
 import TSectionLayout from './components/TSectionLayout.vue'
 import TSelect from './components/TSelect.vue'
@@ -63,6 +68,7 @@ export {
   TAccentPicker,
   TAdvancedTable,
   TAlert,
+  TAppLayout,
   TAuthLayout,
   TAvatar,
   TBadge,
@@ -71,7 +77,9 @@ export {
   TCheckbox,
   TColorModeButton,
   TCommandPalette,
+  TContainerPicker,
   TCopyButton,
+  TDensityPicker,
   TDropdown,
   TEmpty,
   TFieldGroup,
@@ -86,12 +94,14 @@ export {
   TLogView,
   TModal,
   TNav,
+  TNavPositionPicker,
   TPage,
   TPagination,
   TPanelList,
   TProgress,
   TRadioGroup,
   TRadiusPicker,
+  TScaledFrame,
   TSearchButton,
   TSectionLayout,
   TSelect,
@@ -117,20 +127,21 @@ export {
 }
 
 export * from './types'
-export { isCustomAccent, themeAccents, themeBases, themeFonts, themeRadii } from './theme'
+export { isCustomAccent, themeAccents, themeBases, themeContainers, themeDensities, themeFonts, themeNavs, themeRadii } from './theme'
 export { useColorMode, type ColorMode } from './composables/useColorMode'
 export { useCommandPalette } from './composables/useCommandPalette'
 export { useField } from './composables/useField'
 export { useToast, type Toast } from './composables/useToast'
 
 const components = {
-  TAccentPicker, TAdvancedTable, TAlert, TAuthLayout, TAvatar, TBadge, TButton, TCard, TCheckbox,
-  TColorModeButton, TCommandPalette, TCopyButton, TDropdown, TEmpty, TFieldGroup, TFileUpload,
-  TFontPicker, TFormField, TIcon, TImageUpload, TInput, TInputNumber, TInputTags, TLogView, TModal,
-  TNav, TPage, TPagination, TPanelList, TProgress, TRadioGroup, TRadiusPicker, TSearchButton,
-  TSectionLayout, TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSpinner,
-  TSplitter, TStatCard, TSteps, TSwitch, TTable, TTabs, TTextarea, TThemeBasePicker, TThemeScope,
-  TToaster, TTooltip, TTopbar, TVectorMap
+  TAccentPicker, TAdvancedTable, TAlert, TAppLayout, TAuthLayout, TAvatar, TBadge, TButton, TCard,
+  TCheckbox, TColorModeButton, TCommandPalette, TContainerPicker, TCopyButton, TDensityPicker,
+  TDropdown, TEmpty, TFieldGroup, TFileUpload, TFontPicker, TFormField, TIcon, TImageUpload,
+  TInput, TInputNumber, TInputTags, TLogView, TModal, TNav, TNavPositionPicker, TPage, TPagination,
+  TPanelList, TProgress, TRadioGroup, TRadiusPicker, TScaledFrame, TSearchButton, TSectionLayout,
+  TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSpinner, TSplitter, TStatCard,
+  TSteps, TSwitch, TTable, TTabs, TTextarea, TThemeBasePicker, TThemeScope, TToaster, TTooltip,
+  TTopbar, TVectorMap
 }
 
 export default {
@@ -144,6 +155,7 @@ declare module 'vue' {
     TAccentPicker: typeof TAccentPicker
     TAdvancedTable: typeof TAdvancedTable
     TAlert: typeof TAlert
+    TAppLayout: typeof TAppLayout
     TAuthLayout: typeof TAuthLayout
     TAvatar: typeof TAvatar
     TBadge: typeof TBadge
@@ -152,7 +164,9 @@ declare module 'vue' {
     TCheckbox: typeof TCheckbox
     TColorModeButton: typeof TColorModeButton
     TCommandPalette: typeof TCommandPalette
+    TContainerPicker: typeof TContainerPicker
     TCopyButton: typeof TCopyButton
+    TDensityPicker: typeof TDensityPicker
     TDropdown: typeof TDropdown
     TEmpty: typeof TEmpty
     TFieldGroup: typeof TFieldGroup
@@ -167,12 +181,14 @@ declare module 'vue' {
     TLogView: typeof TLogView
     TModal: typeof TModal
     TNav: typeof TNav
+    TNavPositionPicker: typeof TNavPositionPicker
     TPage: typeof TPage
     TPagination: typeof TPagination
     TPanelList: typeof TPanelList
     TProgress: typeof TProgress
     TRadioGroup: typeof TRadioGroup
     TRadiusPicker: typeof TRadiusPicker
+    TScaledFrame: typeof TScaledFrame
     TSearchButton: typeof TSearchButton
     TSectionLayout: typeof TSectionLayout
     TSelect: typeof TSelect

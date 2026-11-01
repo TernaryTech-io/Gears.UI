@@ -59,7 +59,7 @@ it uses:
 | --- | --- | --- |
 | `@ternarytech-io/gears-ui` | Everything else | Nothing more |
 | `@ternarytech-io/gears-ui/code-editor` | `TCodeEditor` (install with `GearsUICodeEditor`) | `monaco-editor` |
-| `@ternarytech-io/gears-ui/plugins` | `TAdvancedSelect`, `TColorPicker`, `TDatePicker`, `TDropzone`, `TInputMask`, `TRangeSlider`, `TRichEditor`, `TSortable` (install with `GearsUIPlugins`) | Each one's library; and `@ternarytech-io/gears-ui/plugins.css` |
+| `@ternarytech-io/gears-ui/plugins` | `TAdvancedSelect`, `TColorPicker`, `TDatePicker`, `TDropzone`, `TInputMask`, `TRangeSlider`, `TRichEditor`, `TSortable`, `TSortableTree` (install with `GearsUIPlugins`) | Each one's library; and `@ternarytech-io/gears-ui/plugins.css` |
 | `@ternarytech-io/gears-ui/components/T….vue` | Any one component on its own | Only that component's library |
 
 `GearsUIPlugins` and `plugins.css` need all eight libraries. To use only some plugins, import those
@@ -103,12 +103,12 @@ add a page, add an entry to `preview/registry.ts` and a folder of examples.
 | --- | --- |
 | Elements | `TButton`, `TBadge`, `TAvatar`, `TAlert`, `TCard`, `TIcon`, `TTooltip`, `TEmpty`, `TSpinner`, `TSkeleton`, `TProgress`, `TSeparator` |
 | Forms | `TFormField`, `TInput`, `TInputNumber`, `TTextarea`, `TSelect`, `TSelectMenu`, `TInputTags`, `TCheckbox`, `TSwitch`, `TRadioGroup` (list, cards or tiles with a picture), `TFieldGroup`, `TFileUpload`, `TImageUpload` (one image, checked for shape and size), `TCodeEditor` |
-| Theme | `TAccentPicker`, `TFontPicker`, `TRadiusPicker`, `TThemeBasePicker` (Tabler's theme settings as pickers), `TThemeScope` (applies a `ThemeSettings` to what's inside it); `themeAccents`, `themeFonts`, `themeBases`, `themeRadii` |
+| Theme | `TAccentPicker`, `TFontPicker`, `TRadiusPicker`, `TThemeBasePicker` (Tabler's theme settings as pickers), `TNavPositionPicker`, `TDensityPicker`, `TContainerPicker` (layout), `TThemeScope` (applies a `ThemeSettings`' look and density to what's inside it); `themeAccents`, `themeFonts`, `themeBases`, `themeRadii`, `themeNavs`, `themeDensities`, `themeContainers` |
 | Overlays | `TModal`, `TSlideover`, `TDropdown`, `TToaster` (with `useToast()`) |
 | Navigation | `TTabs`, `TPagination`, `TSteps`, `TNav`, `TPanelList`, `TCommandPalette`, `TSearchButton` |
 | Data | `TTable` (sorting, `selectable` rows), `TAdvancedTable` (filters by column), `TStatCard`, `TLogView` |
-| Layout | `TShell`, `TTopbar`, `TPage`, `TSectionLayout`, `TSplitter`, `TAuthLayout`, `TColorModeButton` |
-| Plugins | `TAdvancedSelect`, `TCopyButton`, `TColorPicker`, `TDatePicker`, `TDropzone`, `TInputMask`, `TRangeSlider`, `TSortable`, `TVectorMap`, `TRichEditor` |
+| Layout | `TAppLayout` (an application's frame, laid out by its theme), `TScaledFrame` (a whole screen scaled to fit), `TShell`, `TTopbar`, `TPage`, `TSectionLayout`, `TSplitter`, `TAuthLayout`, `TColorModeButton` |
+| Plugins | `TAdvancedSelect`, `TCopyButton`, `TColorPicker`, `TDatePicker`, `TDropzone`, `TInputMask`, `TRangeSlider`, `TSortable`, `TSortableTree`, `TVectorMap`, `TRichEditor` |
 
 ### Plugins
 

@@ -10,6 +10,7 @@ import TInputMask from '../components/TInputMask.vue'
 import TRangeSlider from '../components/TRangeSlider.vue'
 import TRichEditor from '../components/TRichEditor.vue'
 import TSortable from '../components/TSortable.vue'
+import TSortableTree from '../components/TSortableTree.vue'
 
 export {
   TAdvancedSelect,
@@ -19,14 +20,15 @@ export {
   TInputMask,
   TRangeSlider,
   TRichEditor,
-  TSortable
+  TSortable,
+  TSortableTree
 }
 
 export type { RichEditorPlugin } from './richEditor'
 
 const components = {
   TAdvancedSelect, TColorPicker, TDatePicker, TDropzone, TInputMask, TRangeSlider, TRichEditor,
-  TSortable
+  TSortable, TSortableTree
 }
 
 export const GearsUIPlugins = {
@@ -45,5 +47,6 @@ declare module 'vue' {
     TRangeSlider: typeof TRangeSlider
     TRichEditor: typeof TRichEditor
     TSortable: typeof TSortable
+    TSortableTree: typeof TSortableTree
   }
 }

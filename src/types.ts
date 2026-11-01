@@ -150,6 +150,12 @@ export type ThemeRadius = '0' | '0.5' | '1' | '1.5' | '2'
 // Tabler's named colors, or a custom color as #rrggbb.
 export type ThemeAccent = 'blue' | 'azure' | 'indigo' | 'purple' | 'pink' | 'red' | 'orange' | 'yellow' | 'lime' | 'green' | 'teal' | 'cyan' | (string & {})
 
+// An application's layout: where its navigation goes and how it behaves, how much room things
+// get, and whether the page sits in a box.
+export type ThemeNav = 'left' | 'top'
+export type ThemeDensity = 'compact' | 'comfortable' | 'spacious'
+export type ThemeContainer = 'boxed' | 'fluid'
+
 export interface ThemeSettings {
   accent?: ThemeAccent
   font?: ThemeFont
@@ -157,4 +163,15 @@ export interface ThemeSettings {
   radius?: ThemeRadius
   // Light or dark; unset follows the surrounding page.
   mode?: 'light' | 'dark'
+  // Padding and gaps (TThemeScope applies it).
+  density?: ThemeDensity
+  // The rest is layout (TAppLayout applies it).
+  nav?: ThemeNav
+  // Left navigation: whether it folds to icons.
+  navFoldable?: boolean
+  // Top navigation: whether it stays at the top while the page scrolls, and whether it floats
+  // apart from the page's edges.
+  navSticky?: boolean
+  navFloating?: boolean
+  container?: ThemeContainer
 }

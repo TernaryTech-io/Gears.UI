@@ -56,6 +56,7 @@ export const pages: ComponentPage[] = [
   { slug: 'page', name: 'Page', group: 'Layout', components: ['TPage'], description: 'A page\'s header and body.' },
   { slug: 'section-layout', name: 'Section layout', group: 'Layout', components: ['TSectionLayout'], description: 'A side panel and a large work area.' },
   { slug: 'splitter', name: 'Splitter', group: 'Layout', components: ['TSplitter'], description: 'Two panes and a handle to resize them.' },
+  { slug: 'app-layout', name: 'App layout', group: 'Layout', components: ['TAppLayout', 'TScaledFrame', 'TNavPositionPicker', 'TDensityPicker', 'TContainerPicker'], description: 'An application\'s frame, laid out by its theme, and the pickers for it.' },
   { slug: 'auth-layout', name: 'Auth layout', group: 'Layout', components: ['TAuthLayout'], description: 'One centered card: sign-in, setup.' },
 
   { slug: 'advanced-select', name: 'Advanced select', group: 'Plugins', components: ['TAdvancedSelect'], description: 'Tom Select: type to filter, chips, new values.' },
@@ -66,6 +67,7 @@ export const pages: ComponentPage[] = [
   { slug: 'input-mask', name: 'Input mask', group: 'Plugins', components: ['TInputMask'], description: 'Inputs that follow a pattern (IMask).' },
   { slug: 'range-slider', name: 'Range slider', group: 'Plugins', components: ['TRangeSlider'], description: 'noUiSlider: a number or a range.' },
   { slug: 'sortable', name: 'Sortable', group: 'Plugins', components: ['TSortable'], description: 'Lists you reorder by dragging (SortableJS).' },
+  { slug: 'sortable-tree', name: 'Sortable tree', group: 'Plugins', components: ['TSortableTree'], description: 'A tree you reorder and nest by dragging (SortableJS).' },
   { slug: 'vector-map', name: 'Vector map', group: 'Plugins', components: ['TVectorMap'], description: 'A world map with values, markers and selection.' },
   { slug: 'rich-editor', name: 'Rich text editor', group: 'Plugins', components: ['TRichEditor'], description: 'HugeRTE, the WYSIWYG editor.' },
 
