@@ -48,7 +48,10 @@ export const pages: ComponentPage[] = [
 
   { slug: 'table', name: 'Table', group: 'Data', components: ['TTable'], description: 'Rows and columns, with sorting, custom cells and selectable rows.' },
   { slug: 'advanced-table', name: 'Advanced table', group: 'Data', components: ['TAdvancedTable'], description: 'A table that filters its rows by each column.' },
-  { slug: 'stat-card', name: 'Stat card', group: 'Data', components: ['TStatCard'], description: 'Figures on an overview page.' },
+  { slug: 'editable-table', name: 'Editable table', group: 'Data', components: ['TEditableTable'], description: 'Cells changed in place, selectable rows with bulk actions, search and pages.' },
+  { slug: 'data-grid', name: 'Data grid', group: 'Data', components: ['TDataGrid', 'TDataGridItem'], description: 'Labels and values in a grid that reflows: detail panels and summaries.' },
+  { slug: 'stat-card', name: 'Stat card', group: 'Data', components: ['TStatCard'], description: 'Figures on an overview page, with a trend and recent values.' },
+  { slug: 'sparkline', name: 'Sparkline', group: 'Data', components: ['TSparkline'], description: 'Tiny charts in a line of text.' },
   { slug: 'log-view', name: 'Log view', group: 'Data', components: ['TLogView'], description: 'Build logs and live app output.' },
 
   { slug: 'shell', name: 'Shell & nav', group: 'Layout', components: ['TShell', 'TNav'], description: 'The app frame: a dark sidebar that folds, and the page.' },
@@ -60,6 +63,7 @@ export const pages: ComponentPage[] = [
   { slug: 'auth-layout', name: 'Auth layout', group: 'Layout', components: ['TAuthLayout'], description: 'One centered card: sign-in, setup.' },
 
   { slug: 'advanced-select', name: 'Advanced select', group: 'Plugins', components: ['TAdvancedSelect'], description: 'Tom Select: type to filter, chips, new values.' },
+  { slug: 'chart', name: 'Chart', group: 'Plugins', components: ['TChart'], description: 'ApexCharts, as Tabler draws them: lines, areas, bars, pies and donuts.' },
   { slug: 'clipboard', name: 'Clipboard', group: 'Plugins', components: ['TCopyButton'], description: 'Copy buttons, with Tabler\'s clipboard plugin.' },
   { slug: 'color-picker', name: 'Color picker', group: 'Plugins', components: ['TColorPicker'], description: 'Coloris: colors with swatches and transparency.' },
   { slug: 'date-picker', name: 'Date picker', group: 'Plugins', components: ['TDatePicker'], description: 'Dates, ranges and inline calendars (Vanilla Calendar Pro).' },

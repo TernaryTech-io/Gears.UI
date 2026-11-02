@@ -80,6 +80,43 @@ export interface TableColumn<Row = Record<string, unknown>> {
   value?: (row: Row) => unknown
 }
 
+// TChart: what it draws, and a named list of values along its categories.
+export type ChartType = 'line' | 'area' | 'bar' | 'column' | 'pie' | 'donut'
+export interface ChartSeries {
+  name: string
+  data: (number | null)[]
+  // A named color ('success') or any CSS color; by default the theme's next chart color.
+  color?: Color | string
+}
+
+// TEditableTable: a column's kind decides how its cells are written, aligned and edited.
+export type EditableTableColumnType = 'text' | 'number' | 'date' | 'boolean'
+export interface EditableTableColumn<Row = Record<string, unknown>> extends TableColumn<Row> {
+  type?: EditableTableColumnType
+  // Cells can be edited in place (when the table is editable).
+  editable?: boolean
+  // Long values are cut to one line, at this width (CSS), with the whole value on hover.
+  truncate?: string
+  // Writes the cell's value; by default numbers and dates in the browser's format.
+  format?: (value: unknown, row: Row) => string
+}
+
+// A TEditableTable cell edited in place: the row, the column's key and the new value.
+export interface TableEdit<Row = Record<string, unknown>> {
+  row: Row
+  key: string
+  value: unknown
+}
+
+// TDataGrid: a label and its value, in Tabler's datagrid. `key` names the slot that draws the value
+// (`#{key}`); `copy` adds a button that copies it; an empty value is written as a dash.
+export interface DataGridItem {
+  key?: string
+  label: string
+  value?: string | number | boolean | null
+  copy?: boolean
+}
+
 export interface TableSort {
   key: string
   direction: 'asc' | 'desc'
@@ -146,7 +183,7 @@ export interface CommandGroup {
 // An application's theme, as Tabler's theme settings (the data-bs-theme-* attributes) take it.
 export type ThemeFont = 'sans-serif' | 'serif' | 'monospace' | 'comic'
 export type ThemeBase = 'slate' | 'gray' | 'zinc' | 'neutral' | 'stone' | 'mist'
-export type ThemeRadius = '0' | '0.5' | '1' | '1.5' | '2'
+export type ThemeRadius = '0' | '0.5' | '1' | '1.5' | '2' | '2.5'
 // Tabler's named colors, or a custom color as #rrggbb.
 export type ThemeAccent = 'blue' | 'azure' | 'indigo' | 'purple' | 'pink' | 'red' | 'orange' | 'yellow' | 'lime' | 'green' | 'teal' | 'cyan' | (string & {})
 

@@ -106,9 +106,9 @@ add a page, add an entry to `preview/registry.ts` and a folder of examples.
 | Theme | `TAccentPicker`, `TFontPicker`, `TRadiusPicker`, `TThemeBasePicker` (Tabler's theme settings as pickers), `TNavPositionPicker`, `TDensityPicker`, `TContainerPicker` (layout), `TThemeScope` (applies a `ThemeSettings`' look and density to what's inside it); `themeAccents`, `themeFonts`, `themeBases`, `themeRadii`, `themeNavs`, `themeDensities`, `themeContainers` |
 | Overlays | `TModal`, `TSlideover`, `TDropdown`, `TToaster` (with `useToast()`) |
 | Navigation | `TTabs`, `TPagination`, `TSteps`, `TNav`, `TPanelList`, `TCommandPalette`, `TSearchButton` |
-| Data | `TTable` (sorting, `selectable` rows), `TAdvancedTable` (filters by column), `TStatCard`, `TLogView` |
+| Data | `TTable` (sorting, `selectable` rows), `TAdvancedTable` (filters by column), `TEditableTable` (editing in place, bulk actions, search, pages, column kinds; client-side or `manual`), `TDataGrid` and `TDataGridItem` (Tabler's datagrid: labels and values for detail panels), `TStatCard` (with a trend and a sparkline), `TSparkline` (Tabler's, no library), `TLogView` |
 | Layout | `TAppLayout` (an application's frame, laid out by its theme, with a menu button on small screens), `TScaledFrame` (a whole screen scaled to fit), `TShell`, `TTopbar`, `TPage`, `TSectionLayout`, `TSplitter`, `TAuthLayout`, `TColorModeButton` |
-| Plugins | `TAdvancedSelect`, `TCopyButton`, `TColorPicker`, `TDatePicker`, `TDropzone`, `TInputMask`, `TRangeSlider`, `TSortable`, `TSortableTree`, `TVectorMap`, `TRichEditor` |
+| Plugins | `TAdvancedSelect`, `TChart`, `TCopyButton`, `TColorPicker`, `TDatePicker`, `TDropzone`, `TInputMask`, `TRangeSlider`, `TSortable`, `TSortableTree`, `TVectorMap`, `TRichEditor` |
 
 ### Plugins
 
@@ -120,6 +120,7 @@ Tabler's restyling of them (`tabler-vendors.css`), which must come after.
 | Component | Library | Notes |
 | --- | --- | --- |
 | `TAdvancedSelect` | Tom Select | One or several (`multiple`, as chips); `create` adds new values; icons and avatars beside labels. Overlaps `TSelectMenu`, which has no dependency. |
+| `TChart` | ApexCharts | `line`, `area`, `bar` (across), `column`, `pie`, `donut`; `series` along `categories`, `stacked`, `format`. Colors follow the theme (and a `TThemeScope`), light or dark; `options` passes anything else to ApexCharts. |
 | `TCopyButton` | Tabler's clipboard | Copies `text`, or the field `target` selects. Needs https or localhost. |
 | `TColorPicker` | Coloris | `format`, `alpha`, `swatches`, `swatchesOnly`. The field isn't wrapped by Coloris (Vue owns it); the swatch is ours. |
 | `TDatePicker` | Tabler's date picker, on Vanilla Calendar Pro | `single`, `multiple` or `range`; `inline`; the model is `YYYY-MM-DD`, `format` only changes the display. |

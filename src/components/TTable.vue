@@ -6,6 +6,8 @@
 // own sort button. `selectable` adds a checkbox to each row (Tabler's table-selectable) and one in
 // the header for every row; v-model:selected holds the chosen rows' keys. `card` fits it into a
 // flush TCard; `sticky` keeps the header in view while the table scrolls in its container.
+// `cellClickable` names cells that take a click of their own: the whole cell emits `cell-click`,
+// instead of the row's click or check.
 import { computed, ref, watchEffect } from 'vue'
 import TSpinner from './TSpinner.vue'
 import type { TableColumn, TableSort } from '../types'
@@ -25,9 +27,10 @@ const props = withDefaults(defineProps<{
   selectable?: boolean
   manualSort?: boolean
   sticky?: boolean
+  cellClickable?: (row: Row, column: TableColumn<Row>) => boolean
 }>(), { rowKey: 'id', empty: 'Nothing to show.' })
 
-const emit = defineEmits<{ select: [row: Row] }>()
+const emit = defineEmits<{ select: [row: Row]; 'cell-click': [row: Row, column: TableColumn<Row>] }>()
 const sort = defineModel<TableSort | null>('sort', { default: null })
 const selected = defineModel<(string | number)[]>('selected', { default: () => [] })
 
@@ -122,7 +125,8 @@ function format(value: unknown) {
             <input type="checkbox" class="form-check-input m-0 align-middle table-selectable-check" :checked="isChecked(row, index)"
               aria-label="Select the row" @change="check(row, index)">
           </td>
-          <td v-for="column in columns" :key="column.key" :class="align(column)">
+          <td v-for="column in columns" :key="column.key" :class="[align(column), { 't-cell-clickable': cellClickable?.(row, column) }]"
+            @click="event => { if (cellClickable?.(row, column)) { event.stopPropagation(); emit('cell-click', row, column) } }">
             <slot :name="`${column.key}-cell`" :row="row" :value="cell(row, column)">
               <slot name="cell" :row="row" :column="column" :value="cell(row, column)">{{ format(cell(row, column)) }}</slot>
             </slot>

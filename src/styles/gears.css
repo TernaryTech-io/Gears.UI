@@ -502,7 +502,7 @@
 
 /* Theme previews: what each theme choice looks like. */
 .t-theme-font { font-size: 2rem; line-height: 1; }
-.t-theme-radius { width: 2.25rem; height: 2.25rem; background: var(--tblr-primary); opacity: 0.85; }
+.t-theme-radius { width: 3rem; height: 2.25rem; background: var(--tblr-primary); opacity: 0.85; }
 .t-theme-swatches { display: flex; gap: 3px; }
 .t-theme-swatches span { width: 0.75rem; height: 1rem; border-radius: 2px; box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--tblr-body-color) 15%, transparent); }
 .t-accent-swatches { display: flex; flex-wrap: wrap; gap: 0.5rem; }
@@ -535,6 +535,11 @@
   --tblr-border-radius-xl: calc(1rem * var(--tblr-border-radius-scale, 1));
   --tblr-border-radius-xxl: calc(2rem * var(--tblr-border-radius-scale, 1));
   --tblr-border-radius: var(--tblr-border-radius-md);
+  /* Fields of every size take the theme's radius. (Tabler declares these once at the root, and
+     gives small and large fields its sm and lg radius.) */
+  --tblr-btn-input-border-radius: var(--tblr-border-radius);
+  --tblr-btn-input-sm-border-radius: var(--tblr-border-radius);
+  --tblr-btn-input-lg-border-radius: var(--tblr-border-radius);
   --tblr-primary-darken: oklch(from var(--tblr-primary) calc(l - 0.06) c h);
   --tblr-primary-lt: color-mix(in oklab, var(--tblr-primary) 10%, transparent);
   --tblr-control-checked-bg: var(--tblr-primary);
@@ -543,6 +548,21 @@
   font-family: var(--tblr-body-font-family);
   color: var(--tblr-body-color);
   background: var(--tblr-body-bg);
+}
+
+/* A theme scope's corner radius (data-bs-theme-radius): the base radius becomes one of Tabler's sizes,
+   0, xs (2px), sm (4px), md (6px, Tabler's own), lg (8px) or xl (1rem), by setting the scale that puts
+   md there, so every other corner (cards, badges, fields) follows in proportion. */
+.t-theme-scope[data-bs-theme-radius="0"] { --tblr-border-radius-scale: 0; }
+.t-theme-scope[data-bs-theme-radius="0.5"] { --tblr-border-radius-scale: calc(2 / 6); }
+.t-theme-scope[data-bs-theme-radius="1"] { --tblr-border-radius-scale: calc(4 / 6); }
+.t-theme-scope[data-bs-theme-radius="1.5"] { --tblr-border-radius-scale: 1; }
+.t-theme-scope[data-bs-theme-radius="2"] { --tblr-border-radius-scale: calc(8 / 6); }
+.t-theme-scope[data-bs-theme-radius="2.5"] { --tblr-border-radius-scale: calc(16 / 6); }
+
+/* Buttons of every size take the theme's radius too, as fields do. */
+.t-theme-scope :is(.btn-sm, .btn-group-sm > .btn, .btn-lg, .btn-group-lg > .btn, .btn-xl, .btn-group-xl > .btn, .btn-xs) {
+  --tblr-btn-border-radius: var(--tblr-border-radius);
 }
 
 /* Image upload (TImageUpload): the image beside what the area takes. */
@@ -623,3 +643,18 @@
 }
 .t-tree .sortable-ghost { opacity: 0.4; }
 .t-tree .sortable-chosen > :first-child { background: color-mix(in oklab, var(--tblr-primary) 6%, transparent); }
+
+/* Editable table (TEditableTable): the search beside the title; the selection in the footer. */
+.t-editable-table-search { width: 14rem; max-width: 100%; }
+.t-editable-table-footer { min-height: 2rem; }
+/* The whole cell edits: a hint of a field on hover. */
+.t-cell-clickable { cursor: text; }
+.t-cell-clickable:hover { box-shadow: inset 0 0 0 1px var(--tblr-border-color); background: var(--tblr-bg-surface-secondary); }
+.t-editable-table-editable:focus-visible { outline: 2px solid var(--tblr-primary); outline-offset: 2px; border-radius: 2px; }
+.t-editable-table-editor { min-width: 8rem; margin-block: -0.25rem; }
+
+/* Charts (TChart) and sparklines: a chart keeps its height while ApexCharts loads; a stat card's
+   sparkline spans the card. */
+.t-chart { min-height: 1px; }
+.t-stat-sparkline { display: block; width: 100%; }
+.t-stat-sparkline svg { width: 100%; height: 2.25rem; }

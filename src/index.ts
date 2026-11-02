@@ -18,8 +18,11 @@ import TColorModeButton from './components/TColorModeButton.vue'
 import TCommandPalette from './components/TCommandPalette.vue'
 import TContainerPicker from './components/TContainerPicker.vue'
 import TCopyButton from './components/TCopyButton.vue'
+import TDataGrid from './components/TDataGrid.vue'
+import TDataGridItem from './components/TDataGridItem.vue'
 import TDensityPicker from './components/TDensityPicker.vue'
 import TDropdown from './components/TDropdown.vue'
+import TEditableTable from './components/TEditableTable.vue'
 import TEmpty from './components/TEmpty.vue'
 import TFieldGroup from './components/TFieldGroup.vue'
 import TFileUpload from './components/TFileUpload.vue'
@@ -49,6 +52,7 @@ import TSeparator from './components/TSeparator.vue'
 import TShell from './components/TShell.vue'
 import TSkeleton from './components/TSkeleton.vue'
 import TSlideover from './components/TSlideover.vue'
+import TSparkline from './components/TSparkline.vue'
 import TSpinner from './components/TSpinner.vue'
 import TSplitter from './components/TSplitter.vue'
 import TStatCard from './components/TStatCard.vue'
@@ -79,8 +83,11 @@ export {
   TCommandPalette,
   TContainerPicker,
   TCopyButton,
+  TDataGrid,
+  TDataGridItem,
   TDensityPicker,
   TDropdown,
+  TEditableTable,
   TEmpty,
   TFieldGroup,
   TFileUpload,
@@ -110,6 +117,7 @@ export {
   TShell,
   TSkeleton,
   TSlideover,
+  TSparkline,
   TSpinner,
   TSplitter,
   TStatCard,
@@ -127,7 +135,7 @@ export {
 }
 
 export * from './types'
-export { isCustomAccent, themeAccents, themeBases, themeContainers, themeDensities, themeFonts, themeNavs, themeRadii } from './theme'
+export { isCustomAccent, themeAccents, themeBases, themeContainers, themeDensities, themeFonts, themeNavs, themeRadii, themeRadiusSizes } from './theme'
 export { useColorMode, type ColorMode } from './composables/useColorMode'
 export { useCommandPalette } from './composables/useCommandPalette'
 export { useField } from './composables/useField'
@@ -135,11 +143,11 @@ export { useToast, type Toast } from './composables/useToast'
 
 const components = {
   TAccentPicker, TAdvancedTable, TAlert, TAppLayout, TAuthLayout, TAvatar, TBadge, TButton, TCard,
-  TCheckbox, TColorModeButton, TCommandPalette, TContainerPicker, TCopyButton, TDensityPicker,
-  TDropdown, TEmpty, TFieldGroup, TFileUpload, TFontPicker, TFormField, TIcon, TImageUpload,
+  TCheckbox, TColorModeButton, TCommandPalette, TContainerPicker, TCopyButton, TDataGrid, TDataGridItem, TDensityPicker,
+  TDropdown, TEditableTable, TEmpty, TFieldGroup, TFileUpload, TFontPicker, TFormField, TIcon, TImageUpload,
   TInput, TInputNumber, TInputTags, TLogView, TModal, TNav, TNavPositionPicker, TPage, TPagination,
   TPanelList, TProgress, TRadioGroup, TRadiusPicker, TScaledFrame, TSearchButton, TSectionLayout,
-  TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSpinner, TSplitter, TStatCard,
+  TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSparkline, TSpinner, TSplitter, TStatCard,
   TSteps, TSwitch, TTable, TTabs, TTextarea, TThemeBasePicker, TThemeScope, TToaster, TTooltip,
   TTopbar, TVectorMap
 }
@@ -166,8 +174,11 @@ declare module 'vue' {
     TCommandPalette: typeof TCommandPalette
     TContainerPicker: typeof TContainerPicker
     TCopyButton: typeof TCopyButton
+    TDataGrid: typeof TDataGrid
+    TDataGridItem: typeof TDataGridItem
     TDensityPicker: typeof TDensityPicker
     TDropdown: typeof TDropdown
+    TEditableTable: typeof TEditableTable
     TEmpty: typeof TEmpty
     TFieldGroup: typeof TFieldGroup
     TFileUpload: typeof TFileUpload
@@ -197,6 +208,7 @@ declare module 'vue' {
     TShell: typeof TShell
     TSkeleton: typeof TSkeleton
     TSlideover: typeof TSlideover
+    TSparkline: typeof TSparkline
     TSpinner: typeof TSpinner
     TSplitter: typeof TSplitter
     TStatCard: typeof TStatCard

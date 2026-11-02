@@ -22,7 +22,12 @@ export const themeBases: SelectItem<ThemeBase>[] = [
   { label: 'Mist', value: 'mist' }
 ]
 
-export const themeRadii: SelectItem<ThemeRadius>[] = ['0', '0.5', '1', '1.5', '2'].map(r => ({ label: r, value: r as ThemeRadius }))
+// The corner radius: the theme's base radius is one of Tabler's sizes (0, xs, sm, md, lg, xl), and
+// the other corners follow in proportion. 1.5 (md, 6px) is Tabler's own.
+export const themeRadiusSizes: Record<ThemeRadius, string> = { '0': '0px', '0.5': '2px', '1': '4px', '1.5': '6px', '2': '8px', '2.5': '16px' }
+const radiusNames: Record<ThemeRadius, string> = { '0': 'None', '0.5': 'Extra small', '1': 'Small', '1.5': 'Medium', '2': 'Large', '2.5': 'Extra large' }
+export const themeRadii: SelectItem<ThemeRadius>[] = (['0', '0.5', '1', '1.5', '2', '2.5'] as ThemeRadius[])
+  .map(r => ({ label: r, value: r, description: `${radiusNames[r]}, ${themeRadiusSizes[r]}` }))
 
 // Layout choices (not Tabler theme settings; TThemeScope and TAppLayout apply them).
 export const themeNavs: SelectItem<ThemeNav>[] = [

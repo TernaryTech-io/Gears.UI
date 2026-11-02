@@ -3,6 +3,7 @@
 // all of them; to use only some, import those components from `@ternarytech-io/gears-ui/components/…` instead.
 import type { App } from 'vue'
 import TAdvancedSelect from '../components/TAdvancedSelect.vue'
+import TChart from '../components/TChart.vue'
 import TColorPicker from '../components/TColorPicker.vue'
 import TDatePicker from '../components/TDatePicker.vue'
 import TDropzone from '../components/TDropzone.vue'
@@ -14,6 +15,7 @@ import TSortableTree from '../components/TSortableTree.vue'
 
 export {
   TAdvancedSelect,
+  TChart,
   TColorPicker,
   TDatePicker,
   TDropzone,
@@ -27,7 +29,7 @@ export {
 export type { RichEditorPlugin } from './richEditor'
 
 const components = {
-  TAdvancedSelect, TColorPicker, TDatePicker, TDropzone, TInputMask, TRangeSlider, TRichEditor,
+  TAdvancedSelect, TChart, TColorPicker, TDatePicker, TDropzone, TInputMask, TRangeSlider, TRichEditor,
   TSortable, TSortableTree
 }
 
@@ -40,6 +42,7 @@ export const GearsUIPlugins = {
 declare module 'vue' {
   export interface GlobalComponents {
     TAdvancedSelect: typeof TAdvancedSelect
+    TChart: typeof TChart
     TColorPicker: typeof TColorPicker
     TDatePicker: typeof TDatePicker
     TDropzone: typeof TDropzone

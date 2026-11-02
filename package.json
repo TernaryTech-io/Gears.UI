@@ -1,6 +1,6 @@
 {
   "name": "@ternarytech-io/gears-ui",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "type": "module",
   "description": "Gears UI: Vue 3 components on Tabler, used by the Gears Studio and the applications it builds.",
   "license": "MPL-2.0",
@@ -55,7 +55,8 @@
     "imask": "^7.6.0",
     "nouislider": "^15.8.0",
     "sortablejs": "^1.15.0",
-    "hugerte": "^1.0.0"
+    "hugerte": "^1.0.0",
+    "apexcharts": "^7.0.0"
   },
   "dependencies": {
     "@tabler/core": "1.7.1",
@@ -65,6 +66,7 @@
     "@melloware/coloris": "0.25.0",
     "@types/sortablejs": "1.15.9",
     "@vitejs/plugin-vue": "6.0.10",
+    "apexcharts": "7.0.0",
     "dropzone": "6.3.5",
     "hugerte": "1.0.14",
     "imask": "7.6.1",
