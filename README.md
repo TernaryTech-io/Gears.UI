@@ -107,7 +107,7 @@ add a page, add an entry to `preview/registry.ts` and a folder of examples.
 | Overlays | `TModal`, `TSlideover`, `TDropdown`, `TToaster` (with `useToast()`) |
 | Navigation | `TTabs`, `TPagination`, `TSteps`, `TNav`, `TPanelList`, `TCommandPalette`, `TSearchButton` |
 | Data | `TTable` (sorting, `selectable` rows), `TAdvancedTable` (filters by column), `TStatCard`, `TLogView` |
-| Layout | `TAppLayout` (an application's frame, laid out by its theme), `TScaledFrame` (a whole screen scaled to fit), `TShell`, `TTopbar`, `TPage`, `TSectionLayout`, `TSplitter`, `TAuthLayout`, `TColorModeButton` |
+| Layout | `TAppLayout` (an application's frame, laid out by its theme, with a menu button on small screens), `TScaledFrame` (a whole screen scaled to fit), `TShell`, `TTopbar`, `TPage`, `TSectionLayout`, `TSplitter`, `TAuthLayout`, `TColorModeButton` |
 | Plugins | `TAdvancedSelect`, `TCopyButton`, `TColorPicker`, `TDatePicker`, `TDropzone`, `TInputMask`, `TRangeSlider`, `TSortable`, `TSortableTree`, `TVectorMap`, `TRichEditor` |
 
 ### Plugins
