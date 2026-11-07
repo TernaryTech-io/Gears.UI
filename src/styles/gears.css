@@ -582,20 +582,26 @@
 
 /* Density (TThemeScope's theme.density, or data-t-density on any element): the padding inside
    cards, tables, buttons and fields, and the page's gaps (--t-gap, for layouts to use).
-   Comfortable is Tabler's own spacing. */
-[data-t-density] { --t-gap: 1rem; }
+   Comfortable is Tabler's own spacing. Each density stops at a nested density (an App Builder
+   preview inside a compact Studio keeps its own), so the rules are scoped "to" the next one, and
+   every density sets the variables it inherits. */
+[data-t-density] { --t-gap: 1rem; --tblr-page-padding-y: var(--tblr-spacer-4); }
 [data-t-density=compact] { --t-gap: 0.625rem; --tblr-page-padding-y: 0.75rem; }
 [data-t-density=spacious] { --t-gap: 1.5rem; --tblr-page-padding-y: 2rem; }
-[data-t-density=compact] .card { --tblr-card-spacer-y: 0.75rem; --tblr-card-spacer-x: 0.875rem; --tblr-card-cap-padding-y: 0.625rem; --tblr-card-cap-padding-x: 0.875rem; --tblr-card-title-spacer-y: 0.625rem; }
-[data-t-density=spacious] .card { --tblr-card-spacer-y: 1.75rem; --tblr-card-spacer-x: 1.75rem; --tblr-card-cap-padding-y: 1.5rem; --tblr-card-cap-padding-x: 1.75rem; --tblr-card-title-spacer-y: 1.5rem; }
-[data-t-density=compact] .table:not(.table-sm) > :not(caption) > * > * { padding: 0.375rem 0.625rem; }
-[data-t-density=spacious] .table:not(.table-sm) > :not(caption) > * > * { padding: 1rem 1.25rem; }
-[data-t-density=compact] .btn:not(.btn-sm, .btn-lg, .btn-xs, .btn-icon) { --tblr-btn-padding-y: 0.3125rem; --tblr-btn-padding-x: 0.75rem; }
-[data-t-density=spacious] .btn:not(.btn-sm, .btn-lg, .btn-xs, .btn-icon) { --tblr-btn-padding-y: 0.75rem; --tblr-btn-padding-x: 1.375rem; }
-[data-t-density=compact] :is(.form-control, .form-select):not(.form-control-sm, .form-select-sm, .form-control-lg, .form-select-lg) { --tblr-control-padding-y: 0.3125rem; --tblr-control-padding-x: 0.625rem; }
-[data-t-density=spacious] :is(.form-control, .form-select):not(.form-control-sm, .form-select-sm, .form-control-lg, .form-select-lg) { --tblr-control-padding-y: 0.75rem; --tblr-control-padding-x: 1.125rem; }
-[data-t-density=compact] .navbar-vertical .nav-link { padding-block: 0.3125rem; }
-[data-t-density=spacious] .navbar-vertical .nav-link { padding-block: 0.75rem; }
+@scope ([data-t-density=compact]) to ([data-t-density]) {
+  :scope .card { --tblr-card-spacer-y: 0.75rem; --tblr-card-spacer-x: 0.875rem; --tblr-card-cap-padding-y: 0.625rem; --tblr-card-cap-padding-x: 0.875rem; --tblr-card-title-spacer-y: 0.625rem; }
+  :scope .table:not(.table-sm) > :not(caption) > * > * { padding: 0.375rem 0.625rem; }
+  :scope .btn:not(.btn-sm, .btn-lg, .btn-xs, .btn-icon) { --tblr-btn-padding-y: 0.3125rem; --tblr-btn-padding-x: 0.75rem; }
+  :scope :is(.form-control, .form-select):not(.form-control-sm, .form-select-sm, .form-control-lg, .form-select-lg) { --tblr-control-padding-y: 0.3125rem; --tblr-control-padding-x: 0.625rem; }
+  :scope .navbar-vertical .nav-link { padding-block: 0.3125rem; }
+}
+@scope ([data-t-density=spacious]) to ([data-t-density]) {
+  :scope .card { --tblr-card-spacer-y: 1.75rem; --tblr-card-spacer-x: 1.75rem; --tblr-card-cap-padding-y: 1.5rem; --tblr-card-cap-padding-x: 1.75rem; --tblr-card-title-spacer-y: 1.5rem; }
+  :scope .table:not(.table-sm) > :not(caption) > * > * { padding: 1rem 1.25rem; }
+  :scope .btn:not(.btn-sm, .btn-lg, .btn-xs, .btn-icon) { --tblr-btn-padding-y: 0.75rem; --tblr-btn-padding-x: 1.375rem; }
+  :scope :is(.form-control, .form-select):not(.form-control-sm, .form-select-sm, .form-control-lg, .form-select-lg) { --tblr-control-padding-y: 0.75rem; --tblr-control-padding-x: 1.125rem; }
+  :scope .navbar-vertical .nav-link { padding-block: 0.75rem; }
+}
 
 /* Layout sketches (TNavPositionPicker, TContainerPicker, TDensityPicker): a page drawn in a tile. */
 .t-sketch { display: flex; gap: 3px; width: 5.5rem; height: 3.5rem; padding: 3px; border-radius: 4px; }
