@@ -2,7 +2,9 @@
 // A text input that follows a pattern, with Tabler's input mask (IMask): `0` is a digit, `a` a
 // letter, `*` either, and other characters are written for you, as in "(000) 000-0000".
 // `showMask` shows the pattern before typing. v-model is the text as shown, or with `unmasked`,
-// only what was typed. IMask loads on first use.
+// only what was typed. `options` are IMask's own, for what a pattern can't say: a number with
+// thousands separators and decimals, say ({ mask: '$num', blocks: { num: { mask: Number, scale: 2,
+// thousandsSeparator: ',' } } }); they win over `mask`. IMask loads on first use.
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { InputMask } from '@tabler/core'
 import TIcon from './TIcon.vue'
@@ -12,7 +14,8 @@ import { loadInputMask } from '../plugins/inputMask'
 type Mask = { value: string; unmaskedValue: string; on(event: 'accept', handler: () => void): void }
 
 const props = withDefaults(defineProps<{
-  mask: string
+  mask?: string
+  options?: Record<string, unknown>
   unmasked?: boolean
   showMask?: boolean
   placeholder?: string
@@ -42,7 +45,7 @@ async function create() {
   const InputMaskClass = await loadInputMask()
   if (!input.value) return
   instance?.dispose()
-  instance = new InputMaskClass(input.value, { mask: props.mask, lazy: !props.showMask })
+  instance = new InputMaskClass(input.value, { mask: props.mask ?? '', lazy: !props.showMask, ...props.options })
   write(model.value ?? '')
   mask()?.on('accept', () => {
     const value = current() ?? ''
@@ -56,7 +59,7 @@ onMounted(() => {
   create()
 })
 watch(model, value => { if (mask() && (value ?? '') !== current()) write(value ?? '') })
-watch(() => [props.mask, props.showMask, props.unmasked], create)
+watch(() => [props.mask, props.showMask, props.unmasked, props.options], create, { deep: true })
 onBeforeUnmount(() => instance?.dispose())
 </script>
 

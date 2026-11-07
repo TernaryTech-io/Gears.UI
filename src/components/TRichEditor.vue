@@ -2,7 +2,8 @@
 // A rich text editor with Tabler's WYSIWYG plugin (HugeRTE, an open-source fork of TinyMCE).
 // v-model is the HTML. `toolbar` and `plugins` use HugeRTE's names; the plugins offered are those
 // in src/plugins/richEditor.ts. It follows the light and dark theme (switching rebuilds the editor). Nothing
-// is fetched: the editor, its skins and plugins are bundled and load on first use.
+// is fetched: the editor, its skins and plugins are bundled and load on first use. It reports `focus`
+// and `blur` (the editor is in an iframe, so the page's own focus events don't see it).
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import type { Editor } from 'hugerte'
 import { useColorMode } from '../composables/useColorMode'
@@ -25,6 +26,7 @@ const props = withDefaults(defineProps<{
 })
 
 const model = defineModel<string>({ default: '' })
+const emit = defineEmits<{ focus: []; blur: [] }>()
 const field = useField(props)
 const { isDark } = useColorMode()
 const textarea = ref<HTMLTextAreaElement>()
@@ -53,6 +55,8 @@ async function create() {
     placeholder: props.placeholder,
     branding: false,
     setup: (ed: Editor) => {
+      ed.on('focus', () => emit('focus'))
+      ed.on('blur', () => emit('blur'))
       ed.on('input change undo redo ExecCommand', () => {
         const html = ed.getContent()
         if (html !== model.value) model.value = html

@@ -44,6 +44,7 @@ import TPanelList from './components/TPanelList.vue'
 import TProgress from './components/TProgress.vue'
 import TRadioGroup from './components/TRadioGroup.vue'
 import TRadiusPicker from './components/TRadiusPicker.vue'
+import TRating from './components/TRating.vue'
 import TScaledFrame from './components/TScaledFrame.vue'
 import TSearchButton from './components/TSearchButton.vue'
 import TSectionLayout from './components/TSectionLayout.vue'
@@ -110,6 +111,7 @@ export {
   TProgress,
   TRadioGroup,
   TRadiusPicker,
+  TRating,
   TScaledFrame,
   TSearchButton,
   TSectionLayout,
@@ -148,7 +150,7 @@ const components = {
   TCheckbox, TColorModeButton, TCommandPalette, TContainerPicker, TCopyButton, TDataGrid, TDataGridItem, TDensityPicker,
   TDropdown, TEditableTable, TEmpty, TFieldGroup, TFileUpload, TFontPicker, TFormField, TIcon, TIconPicker, TImageUpload,
   TInput, TInputNumber, TInputTags, TLogView, TModal, TNav, TNavPositionPicker, TPage, TPagination,
-  TPanelList, TProgress, TRadioGroup, TRadiusPicker, TScaledFrame, TSearchButton, TSectionLayout,
+  TPanelList, TProgress, TRadioGroup, TRadiusPicker, TRating, TScaledFrame, TSearchButton, TSectionLayout,
   TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSparkline, TSpinner, TSplitter, TStatCard,
   TSteps, TSwitch, TTable, TTabs, TTextarea, TThemeBasePicker, TThemeScope, TToaster, TTooltip,
   TTopbar, TVectorMap
@@ -202,6 +204,7 @@ declare module 'vue' {
     TProgress: typeof TProgress
     TRadioGroup: typeof TRadioGroup
     TRadiusPicker: typeof TRadiusPicker
+    TRating: typeof TRating
     TScaledFrame: typeof TScaledFrame
     TSearchButton: typeof TSearchButton
     TSectionLayout: typeof TSectionLayout

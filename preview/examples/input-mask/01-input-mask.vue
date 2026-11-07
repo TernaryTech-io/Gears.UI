@@ -6,6 +6,9 @@ const phone = ref('')
 const date = ref('')
 const sku = ref('')
 const card = ref('4242424242424242')
+// A number mask through IMask's own options: a currency with thousands separators and cents.
+const price = ref('1234.5')
+const money = { mask: '$num', blocks: { num: { mask: Number, scale: 2, thousandsSeparator: ',', radix: '.', padFractionalZeros: true, normalizeZeros: true } } }
 </script>
 
 <template>
@@ -28,6 +31,11 @@ const card = ref('4242424242424242')
     <div class="col-md-6">
       <TFormField label="Card number" :description="`Unmasked value: “${card}”`">
         <TInputMask v-model="card" mask="0000 0000 0000 0000" unmasked icon="credit-card" />
+      </TFormField>
+    </div>
+    <div class="col-md-6">
+      <TFormField label="Price" :description="`Unmasked value: “${price}”`">
+        <TInputMask v-model="price" :options="money" unmasked icon="currency-dollar" />
       </TFormField>
     </div>
   </div>
