@@ -19,6 +19,8 @@ export const pages: ComponentPage[] = [
   { slug: 'alert', name: 'Alert', group: 'Elements', components: ['TAlert'], description: 'Messages on the page: what happened and what to do.' },
   { slug: 'card', name: 'Card', group: 'Elements', components: ['TCard'], description: 'The surface most content sits on.' },
   { slug: 'icon', name: 'Icon', group: 'Elements', components: ['TIcon'], description: 'Tabler Icons, self-hosted as a webfont.' },
+  { slug: 'list-box', name: 'List box', group: 'Forms', components: ['TListBox'], description: 'A list that is always shown, to choose one or several, with a search.' },
+  { slug: 'checkbox-tree', name: 'Checkbox tree', group: 'Forms', components: ['TCheckboxTree'], description: 'Checkboxes in a tree: parents check all their children.' },
   { slug: 'rating', name: 'Rating', group: 'Forms', components: ['TRating'], description: 'A rating out of five (or any number): stars, hearts or circles.' },
   { slug: 'icon-picker', name: 'Icon picker', group: 'Forms', components: ['TIconPicker'], description: 'Any of the Tabler icons, by name, with a search.' },
   { slug: 'tooltip', name: 'Tooltip', group: 'Elements', components: ['TTooltip'], description: 'Short hints on hover and focus.' },
