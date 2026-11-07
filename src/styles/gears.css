@@ -594,6 +594,8 @@
   :scope .btn:not(.btn-sm, .btn-lg, .btn-xs, .btn-icon) { --tblr-btn-padding-y: 0.3125rem; --tblr-btn-padding-x: 0.75rem; }
   :scope :is(.form-control, .form-select):not(.form-control-sm, .form-select-sm, .form-control-lg, .form-select-lg) { --tblr-control-padding-y: 0.3125rem; --tblr-control-padding-x: 0.625rem; }
   :scope .navbar-vertical .nav-link { padding-block: 0.3125rem; }
+  /* Tabler sizes an input's icon for a comfortable input (2.5rem); here it takes the input's height, so it stays centred. */
+  :scope .input-icon-addon { height: auto; }
 }
 @scope ([data-t-density=spacious]) to ([data-t-density]) {
   :scope .card { --tblr-card-spacer-y: 1.75rem; --tblr-card-spacer-x: 1.75rem; --tblr-card-cap-padding-y: 1.5rem; --tblr-card-cap-padding-x: 1.75rem; --tblr-card-title-spacer-y: 1.5rem; }
@@ -601,6 +603,7 @@
   :scope .btn:not(.btn-sm, .btn-lg, .btn-xs, .btn-icon) { --tblr-btn-padding-y: 0.75rem; --tblr-btn-padding-x: 1.375rem; }
   :scope :is(.form-control, .form-select):not(.form-control-sm, .form-select-sm, .form-control-lg, .form-select-lg) { --tblr-control-padding-y: 0.75rem; --tblr-control-padding-x: 1.125rem; }
   :scope .navbar-vertical .nav-link { padding-block: 0.75rem; }
+  :scope .input-icon-addon { height: auto; }
 }
 
 /* Layout sketches (TNavPositionPicker, TContainerPicker, TDensityPicker): a page drawn in a tile. */

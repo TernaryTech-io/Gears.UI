@@ -19,6 +19,7 @@ export const pages: ComponentPage[] = [
   { slug: 'alert', name: 'Alert', group: 'Elements', components: ['TAlert'], description: 'Messages on the page: what happened and what to do.' },
   { slug: 'card', name: 'Card', group: 'Elements', components: ['TCard'], description: 'The surface most content sits on.' },
   { slug: 'icon', name: 'Icon', group: 'Elements', components: ['TIcon'], description: 'Tabler Icons, self-hosted as a webfont.' },
+  { slug: 'icon-picker', name: 'Icon picker', group: 'Forms', components: ['TIconPicker'], description: 'Any of the Tabler icons, by name, with a search.' },
   { slug: 'tooltip', name: 'Tooltip', group: 'Elements', components: ['TTooltip'], description: 'Short hints on hover and focus.' },
   { slug: 'toast', name: 'Toast', group: 'Overlays', components: ['TToaster'], description: 'Short notices in the corner: saved, deleted, failed.' },
   { slug: 'empty', name: 'Empty state', group: 'Elements', components: ['TEmpty'], description: 'Nothing here yet, and the action that fills it.' },

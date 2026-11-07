@@ -29,6 +29,7 @@ import TFileUpload from './components/TFileUpload.vue'
 import TFontPicker from './components/TFontPicker.vue'
 import TFormField from './components/TFormField.vue'
 import TIcon from './components/TIcon.vue'
+import TIconPicker from './components/TIconPicker.vue'
 import TImageUpload from './components/TImageUpload.vue'
 import TInput from './components/TInput.vue'
 import TInputNumber from './components/TInputNumber.vue'
@@ -94,6 +95,7 @@ export {
   TFontPicker,
   TFormField,
   TIcon,
+  TIconPicker,
   TImageUpload,
   TInput,
   TInputNumber,
@@ -144,7 +146,7 @@ export { useToast, type Toast } from './composables/useToast'
 const components = {
   TAccentPicker, TAdvancedTable, TAlert, TAppLayout, TAuthLayout, TAvatar, TBadge, TButton, TCard,
   TCheckbox, TColorModeButton, TCommandPalette, TContainerPicker, TCopyButton, TDataGrid, TDataGridItem, TDensityPicker,
-  TDropdown, TEditableTable, TEmpty, TFieldGroup, TFileUpload, TFontPicker, TFormField, TIcon, TImageUpload,
+  TDropdown, TEditableTable, TEmpty, TFieldGroup, TFileUpload, TFontPicker, TFormField, TIcon, TIconPicker, TImageUpload,
   TInput, TInputNumber, TInputTags, TLogView, TModal, TNav, TNavPositionPicker, TPage, TPagination,
   TPanelList, TProgress, TRadioGroup, TRadiusPicker, TScaledFrame, TSearchButton, TSectionLayout,
   TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSparkline, TSpinner, TSplitter, TStatCard,
@@ -185,6 +187,7 @@ declare module 'vue' {
     TFontPicker: typeof TFontPicker
     TFormField: typeof TFormField
     TIcon: typeof TIcon
+    TIconPicker: typeof TIconPicker
     TImageUpload: typeof TImageUpload
     TInput: typeof TInput
     TInputNumber: typeof TInputNumber
