@@ -240,7 +240,10 @@ defineExpose({ setPage: goTo, download: downloadFile })
 </template>
 
 <style scoped>
-.t-pdf { display: flex; flex-direction: column; overflow: hidden; margin: 0; }
+.t-pdf { display: flex; flex-direction: column; overflow: hidden; margin: 0; container-type: inline-size; }
+/* A narrow viewer drops its zoom choice, then its zoom buttons, so the page and download stay. */
+@container (max-width: 440px) { .t-pdf-zoom { display: none; } }
+@container (max-width: 340px) { .t-pdf-toolbar button[aria-label^="Zoom"] { display: none; } }
 .t-pdf-toolbar { display: flex; align-items: center; gap: 0.25rem; padding: 0.375rem 0.5rem; border-bottom: 1px solid var(--tblr-border-color); }
 .t-pdf-page-number { display: inline-flex; align-items: center; gap: 0.375rem; margin: 0 0 0 0.25rem; }
 .t-pdf-page-number input { width: 3.25rem; text-align: center; }
