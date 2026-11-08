@@ -67,7 +67,7 @@ export const pages: ComponentPage[] = [
   { slug: 'auth-layout', name: 'Auth layout', group: 'Layout', components: ['TAuthLayout'], description: 'One centered card: sign-in, setup.' },
 
   { slug: 'advanced-select', name: 'Advanced select', group: 'Plugins', components: ['TAdvancedSelect'], description: 'Tom Select: type to filter, chips, new values.' },
-  { slug: 'chart', name: 'Chart', group: 'Plugins', components: ['TChart'], description: 'ApexCharts, as Tabler draws them: lines, areas, bars, pies and donuts.' },
+  { slug: 'chart', name: 'Chart', group: 'Plugins', components: ['TChart'], description: 'Apache ECharts, in the theme: lines, areas, bars, pies and donuts.' },
   { slug: 'clipboard', name: 'Clipboard', group: 'Plugins', components: ['TCopyButton'], description: 'Copy buttons, with Tabler\'s clipboard plugin.' },
   { slug: 'color-picker', name: 'Color picker', group: 'Plugins', components: ['TColorPicker'], description: 'Coloris: colors with swatches and transparency.' },
   { slug: 'date-picker', name: 'Date picker', group: 'Plugins', components: ['TDatePicker'], description: 'Dates, ranges and inline calendars (Vanilla Calendar Pro).' },

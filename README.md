@@ -120,7 +120,7 @@ Tabler's restyling of them (`tabler-vendors.css`), which must come after.
 | Component | Library | Notes |
 | --- | --- | --- |
 | `TAdvancedSelect` | Tom Select | One or several (`multiple`, as chips); `create` adds new values; icons and avatars beside labels. Overlaps `TSelectMenu`, which has no dependency. |
-| `TChart` | ApexCharts | `line`, `area`, `bar` (across), `column`, `pie`, `donut`; `series` along `categories`, `stacked`, `format`. Colors follow the theme (and a `TThemeScope`), light or dark; `options` passes anything else to ApexCharts. |
+| `TChart` | Apache ECharts (Apache-2.0) | `line`, `area`, `bar` (across), `column`, `pie`, `donut`; `series` along `categories`, `stacked`, `format`, `point-click`. Colors follow the theme (and a `TThemeScope`), light or dark; `options` (ECharts options) is merged over everything for anything else. SVG by default, `renderer="canvas"` for very many points; it follows its box's size. Only the charts it uses are bundled. Before 0.4.0 it was ApexCharts, whose license no longer suits apps others use. |
 | `TCopyButton` | Tabler's clipboard | Copies `text`, or the field `target` selects. Needs https or localhost. |
 | `TColorPicker` | Coloris | `format`, `alpha`, `swatches`, `swatchesOnly`. The field isn't wrapped by Coloris (Vue owns it); the swatch is ours. |
 | `TDatePicker` | Tabler's date picker, on Vanilla Calendar Pro | `single`, `multiple` or `range`; `inline`; the model is `YYYY-MM-DD`, `format` only changes the display. |
