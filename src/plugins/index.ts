@@ -8,6 +8,7 @@ import TColorPicker from '../components/TColorPicker.vue'
 import TDatePicker from '../components/TDatePicker.vue'
 import TDropzone from '../components/TDropzone.vue'
 import TInputMask from '../components/TInputMask.vue'
+import TPdfViewer from '../components/TPdfViewer.vue'
 import TRangeSlider from '../components/TRangeSlider.vue'
 import TRichEditor from '../components/TRichEditor.vue'
 import TSortable from '../components/TSortable.vue'
@@ -20,6 +21,7 @@ export {
   TDatePicker,
   TDropzone,
   TInputMask,
+  TPdfViewer,
   TRangeSlider,
   TRichEditor,
   TSortable,
@@ -27,9 +29,10 @@ export {
 }
 
 export type { RichEditorPlugin } from './richEditor'
+export type { PdfZoom } from '../components/TPdfViewer.vue'
 
 const components = {
-  TAdvancedSelect, TChart, TColorPicker, TDatePicker, TDropzone, TInputMask, TRangeSlider, TRichEditor,
+  TAdvancedSelect, TChart, TColorPicker, TDatePicker, TDropzone, TInputMask, TPdfViewer, TRangeSlider, TRichEditor,
   TSortable, TSortableTree
 }
 
@@ -47,6 +50,7 @@ declare module 'vue' {
     TDatePicker: typeof TDatePicker
     TDropzone: typeof TDropzone
     TInputMask: typeof TInputMask
+    TPdfViewer: typeof TPdfViewer
     TRangeSlider: typeof TRangeSlider
     TRichEditor: typeof TRichEditor
     TSortable: typeof TSortable
