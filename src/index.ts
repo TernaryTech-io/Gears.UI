@@ -33,6 +33,7 @@ import TIcon from './components/TIcon.vue'
 import TIconPicker from './components/TIconPicker.vue'
 import TImageUpload from './components/TImageUpload.vue'
 import TInput from './components/TInput.vue'
+import TLightbox from './components/TLightbox.vue'
 import TInputNumber from './components/TInputNumber.vue'
 import TInputTags from './components/TInputTags.vue'
 import TListBox from './components/TListBox.vue'
@@ -103,6 +104,7 @@ export {
   TImageUpload,
   TInput,
   TInputNumber,
+  TLightbox,
   TInputTags,
   TListBox,
   TLogView,
@@ -143,6 +145,7 @@ export {
 }
 
 export * from './types'
+export type { LightboxImage } from './components/TLightbox.vue'
 export { isCustomAccent, themeAccents, themeBases, themeContainers, themeDensities, themeFonts, themeNavs, themeRadii, themeRadiusSizes } from './theme'
 export { useColorMode, type ColorMode } from './composables/useColorMode'
 export { useCommandPalette } from './composables/useCommandPalette'
@@ -153,7 +156,7 @@ const components = {
   TAccentPicker, TAdvancedTable, TAlert, TAppLayout, TAuthLayout, TAvatar, TBadge, TButton, TCard,
   TCheckbox, TCheckboxTree, TColorModeButton, TCommandPalette, TContainerPicker, TCopyButton, TDataGrid, TDataGridItem, TDensityPicker,
   TDropdown, TEditableTable, TEmpty, TFieldGroup, TFileUpload, TFontPicker, TFormField, TIcon, TIconPicker, TImageUpload,
-  TInput, TInputNumber, TInputTags, TListBox, TLogView, TModal, TNav, TNavPositionPicker, TPage, TPagination,
+  TInput, TInputNumber, TInputTags, TLightbox, TListBox, TLogView, TModal, TNav, TNavPositionPicker, TPage, TPagination,
   TPanelList, TProgress, TRadioGroup, TRadiusPicker, TRating, TScaledFrame, TSearchButton, TSectionLayout,
   TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSparkline, TSpinner, TSplitter, TStatCard,
   TSteps, TSwitch, TTable, TTabs, TTextarea, TThemeBasePicker, TThemeScope, TToaster, TTooltip,
@@ -197,6 +200,7 @@ declare module 'vue' {
     TIconPicker: typeof TIconPicker
     TImageUpload: typeof TImageUpload
     TInput: typeof TInput
+    TLightbox: typeof TLightbox
     TInputNumber: typeof TInputNumber
     TInputTags: typeof TInputTags
     TListBox: typeof TListBox

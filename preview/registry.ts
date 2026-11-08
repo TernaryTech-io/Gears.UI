@@ -27,7 +27,7 @@ export const pages: ComponentPage[] = [
   { slug: 'toast', name: 'Toast', group: 'Overlays', components: ['TToaster'], description: 'Short notices in the corner: saved, deleted, failed.' },
   { slug: 'empty', name: 'Empty state', group: 'Elements', components: ['TEmpty'], description: 'Nothing here yet, and the action that fills it.' },
   { slug: 'loading', name: 'Loading', group: 'Elements', components: ['TSpinner', 'TSkeleton', 'TProgress'], description: 'Spinners, placeholders and progress bars.' },
-  { slug: 'separator', name: 'Separator', group: 'Elements', components: ['TSeparator'], description: 'Lines between things.' },
+  { slug: 'separator', name: 'Separator', group: 'Elements', components: ['TSeparator'], description: 'Lines between things, with a label, color and style.' },
 
   { slug: 'input', name: 'Form field & input', group: 'Forms', components: ['TFormField', 'TInput', 'TTextarea'], description: 'Labelled fields, text inputs and validation.' },
   { slug: 'select', name: 'Select', group: 'Forms', components: ['TSelect'], description: 'One choice from a list.' },
@@ -41,6 +41,7 @@ export const pages: ComponentPage[] = [
   { slug: 'field-group', name: 'Field group', group: 'Forms', components: ['TFieldGroup'], description: 'An input joined with buttons or fixed text.' },
 
   { slug: 'modal', name: 'Modal', group: 'Overlays', components: ['TModal'], description: 'Dialogs over the page.' },
+  { slug: 'lightbox', name: 'Lightbox', group: 'Overlays', components: ['TLightbox'], description: 'Images shown large, one at a time.' },
   { slug: 'slideover', name: 'Slideover', group: 'Overlays', components: ['TSlideover'], description: 'Panels that slide in from an edge.' },
   { slug: 'dropdown', name: 'Dropdown menu', group: 'Overlays', components: ['TDropdown'], description: 'Menus under a button.' },
 
@@ -67,6 +68,7 @@ export const pages: ComponentPage[] = [
   { slug: 'auth-layout', name: 'Auth layout', group: 'Layout', components: ['TAuthLayout'], description: 'One centered card: sign-in, setup.' },
 
   { slug: 'advanced-select', name: 'Advanced select', group: 'Plugins', components: ['TAdvancedSelect'], description: 'Tom Select: type to filter, chips, new values.' },
+  { slug: 'pdf-viewer', name: 'PDF viewer', group: 'Plugins', components: ['TPdfViewer'], description: 'PDF.js: pages, zoom and download.' },
   { slug: 'chart', name: 'Chart', group: 'Plugins', components: ['TChart'], description: 'Apache ECharts, in the theme: lines, areas, bars, pies and donuts.' },
   { slug: 'clipboard', name: 'Clipboard', group: 'Plugins', components: ['TCopyButton'], description: 'Copy buttons, with Tabler\'s clipboard plugin.' },
   { slug: 'color-picker', name: 'Color picker', group: 'Plugins', components: ['TColorPicker'], description: 'Coloris: colors with swatches and transparency.' },
