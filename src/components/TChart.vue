@@ -1,14 +1,16 @@
 <script setup lang="ts">
-// A chart, as Tabler draws them with ApexCharts: a line, area, bar (across), column (up), pie or
-// donut. `series` are named lists of numbers along `categories` (a pie or donut uses the first
-// series, one slice per category). Colors come from the theme (the accent first), or `colors`
-// (named colors such as 'success', or any CSS color); they follow light and dark mode and a
-// TThemeScope around the chart. `format` writes values in the axis and tooltips; `options` is
-// merged over everything for whatever else ApexCharts does. ApexCharts loads on first use.
+// A chart, drawn by Apache ECharts: a line, area, bar (across), column (up), pie or donut.
+// `series` are named lists of numbers along `categories` (a pie or donut uses the first series,
+// one slice per category). Colors come from the theme (the accent first), or `colors` (named
+// colors such as 'success', or any CSS color); they follow light and dark mode and a TThemeScope
+// around the chart. `format` writes values on the axis and in tooltips; `options` (ECharts
+// options) is merged over everything for whatever else ECharts does, arrays (such as `series`)
+// replaced. ECharts loads on first use; the chart is SVG unless `renderer` is 'canvas' (better
+// for many thousands of points), and follows its box's size.
 import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
-import type ApexCharts from 'apexcharts'
-import type { ApexOptions } from 'apexcharts'
-import { loadApexCharts } from '../plugins/charts'
+import type { EChartsOption } from 'echarts'
+import type { EChartsType } from 'echarts/core'
+import { loadECharts } from '../plugins/charts'
 import type { ChartSeries, ChartType, Color } from '../types'
 import { toTabler } from '../types'
 
@@ -25,20 +27,23 @@ const props = withDefaults(defineProps<{
   // No axes, grid or legend: a small chart inside a card or a stat.
   sparkline?: boolean
   label?: string
-  options?: ApexOptions
+  options?: EChartsOption
+  renderer?: 'svg' | 'canvas'
   // Vue makes a missing boolean false; undefined keeps the legend's default.
-}>(), { type: 'line', categories: () => [], height: 240, label: 'Chart', legend: undefined })
+}>(), { type: 'line', categories: () => [], height: 240, label: 'Chart', legend: undefined, renderer: 'svg' })
 
 const emit = defineEmits<{ 'point-click': [point: { series: number; index: number; category: string | number | undefined }] }>()
 
 const el = ref<HTMLElement>()
-let chart: ApexCharts | null = null
+let chart: EChartsType | null = null
 
 // Tabler's chart colors after the accent: its named colors, in an order that keeps neighbors apart.
 const palette = ['primary', 'green', 'orange', 'purple', 'cyan', 'pink', 'yellow', 'red', 'teal', 'indigo']
 const named = new Set(['primary', 'neutral', 'success', 'warning', 'error', 'info'])
 
 const round = computed(() => props.type === 'pie' || props.type === 'donut')
+const bars = computed(() => props.type === 'bar' || props.type === 'column')
+const cssHeight = computed(() => (typeof props.height === 'number' ? `${props.height}px` : props.height))
 
 /** A CSS color as the browser resolves it here, inside any theme scope: `var(--tblr-primary)` → rgb(…). */
 function resolve(color: string): string {
@@ -52,8 +57,8 @@ function resolve(color: string): string {
   return value ? rgb(value) : color
 }
 
-// ApexCharts makes fills see-through only for hex and rgb() colors, and Tabler's theme colors can
-// come back as oklch(…); painting one pixel gives any color as rgb().
+// ECharts reads hex, rgb() and hsl() colors (to lighten one on hover), and Tabler's theme colors
+// can come back as oklch(…); painting one pixel gives any color as rgb().
 let pixel: CanvasRenderingContext2D | null = null
 function rgb(color: string): string {
   if (/^(rgb|#)/i.test(color)) return color
@@ -68,77 +73,96 @@ function rgb(color: string): string {
 const cssColor = (color: string) => named.has(color) ? `var(--tblr-${toTabler(color as Color)})`
   : /^[a-z]+$/.test(color) && palette.includes(color) ? `var(--tblr-${color})` : color
 
-function themed(): ApexOptions {
+function option(): EChartsOption {
   const count = round.value ? props.categories.length : props.series.length
   const colors = Array.from({ length: Math.max(count, 1) }, (_, i) =>
-    resolve(cssColor(props.series[i]?.color ?? props.colors?.[i] ?? palette[i % palette.length])))
+    resolve(cssColor((round.value ? undefined : props.series[i]?.color) ?? props.colors?.[i] ?? palette[i % palette.length]!)))
   const text = resolve('var(--tblr-secondary)')
+  const body = resolve('var(--tblr-body-color)')
   const border = resolve('var(--tblr-border-color)')
-  return {
-    colors,
-    chart: { foreColor: text, background: 'transparent' },
-    grid: { borderColor: border },
-    stroke: { colors: round.value ? [resolve('var(--tblr-bg-surface)')] : undefined },
-    theme: { mode: el.value?.closest('[data-bs-theme]')?.getAttribute('data-bs-theme') === 'dark' ? 'dark' : 'light' }
-  }
-}
+  const surface = resolve('var(--tblr-bg-surface)')
+  const font = el.value ? getComputedStyle(el.value).fontFamily : 'inherit'
+  const format = props.format
+  const formatter = format ? (value: unknown) => (value == null || value === '' ? '' : format(Number(value))) : undefined
+  const spark = props.sparkline ?? false
+  const legend = !spark && (props.legend ?? (round.value || props.series.length > 1))
 
-function options(): ApexOptions {
-  const apexType = props.type === 'column' ? 'bar' : props.type
-  const formatter = props.format ? (value: number) => (value == null ? '' : props.format!(value)) : undefined
-  const base: ApexOptions = {
-    chart: {
-      type: apexType,
-      height: props.height,
-      fontFamily: 'inherit',
-      parentHeightOffset: 0,
-      toolbar: { show: false },
-      zoom: { enabled: false },
-      animations: { enabled: false },
-      stacked: props.stacked,
-      sparkline: { enabled: props.sparkline ?? false },
-      events: {
-        dataPointSelection: (_event, _chart, config) => {
-          if (config) emit('point-click', { series: config.seriesIndex, index: config.dataPointIndex, category: props.categories[config.dataPointIndex] })
+  const valueAxis = {
+    type: 'value' as const,
+    show: !spark,
+    axisLabel: { color: text, formatter: formatter as never, hideOverlap: true },
+    splitLine: { lineStyle: { color: border, type: 'dashed' as const } },
+    axisLine: { show: false },
+    axisTick: { show: false }
+  }
+  const categoryAxis = {
+    type: 'category' as const,
+    show: !spark,
+    data: props.categories.map(String),
+    boundaryGap: bars.value,
+    // Bars across list their first category on top, as a table would.
+    inverse: props.type === 'bar',
+    axisLabel: { color: text, hideOverlap: true },
+    axisLine: { lineStyle: { color: border } },
+    axisTick: { show: false }
+  }
+  const series = round.value
+    ? [{
+        type: 'pie' as const,
+        name: props.series[0]?.name,
+        radius: props.type === 'donut' ? ['55%', '78%'] : [0, '78%'],
+        center: ['50%', legend ? '44%' : '50%'],
+        data: props.categories.map((c, i) => ({ name: String(c), value: props.series[0]?.data[i] ?? 0 })),
+        label: { show: false },
+        itemStyle: { borderColor: surface, borderWidth: 2 },
+        emphasis: { scaleSize: 4 }
+      }]
+    : props.series.map(s => bars.value
+      ? {
+          type: 'bar' as const, name: s.name, data: s.data, stack: props.stacked ? 'total' : undefined,
+          barMaxWidth: 32, itemStyle: { borderRadius: props.type === 'bar' ? [0, 2, 2, 0] : [2, 2, 0, 0] }
         }
-      }
+      : {
+          type: 'line' as const, name: s.name, data: s.data, stack: props.stacked ? 'total' : undefined,
+          // Smooth, without overshooting a point (a curve never dips below a value it doesn't reach).
+          smooth: 0.35, smoothMonotone: 'x' as const, showSymbol: false, symbolSize: 6, lineStyle: { width: 2 }, connectNulls: false,
+          areaStyle: props.type === 'area' ? { opacity: 0.16 } : undefined
+        })
+
+  const base: EChartsOption = {
+    color: colors,
+    backgroundColor: 'transparent',
+    animation: false,
+    textStyle: { fontFamily: font, color: text },
+    grid: spark
+      ? { left: 0, right: 0, top: 2, bottom: 2 }
+      : { left: 4, right: 12, top: 12, bottom: legend ? 36 : 4, containLabel: true },
+    tooltip: {
+      trigger: round.value ? 'item' : 'axis',
+      confine: true,
+      valueFormatter: formatter as never,
+      backgroundColor: surface,
+      borderColor: border,
+      textStyle: { color: body, fontFamily: font, fontSize: 12 },
+      extraCssText: 'box-shadow: var(--tblr-box-shadow-dropdown); border-radius: var(--tblr-border-radius);',
+      axisPointer: bars.value
+        ? { type: 'shadow', shadowStyle: { color: border, opacity: 0.35 } }
+        : { type: 'line', lineStyle: { color: border } }
     },
-    series: round.value
-      ? (props.series[0]?.data ?? []).map(v => v ?? 0)
-      : props.series.map(s => ({ name: s.name, data: s.data })),
-    labels: round.value ? props.categories.map(String) : undefined,
-    xaxis: round.value ? undefined : {
-      categories: props.categories,
-      tooltip: { enabled: false },
-      axisBorder: { show: false },
-      axisTicks: { show: false },
-      labels: { formatter: props.type === 'bar' ? formatter as never : undefined }
-    },
-    yaxis: round.value ? undefined : { labels: { formatter: props.type === 'bar' ? undefined : formatter, padding: 4 } },
-    plotOptions: {
-      bar: { horizontal: props.type === 'bar', columnWidth: '50%', barHeight: '60%', borderRadius: 2 },
-      pie: { donut: { size: '70%' } }
-    },
-    dataLabels: { enabled: false },
-    fill: { opacity: props.type === 'area' ? 0.16 : 1, type: 'solid' },
-    stroke: { width: props.type === 'line' || props.type === 'area' ? 2 : round.value ? 2 : 0, curve: 'smooth', lineCap: 'round' },
-    // Bars across need room for their labels on the left.
-    grid: { strokeDashArray: 4, padding: { top: -16, right: 0, left: props.type === 'bar' ? 8 : -4, bottom: -4 } },
     legend: {
-      show: props.legend ?? (round.value || props.series.length > 1),
-      position: 'bottom',
-      offsetY: 8,
-      markers: { size: 6, shape: 'circle', strokeWidth: 0 },
-      itemMargin: { horizontal: 8, vertical: 4 }
+      show: legend, bottom: 0, icon: 'circle', itemWidth: 8, itemHeight: 8, itemGap: 16,
+      textStyle: { color: text, fontFamily: font }
     },
-    tooltip: { theme: 'dark', y: { formatter } },
-    noData: { text: 'No data' }
+    xAxis: round.value ? undefined : props.type === 'bar' ? valueAxis : categoryAxis,
+    yAxis: round.value ? undefined : props.type === 'bar' ? categoryAxis : valueAxis,
+    series
   }
-  return defined(merge(merge(base, themed()), props.options ?? {}))
+  return defined(merge(base, props.options ?? {}))
 }
 
-/** Without keys set to undefined: ApexCharts takes them as values, over its defaults (labels: undefined breaks it). */
+/** Without keys set to undefined (ECharts takes some of them as values, over its defaults). */
 function defined<T>(value: T): T {
+  if (Array.isArray(value)) return value.map(defined) as T
   if (!isObject(value)) return value
   return Object.fromEntries(Object.entries(value).filter(([, v]) => v !== undefined).map(([k, v]) => [k, defined(v)])) as T
 }
@@ -157,32 +181,45 @@ function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value) && typeof value !== 'function'
 }
 
+const redraw = () => chart?.setOption(option(), { notMerge: true })
+
 // The theme can change around the chart: light and dark, or a theme scope's accent and grays.
 let observer: MutationObserver | null = null
 function watchTheme() {
-  observer = new MutationObserver(() => chart?.updateOptions(options(), true))
+  observer = new MutationObserver(redraw)
   const themedAncestors = new Set<Element>([document.documentElement])
   for (let node = el.value?.parentElement; node; node = node.parentElement)
     if ([...node.attributes].some(a => a.name.startsWith('data-bs-theme') || a.name === 'data-t-density')) themedAncestors.add(node)
   for (const node of themedAncestors) observer.observe(node, { attributes: true, attributeFilter: ['data-bs-theme', 'data-bs-theme-primary', 'data-bs-theme-base', 'style', 'class'] })
 }
+// It follows its box's size.
+let sized: ResizeObserver | null = null
 
+let unmounted = false
 onMounted(async () => {
-  const ApexCharts = await loadApexCharts()
-  if (!el.value) return
-  chart = new ApexCharts(el.value, options())
-  await chart.render()
+  const echarts = await loadECharts()
+  if (!el.value || unmounted) return
+  chart = echarts.init(el.value, null, { renderer: props.renderer })
+  chart.on('click', params => {
+    const index = params.dataIndex ?? 0
+    emit('point-click', { series: params.seriesIndex ?? 0, index, category: props.categories[index] })
+  })
+  redraw()
   watchTheme()
+  sized = new ResizeObserver(() => chart?.resize())
+  sized.observe(el.value)
 })
-watch(() => [props.type, props.series, props.categories, props.stacked, props.legend, props.colors, props.height, props.options, props.sparkline],
-  () => chart?.updateOptions(options(), true), { deep: true })
+watch(() => [props.type, props.series, props.categories, props.stacked, props.legend, props.colors, props.options, props.sparkline, props.format],
+  redraw, { deep: true })
 onBeforeUnmount(() => {
+  unmounted = true
   observer?.disconnect()
-  chart?.destroy()
+  sized?.disconnect()
+  chart?.dispose()
   chart = null
 })
 </script>
 
 <template>
-  <div ref="el" class="t-chart" role="img" :aria-label="label" />
+  <div ref="el" class="t-chart" role="img" :aria-label="label" :style="{ height: cssHeight }" />
 </template>

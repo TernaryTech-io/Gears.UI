@@ -14,6 +14,7 @@ import TBadge from './components/TBadge.vue'
 import TButton from './components/TButton.vue'
 import TCard from './components/TCard.vue'
 import TCheckbox from './components/TCheckbox.vue'
+import TCheckboxTree from './components/TCheckboxTree.vue'
 import TColorModeButton from './components/TColorModeButton.vue'
 import TCommandPalette from './components/TCommandPalette.vue'
 import TContainerPicker from './components/TContainerPicker.vue'
@@ -29,10 +30,12 @@ import TFileUpload from './components/TFileUpload.vue'
 import TFontPicker from './components/TFontPicker.vue'
 import TFormField from './components/TFormField.vue'
 import TIcon from './components/TIcon.vue'
+import TIconPicker from './components/TIconPicker.vue'
 import TImageUpload from './components/TImageUpload.vue'
 import TInput from './components/TInput.vue'
 import TInputNumber from './components/TInputNumber.vue'
 import TInputTags from './components/TInputTags.vue'
+import TListBox from './components/TListBox.vue'
 import TLogView from './components/TLogView.vue'
 import TModal from './components/TModal.vue'
 import TNav from './components/TNav.vue'
@@ -43,6 +46,7 @@ import TPanelList from './components/TPanelList.vue'
 import TProgress from './components/TProgress.vue'
 import TRadioGroup from './components/TRadioGroup.vue'
 import TRadiusPicker from './components/TRadiusPicker.vue'
+import TRating from './components/TRating.vue'
 import TScaledFrame from './components/TScaledFrame.vue'
 import TSearchButton from './components/TSearchButton.vue'
 import TSectionLayout from './components/TSectionLayout.vue'
@@ -79,6 +83,7 @@ export {
   TButton,
   TCard,
   TCheckbox,
+  TCheckboxTree,
   TColorModeButton,
   TCommandPalette,
   TContainerPicker,
@@ -94,10 +99,12 @@ export {
   TFontPicker,
   TFormField,
   TIcon,
+  TIconPicker,
   TImageUpload,
   TInput,
   TInputNumber,
   TInputTags,
+  TListBox,
   TLogView,
   TModal,
   TNav,
@@ -108,6 +115,7 @@ export {
   TProgress,
   TRadioGroup,
   TRadiusPicker,
+  TRating,
   TScaledFrame,
   TSearchButton,
   TSectionLayout,
@@ -143,10 +151,10 @@ export { useToast, type Toast } from './composables/useToast'
 
 const components = {
   TAccentPicker, TAdvancedTable, TAlert, TAppLayout, TAuthLayout, TAvatar, TBadge, TButton, TCard,
-  TCheckbox, TColorModeButton, TCommandPalette, TContainerPicker, TCopyButton, TDataGrid, TDataGridItem, TDensityPicker,
-  TDropdown, TEditableTable, TEmpty, TFieldGroup, TFileUpload, TFontPicker, TFormField, TIcon, TImageUpload,
-  TInput, TInputNumber, TInputTags, TLogView, TModal, TNav, TNavPositionPicker, TPage, TPagination,
-  TPanelList, TProgress, TRadioGroup, TRadiusPicker, TScaledFrame, TSearchButton, TSectionLayout,
+  TCheckbox, TCheckboxTree, TColorModeButton, TCommandPalette, TContainerPicker, TCopyButton, TDataGrid, TDataGridItem, TDensityPicker,
+  TDropdown, TEditableTable, TEmpty, TFieldGroup, TFileUpload, TFontPicker, TFormField, TIcon, TIconPicker, TImageUpload,
+  TInput, TInputNumber, TInputTags, TListBox, TLogView, TModal, TNav, TNavPositionPicker, TPage, TPagination,
+  TPanelList, TProgress, TRadioGroup, TRadiusPicker, TRating, TScaledFrame, TSearchButton, TSectionLayout,
   TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSparkline, TSpinner, TSplitter, TStatCard,
   TSteps, TSwitch, TTable, TTabs, TTextarea, TThemeBasePicker, TThemeScope, TToaster, TTooltip,
   TTopbar, TVectorMap
@@ -170,6 +178,7 @@ declare module 'vue' {
     TButton: typeof TButton
     TCard: typeof TCard
     TCheckbox: typeof TCheckbox
+    TCheckboxTree: typeof TCheckboxTree
     TColorModeButton: typeof TColorModeButton
     TCommandPalette: typeof TCommandPalette
     TContainerPicker: typeof TContainerPicker
@@ -185,10 +194,12 @@ declare module 'vue' {
     TFontPicker: typeof TFontPicker
     TFormField: typeof TFormField
     TIcon: typeof TIcon
+    TIconPicker: typeof TIconPicker
     TImageUpload: typeof TImageUpload
     TInput: typeof TInput
     TInputNumber: typeof TInputNumber
     TInputTags: typeof TInputTags
+    TListBox: typeof TListBox
     TLogView: typeof TLogView
     TModal: typeof TModal
     TNav: typeof TNav
@@ -199,6 +210,7 @@ declare module 'vue' {
     TProgress: typeof TProgress
     TRadioGroup: typeof TRadioGroup
     TRadiusPicker: typeof TRadiusPicker
+    TRating: typeof TRating
     TScaledFrame: typeof TScaledFrame
     TSearchButton: typeof TSearchButton
     TSectionLayout: typeof TSectionLayout

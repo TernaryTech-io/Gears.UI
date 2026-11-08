@@ -60,6 +60,14 @@ export interface AdvancedSelectItem<T = unknown> extends SelectItem<T> {
   avatar?: string
 }
 
+/** An item of a TCheckboxTree: a leaf, or a parent with children. */
+export interface TreeItem<T = string> {
+  label: string
+  value: T
+  children?: TreeItem<T>[]
+  disabled?: boolean
+}
+
 export interface TabItem {
   label: string
   value: string

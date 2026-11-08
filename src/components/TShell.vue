@@ -1,8 +1,9 @@
 <script setup lang="ts">
 // An app's frame: the sidebar (dark in both themes) with the brand, the links and a footer, and
 // the page beside it. The sidebar folds to icons (remembered per `storageKey`); on small screens
-// it's a top bar whose menu opens below it.
-import { ref, watch } from 'vue'
+// it's a top bar whose menu opens below it. `fold` folds it for a while (a full-screen editor, say)
+// without changing what's remembered; the toggle still opens it for the moment.
+import { computed, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import TIcon from './TIcon.vue'
 import TNav from './TNav.vue'
@@ -18,19 +19,28 @@ const props = withDefaults(defineProps<{
   brandTo?: Target
   foldable?: boolean
   storageKey?: string
-}>(), { brandTo: '/', foldable: true, storageKey: 'gears-sidebar' })
+  fold?: boolean
+}>(), { brandTo: '/', foldable: true, storageKey: 'gears-sidebar', fold: false })
 
 function storedFold() {
   try { return localStorage.getItem(props.storageKey) === 'folded' } catch { return false }
 }
 
-const folded = ref(props.foldable && storedFold())
+const remembered = ref(props.foldable && storedFold())
+// While `fold` is on: folded unless the toggle opened it; null when `fold` is off.
+const temporary = ref<boolean | null>(props.foldable && props.fold ? true : null)
+const folded = computed(() => temporary.value ?? remembered.value)
 const menuOpen = ref(false)
 const route = useRoute()
 
-watch(folded, value => {
+watch(remembered, value => {
   try { localStorage.setItem(props.storageKey, value ? 'folded' : 'open') } catch { /* storage blocked */ }
 })
+watch(() => props.fold, fold => { temporary.value = props.foldable && fold ? true : null })
+function toggle() {
+  if (temporary.value !== null) temporary.value = !temporary.value
+  else remembered.value = !remembered.value
+}
 watch(() => route.fullPath, () => { menuOpen.value = false })
 </script>
 
@@ -53,7 +63,7 @@ watch(() => route.fullPath, () => { menuOpen.value = false })
           </slot>
         </div>
         <button v-if="foldable" type="button" class="t-fold-toggle d-none d-lg-grid"
-          :aria-label="folded ? 'Expand the menu' : 'Fold the menu'" @click="folded = !folded">
+          :aria-label="folded ? 'Expand the menu' : 'Fold the menu'" @click="toggle">
           <TIcon :name="folded ? 'chevron-right' : 'chevron-left'" />
         </button>
         <div :class="['collapse navbar-collapse', { show: menuOpen }]">
