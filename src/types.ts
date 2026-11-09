@@ -34,6 +34,18 @@ export interface DropdownItem {
   onSelect?: (event: Event) => void
 }
 
+/** A button of a TButtonGroup: a label and/or an icon (give an icon-only one a tooltip). */
+export interface ButtonGroupItem {
+  label?: string
+  icon?: string
+  tooltip?: string
+  disabled?: boolean
+  /** Its own color, instead of the group's. */
+  color?: Color
+  /** Names it (and keys it): reported with its click. */
+  value?: string
+}
+
 export interface NavItem {
   label: string
   icon?: string

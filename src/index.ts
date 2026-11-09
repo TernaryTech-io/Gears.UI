@@ -12,6 +12,7 @@ import TAuthLayout from './components/TAuthLayout.vue'
 import TAvatar from './components/TAvatar.vue'
 import TBadge from './components/TBadge.vue'
 import TButton from './components/TButton.vue'
+import TButtonGroup from './components/TButtonGroup.vue'
 import TCard from './components/TCard.vue'
 import TCheckbox from './components/TCheckbox.vue'
 import TCheckboxTree from './components/TCheckboxTree.vue'
@@ -59,6 +60,7 @@ import TSkeleton from './components/TSkeleton.vue'
 import TSlideover from './components/TSlideover.vue'
 import TSparkline from './components/TSparkline.vue'
 import TSpinner from './components/TSpinner.vue'
+import TSplitButton from './components/TSplitButton.vue'
 import TSplitter from './components/TSplitter.vue'
 import TStatCard from './components/TStatCard.vue'
 import TSteps from './components/TSteps.vue'
@@ -82,6 +84,7 @@ export {
   TAvatar,
   TBadge,
   TButton,
+  TButtonGroup,
   TCard,
   TCheckbox,
   TCheckboxTree,
@@ -129,6 +132,7 @@ export {
   TSlideover,
   TSparkline,
   TSpinner,
+  TSplitButton,
   TSplitter,
   TStatCard,
   TSteps,
@@ -150,15 +154,15 @@ export { isCustomAccent, themeAccents, themeBases, themeContainers, themeDensiti
 export { useColorMode, type ColorMode } from './composables/useColorMode'
 export { useCommandPalette } from './composables/useCommandPalette'
 export { useField } from './composables/useField'
-export { useToast, type Toast } from './composables/useToast'
+export { useToast, type Toast, type ToastPosition } from './composables/useToast'
 
 const components = {
-  TAccentPicker, TAdvancedTable, TAlert, TAppLayout, TAuthLayout, TAvatar, TBadge, TButton, TCard,
+  TAccentPicker, TAdvancedTable, TAlert, TAppLayout, TAuthLayout, TAvatar, TBadge, TButton, TButtonGroup, TCard,
   TCheckbox, TCheckboxTree, TColorModeButton, TCommandPalette, TContainerPicker, TCopyButton, TDataGrid, TDataGridItem, TDensityPicker,
   TDropdown, TEditableTable, TEmpty, TFieldGroup, TFileUpload, TFontPicker, TFormField, TIcon, TIconPicker, TImageUpload,
   TInput, TInputNumber, TInputTags, TLightbox, TListBox, TLogView, TModal, TNav, TNavPositionPicker, TPage, TPagination,
   TPanelList, TProgress, TRadioGroup, TRadiusPicker, TRating, TScaledFrame, TSearchButton, TSectionLayout,
-  TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSparkline, TSpinner, TSplitter, TStatCard,
+  TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSparkline, TSpinner, TSplitButton, TSplitter, TStatCard,
   TSteps, TSwitch, TTable, TTabs, TTextarea, TThemeBasePicker, TThemeScope, TToaster, TTooltip,
   TTopbar, TVectorMap
 }
@@ -179,6 +183,7 @@ declare module 'vue' {
     TAvatar: typeof TAvatar
     TBadge: typeof TBadge
     TButton: typeof TButton
+    TButtonGroup: typeof TButtonGroup
     TCard: typeof TCard
     TCheckbox: typeof TCheckbox
     TCheckboxTree: typeof TCheckboxTree
@@ -226,6 +231,7 @@ declare module 'vue' {
     TSlideover: typeof TSlideover
     TSparkline: typeof TSparkline
     TSpinner: typeof TSpinner
+    TSplitButton: typeof TSplitButton
     TSplitter: typeof TSplitter
     TStatCard: typeof TStatCard
     TSteps: typeof TSteps

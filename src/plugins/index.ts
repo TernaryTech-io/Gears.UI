@@ -13,6 +13,7 @@ import TRangeSlider from '../components/TRangeSlider.vue'
 import TRichEditor from '../components/TRichEditor.vue'
 import TSortable from '../components/TSortable.vue'
 import TSortableTree from '../components/TSortableTree.vue'
+import TTimeInput from '../components/TTimeInput.vue'
 
 export {
   TAdvancedSelect,
@@ -25,7 +26,8 @@ export {
   TRangeSlider,
   TRichEditor,
   TSortable,
-  TSortableTree
+  TSortableTree,
+  TTimeInput
 }
 
 export type { RichEditorPlugin } from './richEditor'
@@ -33,7 +35,7 @@ export type { PdfZoom } from '../components/TPdfViewer.vue'
 
 const components = {
   TAdvancedSelect, TChart, TColorPicker, TDatePicker, TDropzone, TInputMask, TPdfViewer, TRangeSlider, TRichEditor,
-  TSortable, TSortableTree
+  TSortable, TSortableTree, TTimeInput
 }
 
 export const GearsUIPlugins = {
@@ -55,5 +57,6 @@ declare module 'vue' {
     TRichEditor: typeof TRichEditor
     TSortable: typeof TSortable
     TSortableTree: typeof TSortableTree
+    TTimeInput: typeof TTimeInput
   }
 }
