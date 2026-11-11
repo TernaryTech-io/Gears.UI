@@ -14,6 +14,7 @@ export const groups = ['Elements', 'Forms', 'Overlays', 'Navigation', 'Data', 'L
 
 export const pages: ComponentPage[] = [
   { slug: 'button', name: 'Button', group: 'Elements', components: ['TButton'], description: 'Actions, and links that look like actions.' },
+  { slug: 'button-group', name: 'Button group', group: 'Elements', components: ['TButtonGroup'], description: 'Buttons joined in a row or a column.' },
   { slug: 'badge', name: 'Badge', group: 'Elements', components: ['TBadge'], description: 'Short status labels.' },
   { slug: 'avatar', name: 'Avatar', group: 'Elements', components: ['TAvatar'], description: 'People and things as a picture, initials or an icon.' },
   { slug: 'alert', name: 'Alert', group: 'Elements', components: ['TAlert'], description: 'Messages on the page: what happened and what to do.' },
@@ -24,7 +25,7 @@ export const pages: ComponentPage[] = [
   { slug: 'rating', name: 'Rating', group: 'Forms', components: ['TRating'], description: 'A rating out of five (or any number): stars, hearts or circles.' },
   { slug: 'icon-picker', name: 'Icon picker', group: 'Forms', components: ['TIconPicker'], description: 'Any of the Tabler icons, by name, with a search.' },
   { slug: 'tooltip', name: 'Tooltip', group: 'Elements', components: ['TTooltip'], description: 'Short hints on hover and focus.' },
-  { slug: 'toast', name: 'Toast', group: 'Overlays', components: ['TToaster'], description: 'Short notices in the corner: saved, deleted, failed.' },
+  { slug: 'toast', name: 'Toast', group: 'Overlays', components: ['TToaster'], description: 'Short notices: four presets or a custom look, in a corner or the middle.' },
   { slug: 'empty', name: 'Empty state', group: 'Elements', components: ['TEmpty'], description: 'Nothing here yet, and the action that fills it.' },
   { slug: 'loading', name: 'Loading', group: 'Elements', components: ['TSpinner', 'TSkeleton', 'TProgress'], description: 'Spinners, placeholders and progress bars.' },
   { slug: 'separator', name: 'Separator', group: 'Elements', components: ['TSeparator'], description: 'Lines between things, with a label, color and style.' },
@@ -44,6 +45,7 @@ export const pages: ComponentPage[] = [
   { slug: 'lightbox', name: 'Lightbox', group: 'Overlays', components: ['TLightbox'], description: 'Images shown large, one at a time.' },
   { slug: 'slideover', name: 'Slideover', group: 'Overlays', components: ['TSlideover'], description: 'Panels that slide in from an edge.' },
   { slug: 'dropdown', name: 'Dropdown menu', group: 'Overlays', components: ['TDropdown'], description: 'Menus under a button.' },
+  { slug: 'split-button', name: 'Split button', group: 'Overlays', components: ['TSplitButton'], description: 'A main action, and a menu of others beside it.' },
 
   { slug: 'tabs', name: 'Tabs', group: 'Navigation', components: ['TTabs'], description: 'Views of one thing, side by side.' },
   { slug: 'pagination', name: 'Pagination', group: 'Navigation', components: ['TPagination'], description: 'Pages of a long list.' },
@@ -75,6 +77,7 @@ export const pages: ComponentPage[] = [
   { slug: 'date-picker', name: 'Date picker', group: 'Plugins', components: ['TDatePicker'], description: 'Dates, ranges and inline calendars (Vanilla Calendar Pro).' },
   { slug: 'dropzone', name: 'Dropzone', group: 'Plugins', components: ['TDropzone'], description: 'Drop files to add or upload them.' },
   { slug: 'input-mask', name: 'Input mask', group: 'Plugins', components: ['TInputMask'], description: 'Inputs that follow a pattern (IMask).' },
+  { slug: 'time-input', name: 'Time input', group: 'Plugins', components: ['TTimeInput'], description: 'A time of day, typed or picked from a list (IMask).' },
   { slug: 'range-slider', name: 'Range slider', group: 'Plugins', components: ['TRangeSlider'], description: 'noUiSlider: a number or a range.' },
   { slug: 'sortable', name: 'Sortable', group: 'Plugins', components: ['TSortable'], description: 'Lists you reorder by dragging (SortableJS).' },
   { slug: 'sortable-tree', name: 'Sortable tree', group: 'Plugins', components: ['TSortableTree'], description: 'A tree you reorder and nest by dragging (SortableJS).' },
