@@ -580,31 +580,112 @@
 }
 .t-image-upload-preview img { width: 100%; height: 100%; object-fit: contain; }
 
-/* Density (TThemeScope's theme.density, or data-t-density on any element): the padding inside
-   cards, tables, buttons and fields, and the page's gaps (--t-gap, for layouts to use).
-   Comfortable is Tabler's own spacing. Each density stops at a nested density (an App Builder
-   preview inside a compact Studio keeps its own), so the rules are scoped "to" the next one, and
-   every density sets the variables it inherits. */
-[data-t-density] { --t-gap: 1rem; --tblr-page-padding-y: var(--tblr-spacer-4); }
-[data-t-density=compact] { --t-gap: 0.625rem; --tblr-page-padding-y: 0.75rem; }
-[data-t-density=spacious] { --t-gap: 1.5rem; --tblr-page-padding-y: 2rem; }
-@scope ([data-t-density=compact]) to ([data-t-density]) {
-  :scope .card { --tblr-card-spacer-y: 0.75rem; --tblr-card-spacer-x: 0.875rem; --tblr-card-cap-padding-y: 0.625rem; --tblr-card-cap-padding-x: 0.875rem; --tblr-card-title-spacer-y: 0.625rem; }
-  :scope .table:not(.table-sm) > :not(caption) > * > * { padding: 0.375rem 0.625rem; }
-  :scope .btn:not(.btn-sm, .btn-lg, .btn-xs, .btn-icon) { --tblr-btn-padding-y: 0.3125rem; --tblr-btn-padding-x: 0.75rem; }
-  :scope :is(.form-control, .form-select):not(.form-control-sm, .form-select-sm, .form-control-lg, .form-select-lg) { --tblr-control-padding-y: 0.3125rem; --tblr-control-padding-x: 0.625rem; }
-  :scope .navbar-vertical .nav-link { padding-block: 0.3125rem; }
-  /* Tabler sizes an input's icon for a comfortable input (2.5rem); here it takes the input's height, so it stays centred. */
-  :scope .input-icon-addon { height: auto; }
+/* Density (TThemeScope's theme.density, or data-t-density on any element): one scale of tokens,
+   and Tabler's own variables and literal rules set from it, so every size of control, button,
+   cell, card and gap follows. Comfortable is Tabler's own spacing; text sizes don't change.
+   - Tokens, for components to use instead of fixed sizes:
+     --t-space-1…6 (0.25, 0.5, 0.75, 1, 1.25, 1.5rem when comfortable), --t-gap (between components),
+     --t-control-height (-sm, -lg: an input's or button's height), --t-cell-padding-y/x (-sm),
+     --t-row-height (-sm, -lg: a table's body rows), --t-item-padding-y/x (-sm: a list's rows).
+   - Inheritance does the scoping: each density element sets the variables, so a nested one (an
+     App Builder preview inside the compact Studio) keeps its own. Derived variables Tabler
+     computes on :root (an input's min height) are computed again here, from these values. */
+[data-t-density] {
+  --t-scale: 1;
+  --t-space-1: calc(0.25rem * var(--t-scale));
+  --t-space-2: calc(0.5rem * var(--t-scale));
+  --t-space-3: calc(0.75rem * var(--t-scale));
+  --t-space-4: calc(1rem * var(--t-scale));
+  --t-space-5: calc(1.25rem * var(--t-scale));
+  --t-space-6: calc(1.5rem * var(--t-scale));
+  --t-gap: 1rem;
+  --t-control-padding-y: 0.5625rem; --t-control-padding-x: 1rem;
+  --t-control-sm-padding-y: 0.4375rem; --t-control-sm-padding-x: 0.5rem; --t-button-sm-padding-x: 0.75rem;
+  --t-control-lg-padding-y: 0.6875rem; --t-control-lg-padding-x: 1.5rem;
+  --t-cell-padding-y: 0.75rem; --t-cell-padding-x: 0.75rem;
+  --t-cell-sm-padding-y: 0.25rem; --t-cell-sm-padding-x: 0.25rem;
+  --t-row-height-sm: 2rem; --t-row-height: 2.5rem; --t-row-height-lg: 3rem;
+  --t-item-padding-y: 0.75rem; --t-item-padding-x: 1rem;
+  --t-item-sm-padding-y: 0.375rem; --t-item-sm-padding-x: 0.5rem;
+  --t-card-padding-y: 1.25rem; --t-card-padding-x: 1.25rem;
+  --tblr-page-padding-y: 1.5rem;
+
+  --tblr-btn-input-padding-y: var(--t-control-padding-y);
+  --tblr-btn-input-padding-x: var(--t-control-padding-x);
+  --tblr-btn-input-sm-padding-y: var(--t-control-sm-padding-y);
+  --tblr-btn-input-sm-padding-x: var(--t-control-sm-padding-x);
+  --tblr-btn-input-lg-padding-y: var(--t-control-lg-padding-y);
+  --tblr-btn-input-lg-padding-x: var(--t-control-lg-padding-x);
+  --tblr-btn-input-min-height: calc(var(--tblr-btn-input-line-height) + var(--tblr-btn-input-padding-y) * 2 + var(--tblr-border-width) * 2);
+  --tblr-btn-input-sm-min-height: calc(var(--tblr-btn-input-sm-line-height) + var(--tblr-btn-input-sm-padding-y) * 2 + var(--tblr-border-width) * 2);
+  --tblr-btn-input-lg-min-height: calc(var(--tblr-btn-input-lg-line-height) + var(--tblr-btn-input-lg-padding-y) * 2 + var(--tblr-border-width) * 2);
+  --t-control-height: var(--tblr-btn-input-min-height);
+  --t-control-height-sm: var(--tblr-btn-input-sm-min-height);
+  --t-control-height-lg: var(--tblr-btn-input-lg-min-height);
 }
-@scope ([data-t-density=spacious]) to ([data-t-density]) {
-  :scope .card { --tblr-card-spacer-y: 1.75rem; --tblr-card-spacer-x: 1.75rem; --tblr-card-cap-padding-y: 1.5rem; --tblr-card-cap-padding-x: 1.75rem; --tblr-card-title-spacer-y: 1.5rem; }
-  :scope .table:not(.table-sm) > :not(caption) > * > * { padding: 1rem 1.25rem; }
-  :scope .btn:not(.btn-sm, .btn-lg, .btn-xs, .btn-icon) { --tblr-btn-padding-y: 0.75rem; --tblr-btn-padding-x: 1.375rem; }
-  :scope :is(.form-control, .form-select):not(.form-control-sm, .form-select-sm, .form-control-lg, .form-select-lg) { --tblr-control-padding-y: 0.75rem; --tblr-control-padding-x: 1.125rem; }
-  :scope .navbar-vertical .nav-link { padding-block: 0.75rem; }
-  :scope .input-icon-addon { height: auto; }
+[data-t-density=compact] {
+  --t-scale: 0.75;
+  --t-gap: 0.625rem;
+  --t-control-padding-y: 0.3125rem; --t-control-padding-x: 0.75rem;
+  --t-control-sm-padding-y: 0.3125rem; --t-control-sm-padding-x: 0.375rem; --t-button-sm-padding-x: 0.5rem;
+  --t-control-lg-padding-y: 0.5rem; --t-control-lg-padding-x: 1.125rem;
+  --t-cell-padding-y: 0.375rem; --t-cell-padding-x: 0.625rem;
+  --t-cell-sm-padding-y: 0.1875rem; --t-cell-sm-padding-x: 0.25rem;
+  --t-row-height-sm: 1.625rem; --t-row-height: 2rem; --t-row-height-lg: 2.5rem;
+  --t-item-padding-y: 0.5rem; --t-item-padding-x: 0.75rem;
+  --t-item-sm-padding-y: 0.25rem; --t-item-sm-padding-x: 0.375rem;
+  --t-card-padding-y: 0.75rem; --t-card-padding-x: 0.875rem;
+  --tblr-page-padding-y: 0.75rem;
 }
+[data-t-density=spacious] {
+  --t-scale: 1.35;
+  --t-gap: 1.5rem;
+  --t-control-padding-y: 0.75rem; --t-control-padding-x: 1.25rem;
+  --t-control-sm-padding-y: 0.5625rem; --t-control-sm-padding-x: 0.75rem; --t-button-sm-padding-x: 1rem;
+  --t-control-lg-padding-y: 0.875rem; --t-control-lg-padding-x: 2rem;
+  --t-cell-padding-y: 1rem; --t-cell-padding-x: 1.25rem;
+  --t-cell-sm-padding-y: 0.375rem; --t-cell-sm-padding-x: 0.5rem;
+  --t-row-height-sm: 2.5rem; --t-row-height: 3.125rem; --t-row-height-lg: 3.75rem;
+  --t-item-padding-y: 1.125rem; --t-item-padding-x: 1.375rem;
+  --t-item-sm-padding-y: 0.5625rem; --t-item-sm-padding-x: 0.75rem;
+  --t-card-padding-y: 1.75rem; --t-card-padding-x: 1.75rem;
+  --tblr-page-padding-y: 2rem;
+}
+/* Tabler's literal rules, from the tokens. Cards set their spacing on .card itself. */
+[data-t-density] .card {
+  --tblr-card-spacer-y: var(--t-card-padding-y); --tblr-card-spacer-x: var(--t-card-padding-x);
+  --tblr-card-cap-padding-y: calc(var(--t-card-padding-y) * 0.85); --tblr-card-cap-padding-x: var(--t-card-padding-x);
+  --tblr-card-title-spacer-y: calc(var(--t-card-padding-y) * 0.85);
+}
+[data-t-density] .btn { --tblr-btn-padding-y: var(--tblr-btn-input-padding-y); --tblr-btn-padding-x: var(--tblr-btn-input-padding-x); }
+[data-t-density] :is(.btn-sm, .btn-group-sm > .btn) { --tblr-btn-padding-y: var(--tblr-btn-input-sm-padding-y); --tblr-btn-padding-x: var(--t-button-sm-padding-x); }
+[data-t-density] :is(.btn-lg, .btn-group-lg > .btn) { --tblr-btn-padding-y: var(--tblr-btn-input-lg-padding-y); --tblr-btn-padding-x: var(--tblr-btn-input-lg-padding-x); }
+[data-t-density] .btn.btn-xs { --tblr-btn-padding-y: calc(0.125rem * var(--t-scale)); --tblr-btn-padding-x: calc(0.375rem * var(--t-scale)); }
+[data-t-density] .table > :not(caption) > * > * { padding: var(--t-cell-padding-y) var(--t-cell-padding-x); }
+[data-t-density] .table-sm > :not(caption) > * > * { padding: var(--t-cell-sm-padding-y) var(--t-cell-sm-padding-x); }
+[data-t-density] .list-group { --tblr-list-group-item-padding-y: var(--t-item-padding-y); --tblr-list-group-item-padding-x: var(--t-item-padding-x); }
+/* An app's menu (TAppLayout's sidebar; the Studio's TShell keeps its own). */
+[data-t-density] .t-app-sidebar.navbar-vertical[class*=navbar-expand] .navbar-nav { --tblr-sidebar-nav-padding-y: calc(0.75rem * var(--t-scale)); }
+/* Tabler sizes an input's icon for a default-sized input; here it takes its own input's height, so it stays centred at every size. */
+[data-t-density] .input-icon-addon { height: auto; }
+
+/* Spacing classes on the density's scale (t-p-3, t-mb-2, t-gap-1, …: 0 to 6): Tabler's p-3 or gap-2 are
+   fixed sizes, so what an app draws uses these instead. */
+.t-p-0 { padding: 0 !important; } .t-p-1 { padding: var(--t-space-1) !important; } .t-p-2 { padding: var(--t-space-2) !important; } .t-p-3 { padding: var(--t-space-3) !important; } .t-p-4 { padding: var(--t-space-4) !important; } .t-p-5 { padding: var(--t-space-5) !important; } .t-p-6 { padding: var(--t-space-6) !important; }
+.t-px-0 { padding-inline: 0 !important; } .t-px-1 { padding-inline: var(--t-space-1) !important; } .t-px-2 { padding-inline: var(--t-space-2) !important; } .t-px-3 { padding-inline: var(--t-space-3) !important; } .t-px-4 { padding-inline: var(--t-space-4) !important; } .t-px-5 { padding-inline: var(--t-space-5) !important; } .t-px-6 { padding-inline: var(--t-space-6) !important; }
+.t-py-0 { padding-block: 0 !important; } .t-py-1 { padding-block: var(--t-space-1) !important; } .t-py-2 { padding-block: var(--t-space-2) !important; } .t-py-3 { padding-block: var(--t-space-3) !important; } .t-py-4 { padding-block: var(--t-space-4) !important; } .t-py-5 { padding-block: var(--t-space-5) !important; } .t-py-6 { padding-block: var(--t-space-6) !important; }
+.t-pt-0 { padding-top: 0 !important; } .t-pt-1 { padding-top: var(--t-space-1) !important; } .t-pt-2 { padding-top: var(--t-space-2) !important; } .t-pt-3 { padding-top: var(--t-space-3) !important; } .t-pt-4 { padding-top: var(--t-space-4) !important; } .t-pt-5 { padding-top: var(--t-space-5) !important; } .t-pt-6 { padding-top: var(--t-space-6) !important; }
+.t-pb-0 { padding-bottom: 0 !important; } .t-pb-1 { padding-bottom: var(--t-space-1) !important; } .t-pb-2 { padding-bottom: var(--t-space-2) !important; } .t-pb-3 { padding-bottom: var(--t-space-3) !important; } .t-pb-4 { padding-bottom: var(--t-space-4) !important; } .t-pb-5 { padding-bottom: var(--t-space-5) !important; } .t-pb-6 { padding-bottom: var(--t-space-6) !important; }
+.t-ps-0 { padding-inline-start: 0 !important; } .t-ps-1 { padding-inline-start: var(--t-space-1) !important; } .t-ps-2 { padding-inline-start: var(--t-space-2) !important; } .t-ps-3 { padding-inline-start: var(--t-space-3) !important; } .t-ps-4 { padding-inline-start: var(--t-space-4) !important; } .t-ps-5 { padding-inline-start: var(--t-space-5) !important; } .t-ps-6 { padding-inline-start: var(--t-space-6) !important; }
+.t-pe-0 { padding-inline-end: 0 !important; } .t-pe-1 { padding-inline-end: var(--t-space-1) !important; } .t-pe-2 { padding-inline-end: var(--t-space-2) !important; } .t-pe-3 { padding-inline-end: var(--t-space-3) !important; } .t-pe-4 { padding-inline-end: var(--t-space-4) !important; } .t-pe-5 { padding-inline-end: var(--t-space-5) !important; } .t-pe-6 { padding-inline-end: var(--t-space-6) !important; }
+.t-m-0 { margin: 0 !important; } .t-m-1 { margin: var(--t-space-1) !important; } .t-m-2 { margin: var(--t-space-2) !important; } .t-m-3 { margin: var(--t-space-3) !important; } .t-m-4 { margin: var(--t-space-4) !important; } .t-m-5 { margin: var(--t-space-5) !important; } .t-m-6 { margin: var(--t-space-6) !important; }
+.t-mx-0 { margin-inline: 0 !important; } .t-mx-1 { margin-inline: var(--t-space-1) !important; } .t-mx-2 { margin-inline: var(--t-space-2) !important; } .t-mx-3 { margin-inline: var(--t-space-3) !important; } .t-mx-4 { margin-inline: var(--t-space-4) !important; } .t-mx-5 { margin-inline: var(--t-space-5) !important; } .t-mx-6 { margin-inline: var(--t-space-6) !important; }
+.t-my-0 { margin-block: 0 !important; } .t-my-1 { margin-block: var(--t-space-1) !important; } .t-my-2 { margin-block: var(--t-space-2) !important; } .t-my-3 { margin-block: var(--t-space-3) !important; } .t-my-4 { margin-block: var(--t-space-4) !important; } .t-my-5 { margin-block: var(--t-space-5) !important; } .t-my-6 { margin-block: var(--t-space-6) !important; }
+.t-mt-0 { margin-top: 0 !important; } .t-mt-1 { margin-top: var(--t-space-1) !important; } .t-mt-2 { margin-top: var(--t-space-2) !important; } .t-mt-3 { margin-top: var(--t-space-3) !important; } .t-mt-4 { margin-top: var(--t-space-4) !important; } .t-mt-5 { margin-top: var(--t-space-5) !important; } .t-mt-6 { margin-top: var(--t-space-6) !important; }
+.t-mb-0 { margin-bottom: 0 !important; } .t-mb-1 { margin-bottom: var(--t-space-1) !important; } .t-mb-2 { margin-bottom: var(--t-space-2) !important; } .t-mb-3 { margin-bottom: var(--t-space-3) !important; } .t-mb-4 { margin-bottom: var(--t-space-4) !important; } .t-mb-5 { margin-bottom: var(--t-space-5) !important; } .t-mb-6 { margin-bottom: var(--t-space-6) !important; }
+.t-ms-0 { margin-inline-start: 0 !important; } .t-ms-1 { margin-inline-start: var(--t-space-1) !important; } .t-ms-2 { margin-inline-start: var(--t-space-2) !important; } .t-ms-3 { margin-inline-start: var(--t-space-3) !important; } .t-ms-4 { margin-inline-start: var(--t-space-4) !important; } .t-ms-5 { margin-inline-start: var(--t-space-5) !important; } .t-ms-6 { margin-inline-start: var(--t-space-6) !important; }
+.t-me-0 { margin-inline-end: 0 !important; } .t-me-1 { margin-inline-end: var(--t-space-1) !important; } .t-me-2 { margin-inline-end: var(--t-space-2) !important; } .t-me-3 { margin-inline-end: var(--t-space-3) !important; } .t-me-4 { margin-inline-end: var(--t-space-4) !important; } .t-me-5 { margin-inline-end: var(--t-space-5) !important; } .t-me-6 { margin-inline-end: var(--t-space-6) !important; }
+.t-gap-0 { gap: 0 !important; } .t-gap-1 { gap: var(--t-space-1) !important; } .t-gap-2 { gap: var(--t-space-2) !important; } .t-gap-3 { gap: var(--t-space-3) !important; } .t-gap-4 { gap: var(--t-space-4) !important; } .t-gap-5 { gap: var(--t-space-5) !important; } .t-gap-6 { gap: var(--t-space-6) !important; }
 
 /* Layout sketches (TNavPositionPicker, TContainerPicker, TDensityPicker): a page drawn in a tile. */
 .t-sketch { display: flex; gap: 3px; width: 5.5rem; height: 3.5rem; padding: 3px; border-radius: 4px; }
