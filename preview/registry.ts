@@ -16,6 +16,7 @@ export const pages: ComponentPage[] = [
   { slug: 'button', name: 'Button', group: 'Elements', components: ['TButton'], description: 'Actions, and links that look like actions.' },
   { slug: 'button-group', name: 'Button group', group: 'Elements', components: ['TButtonGroup'], description: 'Buttons joined in a row or a column.' },
   { slug: 'badge', name: 'Badge', group: 'Elements', components: ['TBadge'], description: 'Short status labels.' },
+  { slug: 'method-badge', name: 'Method badge', group: 'Elements', components: ['TMethodBadge'], description: 'HTTP methods, each in its own color.' },
   { slug: 'avatar', name: 'Avatar', group: 'Elements', components: ['TAvatar'], description: 'People and things as a picture, initials or an icon.' },
   { slug: 'alert', name: 'Alert', group: 'Elements', components: ['TAlert'], description: 'Messages on the page: what happened and what to do.' },
   { slug: 'card', name: 'Card', group: 'Elements', components: ['TCard'], description: 'The surface most content sits on.' },
@@ -38,6 +39,7 @@ export const pages: ComponentPage[] = [
   { slug: 'input-number', name: 'Number input', group: 'Forms', components: ['TInputNumber'], description: 'Numbers with minus and plus buttons, within limits.' },
   { slug: 'file-upload', name: 'File upload', group: 'Forms', components: ['TFileUpload'], description: 'Choose files by dropping or clicking, without uploading.' },
   { slug: 'select-menu', name: 'Select menu & tags', group: 'Forms', components: ['TSelectMenu', 'TInputTags'], description: 'Searchable and multiple choice; lists of typed values.' },
+  { slug: 'code-block', name: 'Code block', group: 'Data', components: ['TCodeBlock'], description: 'JSON and YAML to read and copy, lightly highlighted; no editor.' },
   { slug: 'code-editor', name: 'Code editor', group: 'Forms', components: ['TCodeEditor'], description: 'Monaco, in the light and dark theme.' },
   { slug: 'field-group', name: 'Field group', group: 'Forms', components: ['TFieldGroup'], description: 'An input joined with buttons or fixed text.' },
 

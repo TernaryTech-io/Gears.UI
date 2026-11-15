@@ -16,6 +16,7 @@ import TButtonGroup from './components/TButtonGroup.vue'
 import TCard from './components/TCard.vue'
 import TCheckbox from './components/TCheckbox.vue'
 import TCheckboxTree from './components/TCheckboxTree.vue'
+import TCodeBlock from './components/TCodeBlock.vue'
 import TColorModeButton from './components/TColorModeButton.vue'
 import TCommandPalette from './components/TCommandPalette.vue'
 import TContainerPicker from './components/TContainerPicker.vue'
@@ -39,6 +40,7 @@ import TInputNumber from './components/TInputNumber.vue'
 import TInputTags from './components/TInputTags.vue'
 import TListBox from './components/TListBox.vue'
 import TLogView from './components/TLogView.vue'
+import TMethodBadge from './components/TMethodBadge.vue'
 import TModal from './components/TModal.vue'
 import TNav from './components/TNav.vue'
 import TNavPositionPicker from './components/TNavPositionPicker.vue'
@@ -88,6 +90,7 @@ export {
   TCard,
   TCheckbox,
   TCheckboxTree,
+  TCodeBlock,
   TColorModeButton,
   TCommandPalette,
   TContainerPicker,
@@ -111,6 +114,7 @@ export {
   TInputTags,
   TListBox,
   TLogView,
+  TMethodBadge,
   TModal,
   TNav,
   TNavPositionPicker,
@@ -149,6 +153,7 @@ export {
 }
 
 export * from './types'
+export { codeTokens, maxHighlighted, type CodeLanguage, type CodeToken, type CodeTokenKind } from './codeTokens'
 export type { LightboxImage } from './components/TLightbox.vue'
 export { isCustomAccent, themeAccents, themeBases, themeContainers, themeDensities, themeFonts, themeNavs, themeRadii, themeRadiusSizes } from './theme'
 export { useColorMode, type ColorMode } from './composables/useColorMode'
@@ -158,9 +163,9 @@ export { useToast, type Toast, type ToastPosition } from './composables/useToast
 
 const components = {
   TAccentPicker, TAdvancedTable, TAlert, TAppLayout, TAuthLayout, TAvatar, TBadge, TButton, TButtonGroup, TCard,
-  TCheckbox, TCheckboxTree, TColorModeButton, TCommandPalette, TContainerPicker, TCopyButton, TDataGrid, TDataGridItem, TDensityPicker,
+  TCheckbox, TCheckboxTree, TCodeBlock, TColorModeButton, TCommandPalette, TContainerPicker, TCopyButton, TDataGrid, TDataGridItem, TDensityPicker,
   TDropdown, TEditableTable, TEmpty, TFieldGroup, TFileUpload, TFontPicker, TFormField, TIcon, TIconPicker, TImageUpload,
-  TInput, TInputNumber, TInputTags, TLightbox, TListBox, TLogView, TModal, TNav, TNavPositionPicker, TPage, TPagination,
+  TInput, TInputNumber, TInputTags, TLightbox, TListBox, TLogView, TMethodBadge, TModal, TNav, TNavPositionPicker, TPage, TPagination,
   TPanelList, TProgress, TRadioGroup, TRadiusPicker, TRating, TScaledFrame, TSearchButton, TSectionLayout,
   TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSparkline, TSpinner, TSplitButton, TSplitter, TStatCard,
   TSteps, TSwitch, TTable, TTabs, TTextarea, TThemeBasePicker, TThemeScope, TToaster, TTooltip,
@@ -187,6 +192,7 @@ declare module 'vue' {
     TCard: typeof TCard
     TCheckbox: typeof TCheckbox
     TCheckboxTree: typeof TCheckboxTree
+    TCodeBlock: typeof TCodeBlock
     TColorModeButton: typeof TColorModeButton
     TCommandPalette: typeof TCommandPalette
     TContainerPicker: typeof TContainerPicker
@@ -210,6 +216,7 @@ declare module 'vue' {
     TInputTags: typeof TInputTags
     TListBox: typeof TListBox
     TLogView: typeof TLogView
+    TMethodBadge: typeof TMethodBadge
     TModal: typeof TModal
     TNav: typeof TNav
     TNavPositionPicker: typeof TNavPositionPicker

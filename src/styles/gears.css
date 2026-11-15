@@ -139,6 +139,10 @@
   .t-section-panel { display: none; }
 }
 
+/* Lets a flex or grid item shrink below its content, so text inside it can truncate or wrap.
+   Bootstrap has no such utility; components and apps use this one. */
+.min-w-0 { min-width: 0; }
+
 /* Log output: monospaced, on a slightly sunken surface. */
 .t-log {
   overflow: auto;
@@ -157,6 +161,72 @@
 }
 .t-log-line { display: flex; gap: 0.75rem; }
 .t-log-time { flex-shrink: 0; color: var(--tblr-tertiary-color); user-select: none; }
+
+/* A code block (TCodeBlock): like the log's surface, with light highlighting. The token colors
+   are their own, for both themes, each at least 4.5:1 on the block's surface. */
+.t-code {
+  --t-code-key: light-dark(#0b5394, #79c0ff);
+  --t-code-string: light-dark(#1a6b2e, #7ee787);
+  --t-code-number: light-dark(#a3410b, #ffa657);
+  --t-code-literal: light-dark(#7a3db8, #d2a8ff);
+  --t-code-punctuation: var(--tblr-secondary-color);
+  --t-code-comment: var(--tblr-secondary-color);
+  position: relative;
+  min-width: 0;
+  color: var(--tblr-body-color);
+  background: var(--tblr-bg-surface-secondary);
+  border: var(--tblr-border-width) solid var(--tblr-border-color);
+  border-radius: var(--tblr-border-radius);
+}
+.t-code-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--t-space-2, 0.5rem);
+  min-height: 2.25rem;
+  padding: var(--t-space-1, 0.25rem) var(--t-space-1, 0.25rem) var(--t-space-1, 0.25rem) var(--t-space-3, 0.75rem);
+  border-bottom: var(--tblr-border-width) solid var(--tblr-border-color);
+  font-size: 0.75rem;
+  color: var(--tblr-secondary-color);
+}
+.t-code-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: var(--tblr-font-weight-medium); }
+.t-code-actions { display: flex; align-items: center; gap: var(--t-space-1, 0.25rem); flex-shrink: 0; }
+.t-code-copy { position: absolute; top: var(--t-space-1, 0.25rem); right: var(--t-space-1, 0.25rem); z-index: 1; }
+.t-code-body {
+  overflow: auto;
+  margin: 0;
+  padding: var(--t-space-3, 0.75rem);
+  font-family: var(--tblr-font-monospace);
+  font-size: 0.75rem;
+  line-height: 1.25rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  /* Tabler gives a pre light text on a dark background; this one sits on the block's surface. */
+  color: inherit;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+/* Room for the corner copy button, so the first line doesn't run under it. */
+.t-code:not(.t-code-headed) > .t-code-body { padding-right: calc(var(--t-space-3, 0.75rem) + 2rem); }
+.t-code-body:focus-visible { outline: 2px solid var(--tblr-primary); outline-offset: -2px; }
+.t-code-nowrap .t-code-body { white-space: pre; overflow-wrap: normal; }
+.t-code-body code { padding: 0; font-size: inherit; color: inherit; background: none; }
+.t-code-key { color: var(--t-code-key); }
+.t-code-string { color: var(--t-code-string); }
+.t-code-number { color: var(--t-code-number); }
+.t-code-literal { color: var(--t-code-literal); }
+.t-code-punctuation { color: var(--t-code-punctuation); }
+.t-code-comment { color: var(--t-code-comment); font-style: italic; }
+
+/* An HTTP method's badge (TMethodBadge): one width, so paths beside a column of them line up. */
+.t-method-badge {
+  min-width: 4.25rem;
+  justify-content: center;
+  font-family: var(--tblr-font-monospace);
+  font-weight: var(--tblr-font-weight-bold);
+  letter-spacing: 0.02em;
+}
 
 /* A stat card's tinted icon square. */
 .t-stat-icon {
