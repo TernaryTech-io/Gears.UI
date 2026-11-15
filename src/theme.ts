@@ -42,8 +42,9 @@ export const themeDensities: SelectItem<ThemeDensity>[] = [
 ]
 
 export const themeContainers: SelectItem<ThemeContainer>[] = [
-  { label: 'Boxed', value: 'boxed' },
-  { label: 'Fluid', value: 'fluid' }
+  { label: 'Default', value: 'default' },
+  { label: 'Fluid', value: 'fluid' },
+  { label: 'Boxed', value: 'boxed' }
 ]
 
 /** Whether an accent is a custom color (#rrggbb) rather than one of Tabler's named colors. */

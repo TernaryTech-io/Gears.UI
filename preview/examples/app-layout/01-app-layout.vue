@@ -1,9 +1,9 @@
-<!-- An application's frame, laid out by its theme: navigation on the left (foldable) or the top (sticky, floating), density, and boxed or fluid. TScaledFrame shows it at a laptop's width, scaled to fit. -->
+<!-- An application's frame, laid out by its theme: navigation on the left (foldable) or the top (sticky, floating), density, and the page's width: default (the content capped and centered), fluid or boxed. TScaledFrame shows it at a wide screen's width, scaled to fit. -->
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { ThemeSettings } from '@ternarytech-io/gears-ui'
 
-const theme = ref<ThemeSettings>({ nav: 'left', navFoldable: true, navSticky: true, navFloating: false, density: 'comfortable', container: 'fluid' })
+const theme = ref<ThemeSettings>({ nav: 'left', navFoldable: true, navSticky: true, navFloating: false, density: 'comfortable', container: 'default' })
 const folded = ref(false)
 const pages = ['Dashboard', 'Orders', 'Customers', 'Settings']
 </script>
@@ -22,7 +22,7 @@ const pages = ['Dashboard', 'Orders', 'Customers', 'Settings']
     </div>
     <div class="col-lg-8">
       <div class="border rounded overflow-hidden" style="height: 26rem">
-        <TScaledFrame :width="1440">
+        <TScaledFrame :width="1920">
           <TThemeScope :theme="theme" class="h-100">
             <TAppLayout v-model:folded="folded" :theme="theme" brand="Online Shop">
               <template #nav>

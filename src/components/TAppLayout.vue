@@ -1,7 +1,10 @@
 <script setup lang="ts">
 // An application's frame, laid out by a theme's layout settings (`theme`): the navigation down the
 // left (it can fold to icons) or across the top (it can stay at the top as the page scrolls, and
-// float apart from the edges), and the page boxed (centered, the background around it) or fluid.
+// float apart from the edges), and the page's width (`container`): default, the content capped and
+// centered with the navigation at the window's edge (a top bar runs the full width, its links within
+// the content's width), as Tabler lays out; fluid, the full width; boxed, the whole page, navigation
+// too, in a centered box with the background around it. Without a setting, it's default.
 // The brand is the logo and name, or the `brand` slot; the links are `items` (TNav), or the `nav`
 // slot for links of your own. `actions` go at the top bar's end, or at the foot of the sidebar.
 // Tabler's page, navbar and layout-boxed classes do the work, so it looks like Tabler's layouts.
@@ -24,7 +27,7 @@ const folded = defineModel<boolean>('folded', { default: false })
 const top = computed(() => props.theme.nav === 'top')
 const boxed = computed(() => props.theme.container === 'boxed')
 const foldable = computed(() => !top.value && props.theme.navFoldable === true)
-const container = computed(() => boxed.value ? 'container-xl' : 'container-fluid')
+const container = computed(() => props.theme.container === 'fluid' ? 'container-fluid' : 'container-xl')
 
 const menuOpen = ref(false)
 const route = useRoute()

@@ -211,7 +211,9 @@ export type ThemeAccent = 'blue' | 'azure' | 'indigo' | 'purple' | 'pink' | 'red
 // get, and whether the page sits in a box.
 export type ThemeNav = 'left' | 'top'
 export type ThemeDensity = 'compact' | 'comfortable' | 'spacious'
-export type ThemeContainer = 'boxed' | 'fluid'
+// default: the content capped and centered, the navigation at the window's edge (Tabler's own layout);
+// fluid: the full width; boxed: the whole page, navigation too, in a centered box.
+export type ThemeContainer = 'default' | 'fluid' | 'boxed'
 
 export interface ThemeSettings {
   accent?: ThemeAccent

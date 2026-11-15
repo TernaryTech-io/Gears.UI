@@ -785,6 +785,8 @@
 .t-sketch-page span { height: 0.375rem; border-radius: 1px; background: color-mix(in oklab, var(--tblr-body-color) 15%, transparent); }
 .t-sketch-page span:first-child { width: 60%; background: var(--tblr-primary); opacity: 0.7; }
 .t-sketch-boxed { padding: 3px 0.75rem; background: color-mix(in oklab, var(--tblr-body-color) 18%, transparent); }
+/* Default: the navigation at the edge, the content narrower and centered beside it. */
+.t-sketch-default .t-sketch-page { margin-inline: 0.625rem; }
 .t-sketch-rows { display: flex; flex-direction: column; justify-content: center; width: 5.5rem; height: 3.5rem; }
 .t-sketch-rows span { height: 0.3125rem; border-radius: 1px; background: color-mix(in oklab, var(--tblr-body-color) 25%, transparent); }
 .t-sketch-compact { gap: 2px; }
