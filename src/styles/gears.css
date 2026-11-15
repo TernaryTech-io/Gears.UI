@@ -668,6 +668,24 @@
 [data-t-density] .t-app-sidebar.navbar-vertical[class*=navbar-expand] .navbar-nav { --tblr-sidebar-nav-padding-y: calc(0.75rem * var(--t-scale)); }
 /* Tabler sizes an input's icon for a default-sized input; here it takes its own input's height, so it stays centred at every size. */
 [data-t-density] .input-icon-addon { height: auto; }
+/* A pager's buttons: square, as high as a control of their size (a field or button beside them). */
+[data-t-density] .pagination {
+  --tblr-pagination-padding-y: calc((var(--t-control-height) - 1.25rem - 2 * var(--tblr-border-width)) / 2);
+  --tblr-pagination-link-min-width: var(--t-control-height);
+}
+[data-t-density] .pagination-sm {
+  --tblr-pagination-padding-y: calc((var(--t-control-height-sm) - 1.25rem - 2 * var(--tblr-border-width)) / 2);
+  --tblr-pagination-link-min-width: var(--t-control-height-sm);
+}
+[data-t-density] .pagination-lg {
+  --tblr-pagination-padding-y: calc((var(--t-control-height-lg) - 1.25rem - 2 * var(--tblr-border-width)) / 2);
+  --tblr-pagination-link-min-width: var(--t-control-height-lg);
+}
+/* Each one that high, numbers and arrows alike, its content in the middle. */
+[data-t-density] .page-link { display: flex; align-items: center; justify-content: center; min-height: var(--tblr-pagination-link-min-width); }
+/* Tabs and pills: their padding on the scale. A segmented control is as high as a field, so they line up. */
+[data-t-density] .nav { --tblr-nav-link-padding-y: calc(0.5rem * var(--t-scale)); --tblr-nav-link-padding-x: calc(0.75rem * var(--t-scale)); }
+[data-t-density] .nav-segmented { --tblr-nav-height: var(--t-control-height); --tblr-nav-link-padding-x: calc(0.75rem * var(--t-scale)); }
 
 /* Spacing classes on the density's scale (t-p-3, t-mb-2, t-gap-1, …: 0 to 6): Tabler's p-3 or gap-2 are
    fixed sizes, so what an app draws uses these instead. */
