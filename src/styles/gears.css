@@ -806,6 +806,56 @@
 .t-app-floating.sticky-top { top: var(--t-gap, 1rem); }
 .layout-boxed .t-app-floating { margin-inline: 0; }
 
+/* The navigation's own colors (TAppLayout, theme navColor/navText): its background, with a border
+   a shade darker; its text, links a little softer until hovered or selected, the selected one on a
+   tint of the text. Its menus and buttons keep their own colors, but ghost buttons take the text. */
+.t-app .t-app-nav-bg {
+  --tblr-navbar-bg: var(--t-nav-bg);
+  --tblr-navbar-border-color: color-mix(in oklab, var(--t-nav-bg) 85%, #000);
+}
+.t-app .t-app-nav-text {
+  --tblr-navbar-color: color-mix(in oklab, var(--t-nav-text) 80%, transparent);
+  --tblr-navbar-hover-color: var(--t-nav-text);
+  --tblr-navbar-active-color: var(--t-nav-text);
+  --tblr-navbar-brand-color: var(--t-nav-text);
+  --tblr-navbar-brand-hover-color: var(--t-nav-text);
+  --tblr-navbar-active-bg: color-mix(in oklab, var(--t-nav-text) 12%, transparent);
+  --tblr-navbar-toggler-icon-color: var(--t-nav-text);
+  color: var(--t-nav-text);
+}
+.t-app .t-app-nav-text .navbar-brand { color: var(--t-nav-text); }
+.t-app .t-app-nav-text .btn-ghost-secondary {
+  --tblr-btn-color: var(--t-nav-text);
+  --tblr-btn-hover-color: var(--t-nav-text);
+  --tblr-btn-active-color: var(--t-nav-text);
+  --tblr-btn-hover-bg: color-mix(in oklab, var(--t-nav-text) 12%, transparent);
+  --tblr-btn-active-bg: color-mix(in oklab, var(--t-nav-text) 18%, transparent);
+}
+
+/* The footer (TAppLayout's footer slot): Tabler's footer at the page's foot (its margin-top: auto
+   keeps it at the window's bottom on a short page), with its own colors (theme footerColor and
+   footerText). Its text and links take the text color; cards and menus in it keep the page's. */
+.t-app { --t-page-color: var(--tblr-body-color); --t-page-secondary: var(--tblr-secondary-color); --t-page-link: var(--tblr-link-color); }
+.t-app-footer { padding: var(--t-gap, 1rem) 0; }
+.t-app-footer.t-app-footer-bg {
+  background-color: var(--t-footer-bg);
+  border-top-color: color-mix(in oklab, var(--t-footer-bg) 85%, #000);
+}
+.t-app-footer.t-app-footer-text {
+  color: var(--t-footer-text);
+  --tblr-body-color: var(--t-footer-text);
+  --tblr-secondary-color: color-mix(in oklab, var(--t-footer-text) 75%, transparent);
+  --tblr-link-color: var(--t-footer-text);
+  --tblr-link-hover-color: var(--t-footer-text);
+}
+.t-app-footer.t-app-footer-text :is(.card, .dropdown-menu, .popover, .modal, .btn:not([class*=btn-ghost]):not(.btn-link), .form-control, .form-select, .input-group-text) {
+  --tblr-body-color: var(--t-page-color);
+  --tblr-secondary-color: var(--t-page-secondary);
+  --tblr-link-color: var(--t-page-link);
+  --tblr-link-hover-color: var(--t-page-link);
+}
+.t-app-footer.t-app-footer-text :is(.card, .dropdown-menu, .popover, .modal) { color: var(--t-page-color); }
+
 /* A scaled frame (TScaledFrame): a whole screen, scaled down to fit. The screen is the containing
    block for fixed parts, so a fixed sidebar stays in the frame. */
 .t-scaled-frame { position: relative; height: 100%; min-height: 0; overflow: hidden; }

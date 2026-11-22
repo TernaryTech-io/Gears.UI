@@ -232,5 +232,12 @@ export interface ThemeSettings {
   // apart from the page's edges.
   navSticky?: boolean
   navFloating?: boolean
+  // The navigation's background and text colors (any CSS color, such as #1c3d6e); unset for the
+  // theme's own. The same in light and dark mode.
+  navColor?: string
+  navText?: string
+  // The footer's background and text colors, likewise (TAppLayout's `footer` slot).
+  footerColor?: string
+  footerText?: string
   container?: ThemeContainer
 }

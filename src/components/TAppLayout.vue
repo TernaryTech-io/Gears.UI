@@ -7,6 +7,10 @@
 // too, in a centered box with the background around it. Without a setting, it's default.
 // The brand is the logo and name, or the `brand` slot; the links are `items` (TNav), or the `nav`
 // slot for links of your own. `actions` go at the top bar's end, or at the foot of the sidebar.
+// The `footer` slot is a footer under the page's content, across the content's width: at the
+// window's bottom when the page is short, after the content when it's long.
+// The theme's navColor/navText and footerColor/footerText color the navigation and the footer
+// (unset, the theme's own), the same in light and dark mode.
 // Tabler's page, navbar and layout-boxed classes do the work, so it looks like Tabler's layouts.
 // On small screens the links fold away behind a menu button, and close again on navigating.
 import { computed, ref, watch } from 'vue'
@@ -29,6 +33,12 @@ const boxed = computed(() => props.theme.container === 'boxed')
 const foldable = computed(() => !top.value && props.theme.navFoldable === true)
 const container = computed(() => props.theme.container === 'fluid' ? 'container-fluid' : 'container-xl')
 
+// The colors, as custom properties gears.css turns into Tabler's navbar and footer variables.
+const navClasses = computed(() => ({ 't-app-nav-bg': !!props.theme.navColor, 't-app-nav-text': !!props.theme.navText }))
+const navStyle = computed(() => ({ '--t-nav-bg': props.theme.navColor || undefined, '--t-nav-text': props.theme.navText || undefined }))
+const footerClasses = computed(() => ({ 't-app-footer-bg': !!props.theme.footerColor, 't-app-footer-text': !!props.theme.footerText }))
+const footerStyle = computed(() => ({ '--t-footer-bg': props.theme.footerColor || undefined, '--t-footer-text': props.theme.footerText || undefined }))
+
 const menuOpen = ref(false)
 const route = useRoute()
 watch(() => route.fullPath, () => { menuOpen.value = false })
@@ -37,7 +47,7 @@ watch(() => route.fullPath, () => { menuOpen.value = false })
 <template>
   <div :class="['t-app', { 'layout-boxed': boxed }]">
     <div class="page">
-      <aside v-if="!top" :class="['navbar navbar-vertical navbar-expand-lg t-app-sidebar', { 'navbar-folded': foldable && folded }]">
+      <aside v-if="!top" :class="['navbar navbar-vertical navbar-expand-lg t-app-sidebar', navClasses, { 'navbar-folded': foldable && folded }]" :style="navStyle">
         <div class="container-fluid">
           <button type="button" class="navbar-toggler" :aria-expanded="menuOpen" aria-label="Menu" @click="menuOpen = !menuOpen">
             <span class="navbar-toggler-icon" />
@@ -60,7 +70,8 @@ watch(() => route.fullPath, () => { menuOpen.value = false })
           </div>
         </div>
       </aside>
-      <header v-else :class="['navbar navbar-expand-md t-app-topbar', { 'sticky-top': theme.navSticky, 't-app-floating': theme.navFloating }]">
+      <header v-else :class="['navbar navbar-expand-md t-app-topbar', navClasses, { 'sticky-top': theme.navSticky, 't-app-floating': theme.navFloating }]"
+        :style="navStyle">
         <div :class="[container, 'gap-3']">
           <button type="button" class="navbar-toggler" :aria-expanded="menuOpen" aria-label="Menu" @click="menuOpen = !menuOpen">
             <span class="navbar-toggler-icon" />
@@ -85,6 +96,11 @@ watch(() => route.fullPath, () => { menuOpen.value = false })
             <slot />
           </div>
         </div>
+        <footer v-if="$slots.footer" :class="['footer t-app-footer', footerClasses]" :style="footerStyle">
+          <div :class="container">
+            <slot name="footer" />
+          </div>
+        </footer>
       </div>
     </div>
   </div>
