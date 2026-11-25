@@ -57,6 +57,7 @@ export const pages: ComponentPage[] = [
   { slug: 'steps', name: 'Steps', group: 'Navigation', components: ['TSteps'], description: 'A wizard\'s progress.' },
   { slug: 'breadcrumbs', name: 'Breadcrumbs', group: 'Navigation', components: ['TBreadcrumbs'], description: 'Where you are, a step at a time; a long trail folds its middle.' },
   { slug: 'tree', name: 'Tree', group: 'Navigation', components: ['TTree'], description: 'Folders and the like: opened as you go, by the mouse or the keyboard, and drop targets.' },
+  { slug: 'file-explorer', name: 'File explorer', group: 'Data', components: ['TFileExplorer'], description: 'Drives and folders over a data provider: a tree, a list or cards, uploads, moves, renames and a menu.' },
 
   { slug: 'table', name: 'Table', group: 'Data', components: ['TTable'], description: 'Rows and columns, with sorting, custom cells and selectable rows.' },
   { slug: 'advanced-table', name: 'Advanced table', group: 'Data', components: ['TAdvancedTable'], description: 'A table that filters its rows by each column.' },

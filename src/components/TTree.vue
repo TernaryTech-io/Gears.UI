@@ -6,7 +6,8 @@
 // goes up, Home and End, Enter or Space chooses, and typing a letter jumps to the next node it
 // starts. Nodes can take drops (`droppable` says which, for a dragover) and be dragged
 // (`draggable`), for moving things into folders. The `label` slot draws a row's text, `actions`
-// its trailing buttons. `reload(id)` reads a node's children again; `reveal(ids)` opens a path.
+// its trailing buttons. `reload(id)` reads a node's children again; `reveal(ids)` opens a path
+// and marks its last node chosen (without `select`, which is for a person's choice).
 import { computed, nextTick, reactive, ref } from 'vue'
 import TIcon from './TIcon.vue'
 import TSpinner from './TSpinner.vue'
@@ -107,13 +108,16 @@ async function reload(id?: string) {
   if (row) await fetch(row.node, true)
   else loaded.delete(id)
 }
-/** Opens each node of a path, top first, loading as it goes, and chooses the last. */
+/**
+ * Opens each node of a path, top first, loading as it goes, and marks the last as chosen. It
+ * doesn't emit `select`: that's for a person's choice, and a reveal follows one made elsewhere.
+ */
 async function reveal(ids: string[]) {
   for (const [i, id] of ids.entries()) {
     const row = rows.value.find(r => r.node.id === id)
     if (!row) return
     if (i < ids.length - 1) await openNode(row.node)
-    else choose(row.node)
+    else selected.value = row.node.id
   }
 }
 defineExpose({ reload, reveal })

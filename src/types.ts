@@ -72,6 +72,65 @@ export interface TreeNode {
   data?: unknown
 }
 
+/** A drive of a TFileExplorer: a top-level place files are kept (App files, a share, a bucket). */
+export interface ExplorerDrive {
+  id: string
+  name: string
+  icon?: string
+  /** Nothing can be added, renamed, moved or deleted in it. */
+  readOnly?: boolean
+  /** Why it can't be opened here; shown instead of its contents. */
+  unavailable?: string | null
+}
+
+/** A file or folder in a TFileExplorer. `can` says what the person may do with it (all, when unset). */
+export interface ExplorerItem {
+  id: string
+  name: string
+  folder: boolean
+  size?: number | null
+  /** When it was last changed or uploaded (ISO). */
+  modifiedAt?: string | null
+  mimeType?: string | null
+  /** What the explorer shows as its kind: a file type's name, say. */
+  kind?: string | null
+  icon?: string
+  can?: { rename?: boolean; move?: boolean; delete?: boolean }
+  /** Anything of the provider's: the explorer only passes it back. */
+  data?: unknown
+}
+
+/** Where a TFileExplorer is: a drive, a folder in it (null for its top), and the folders on the way. */
+export interface ExplorerLocation {
+  drive: string
+  folder: string | null
+  path: { id: string; name: string }[]
+}
+
+/** A page of a folder's contents: folders first, then files; `cursor` reads the next page (null for none). */
+export interface ExplorerPage {
+  items: ExplorerItem[]
+  cursor: string | null
+}
+
+/**
+ * What a TFileExplorer works over: the Studio's server, an app's API, or anything else. Only
+ * `drives` and `list` are needed; what's missing is left out of the menus and the toolbar.
+ */
+export interface ExplorerProvider {
+  drives(): Promise<ExplorerDrive[]>
+  /** A folder's contents (null for the drive's top), a page at a time. */
+  list(drive: string, folder: string | null, cursor?: string | null): Promise<ExplorerPage>
+  createFolder?(drive: string, parent: string | null, name: string): Promise<ExplorerItem>
+  rename?(drive: string, item: ExplorerItem, name: string): Promise<ExplorerItem>
+  /** Moves items into a folder of the same drive (null for its top). */
+  move?(drive: string, items: ExplorerItem[], folder: string | null): Promise<void>
+  remove?(drive: string, items: ExplorerItem[]): Promise<void>
+  upload?(drive: string, folder: string | null, file: File, progress: (sent: number) => void, signal: AbortSignal): Promise<ExplorerItem>
+  /** Where a file downloads from. */
+  href?(drive: string, item: ExplorerItem): string
+}
+
 /** A button of a TButtonGroup: a label and/or an icon (give an icon-only one a tooltip). */
 export interface ButtonGroupItem {
   label?: string

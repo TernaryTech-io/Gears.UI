@@ -28,6 +28,7 @@ import TDropdown from './components/TDropdown.vue'
 import TBreadcrumbs from './components/TBreadcrumbs.vue'
 import TContextMenu from './components/TContextMenu.vue'
 import TTree from './components/TTree.vue'
+import TFileExplorer from './components/TFileExplorer.vue'
 import TEditableTable from './components/TEditableTable.vue'
 import TEmpty from './components/TEmpty.vue'
 import TFieldGroup from './components/TFieldGroup.vue'
@@ -105,6 +106,7 @@ export {
   TBreadcrumbs,
   TContextMenu,
   TTree,
+  TFileExplorer,
   TEditableTable,
   TEmpty,
   TFieldGroup,
@@ -170,7 +172,7 @@ export { useToast, type Toast, type ToastPosition } from './composables/useToast
 const components = {
   TAccentPicker, TAdvancedTable, TAlert, TAppLayout, TAuthLayout, TAvatar, TBadge, TButton, TButtonGroup, TCard,
   TCheckbox, TCheckboxTree, TCodeBlock, TColorModeButton, TCommandPalette, TContainerPicker, TCopyButton, TDataGrid, TDataGridItem, TDensityPicker,
-  TDropdown, TBreadcrumbs, TContextMenu, TTree, TEditableTable, TEmpty, TFieldGroup, TFileUpload, TFontPicker, TFormField, TIcon, TIconPicker, TImageUpload,
+  TDropdown, TBreadcrumbs, TContextMenu, TTree, TFileExplorer, TEditableTable, TEmpty, TFieldGroup, TFileUpload, TFontPicker, TFormField, TIcon, TIconPicker, TImageUpload,
   TInput, TInputNumber, TInputTags, TLightbox, TListBox, TLogView, TMethodBadge, TModal, TNav, TNavPositionPicker, TPage, TPagination,
   TPanelList, TProgress, TRadioGroup, TRadiusPicker, TRating, TScaledFrame, TSearchButton, TSectionLayout,
   TSelect, TSelectMenu, TSeparator, TShell, TSkeleton, TSlideover, TSparkline, TSpinner, TSplitButton, TSplitter, TStatCard,
@@ -210,6 +212,7 @@ declare module 'vue' {
     TBreadcrumbs: typeof TBreadcrumbs
     TContextMenu: typeof TContextMenu
     TTree: typeof TTree
+    TFileExplorer: typeof TFileExplorer
     TEditableTable: typeof TEditableTable
     TEmpty: typeof TEmpty
     TFieldGroup: typeof TFieldGroup
