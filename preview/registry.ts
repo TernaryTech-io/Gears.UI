@@ -48,12 +48,15 @@ export const pages: ComponentPage[] = [
   { slug: 'slideover', name: 'Slideover', group: 'Overlays', components: ['TSlideover'], description: 'Panels that slide in from an edge.' },
   { slug: 'dropdown', name: 'Dropdown menu', group: 'Overlays', components: ['TDropdown'], description: 'Menus under a button.' },
   { slug: 'split-button', name: 'Split button', group: 'Overlays', components: ['TSplitButton'], description: 'A main action, and a menu of others beside it.' },
+  { slug: 'context-menu', name: 'Context menu', group: 'Overlays', components: ['TContextMenu'], description: 'A menu where you right-click, or press the Menu key: submenus, shortcuts, and why an item is off.' },
 
   { slug: 'tabs', name: 'Tabs', group: 'Navigation', components: ['TTabs'], description: 'Views of one thing, side by side.' },
   { slug: 'pagination', name: 'Pagination', group: 'Navigation', components: ['TPagination'], description: 'Pages of a long list.' },
   { slug: 'command-palette', name: 'Command palette', group: 'Navigation', components: ['TCommandPalette', 'TSearchButton'], description: 'Ctrl+K search over pages and things.' },
   { slug: 'panel-list', name: 'Panel list', group: 'Navigation', components: ['TPanelList'], description: 'Compact choices in a section\'s side panel.' },
   { slug: 'steps', name: 'Steps', group: 'Navigation', components: ['TSteps'], description: 'A wizard\'s progress.' },
+  { slug: 'breadcrumbs', name: 'Breadcrumbs', group: 'Navigation', components: ['TBreadcrumbs'], description: 'Where you are, a step at a time; a long trail folds its middle.' },
+  { slug: 'tree', name: 'Tree', group: 'Navigation', components: ['TTree'], description: 'Folders and the like: opened as you go, by the mouse or the keyboard, and drop targets.' },
 
   { slug: 'table', name: 'Table', group: 'Data', components: ['TTable'], description: 'Rows and columns, with sorting, custom cells and selectable rows.' },
   { slug: 'advanced-table', name: 'Advanced table', group: 'Data', components: ['TAdvancedTable'], description: 'A table that filters its rows by each column.' },

@@ -34,6 +34,44 @@ export interface DropdownItem {
   onSelect?: (event: Event) => void
 }
 
+/** A step of a TBreadcrumbs trail: a link (`to`, `href`), an action (`onSelect`), or plain text (the last, where you are). */
+export interface BreadcrumbItem {
+  label: string
+  icon?: string
+  to?: Target
+  href?: string
+  onSelect?: (event: Event) => void
+}
+
+/**
+ * An item of a TContextMenu: a dropdown item, with a keyboard shortcut to show beside it
+ * (`kbd`, shown only), a submenu (`children`), and, for a disabled one, why (`reason`, shown
+ * under its label).
+ */
+export interface ContextMenuItem extends Omit<DropdownItem, 'to' | 'href'> {
+  kbd?: string
+  children?: ContextMenuItem[] | ContextMenuItem[][]
+  reason?: string
+}
+
+/**
+ * A node of a TTree: its id and label, an icon (and one for when it's open), and its children.
+ * Children may come later: `leaf: false` with no `children` makes it openable, and the tree's
+ * `load` fetches them the first time it opens.
+ */
+export interface TreeNode {
+  id: string
+  label: string
+  icon?: string
+  openIcon?: string
+  /** A node with no children to open; false (or children) makes it openable. Without either, it's openable until loaded. */
+  leaf?: boolean
+  children?: TreeNode[]
+  disabled?: boolean
+  /** Anything of the caller's: the tree only passes it back. */
+  data?: unknown
+}
+
 /** A button of a TButtonGroup: a label and/or an icon (give an icon-only one a tooltip). */
 export interface ButtonGroupItem {
   label?: string
