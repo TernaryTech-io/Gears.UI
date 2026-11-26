@@ -36,6 +36,7 @@ const provider: ExplorerProvider = {
   drives: () => wait<ExplorerDrive[]>([
     { id: 'app', name: 'App files', icon: 'database' },
     { id: 'share', name: 'Share', icon: 'server-2', readOnly: true },
+    { id: 'backup', name: 'Backup', icon: 'archive' },
     { id: 'bucket', name: 'Bucket', icon: 'bucket', unavailable: 'It has no location in this environment yet.' }
   ]),
   // Pages of 25: folders first, then files.
@@ -56,6 +57,18 @@ const provider: ExplorerProvider = {
   },
   move: async (_drive, items, folder) => { for (const item of items) entries.value.find(e => e.id === item.id)!.parent = folder },
   remove: async (_drive, items) => { entries.value = entries.value.filter(e => !items.some(i => i.id === e.id)) },
+  // Copy to… and Move to…: a file into a folder of any drive.
+  copy: async (_drive, item, toDrive, toFolder) => {
+    const from = entries.value.find(e => e.id === item.id)!
+    const id = add(toDrive, toFolder, from.name, false, from.size, from.type)
+    return wait(asItem(entries.value.find(e => e.id === id)!), 600)
+  },
+  transfer: async (_drive, item, toDrive, toFolder) => {
+    const entry = entries.value.find(e => e.id === item.id)!
+    entry.drive = toDrive
+    entry.parent = toFolder
+    return wait(asItem(entry), 600)
+  },
   upload: (drive, folder, file, progress, signal) => new Promise((resolve, reject) => {
     let sent = 0
     const timer = setInterval(() => {

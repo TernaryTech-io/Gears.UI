@@ -6,9 +6,10 @@
 // or the cards. Selection works with the mouse (Ctrl, Shift) and the keyboard (arrows, Shift,
 // Ctrl+A); Enter opens a folder (a file emits `open`), F2 renames in place, Delete deletes (after
 // asking), Ctrl+X and Ctrl+V move, Backspace goes up. Items drag onto folders (in the list or the
-// tree) to move; files dropped from the computer upload, a queue with progress. The context menu
-// has the standard actions and `menu`'s own. The `info` slot is a side pane for the selection.
-// What the provider can't do is left out.
+// tree) to move; files dropped from the computer upload, a queue with progress. Copy to… and Move
+// to… send files to a folder of any drive (chosen in a dialog of the drives' folders), through the
+// same queue. The context menu has the standard actions and `menu`'s own. The `info` slot is a side
+// pane for the selection. What the provider can't do is left out.
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import TBreadcrumbs from './TBreadcrumbs.vue'
 import TButton from './TButton.vue'
@@ -305,8 +306,17 @@ async function createFolder() {
   })
 }
 
-// ---- Uploads: one at a time, each with its progress, cancelable ----
-interface Upload { id: number; name: string; size: number; sent: number; state: 'waiting' | 'sending' | 'done' | 'failed' | 'canceled'; error?: string; abort: AbortController; drive: string; folder: string | null; file: File }
+// ---- The queue: uploads, copies and moves to other drives, one at a time, each cancelable ----
+interface Upload {
+  id: number; kind: 'upload' | 'copy' | 'move'; name: string; size: number; sent: number; state: 'waiting' | 'sending' | 'done' | 'failed' | 'canceled'; error?: string
+  abort: AbortController
+  /** Where it goes. */
+  drive: string; folder: string | null
+  /** An upload's file. */
+  file?: File
+  /** A copy's or move's item, from where it is, and where it goes as people read it. */
+  item?: ExplorerItem; from?: { drive: string; folder: string | null }; to?: string
+}
 const uploads = reactive<Upload[]>([])
 let uploadIds = 0
 let uploading = false
@@ -315,7 +325,7 @@ function queue(files: File[]) {
   const at = location.value
   if (!at || !props.provider.upload || !writable.value) return
   for (const file of files)
-    uploads.push({ id: ++uploadIds, name: file.name, size: file.size, sent: 0, state: 'waiting', abort: new AbortController(), drive: at.drive, folder: at.folder, file })
+    uploads.push({ id: ++uploadIds, kind: 'upload', name: file.name, size: file.size, sent: 0, state: 'waiting', abort: new AbortController(), drive: at.drive, folder: at.folder, file })
   void run()
 }
 async function run() {
@@ -326,15 +336,20 @@ async function run() {
       const upload = next
       upload.state = 'sending'
       try {
-        await props.provider.upload!(upload.drive, upload.folder, upload.file, sent => { upload.sent = sent }, upload.abort.signal)
+        if (upload.kind === 'upload')
+          await props.provider.upload!(upload.drive, upload.folder, upload.file!, sent => { upload.sent = sent }, upload.abort.signal)
+        else
+          await (upload.kind === 'copy' ? props.provider.copy! : props.provider.transfer!)(upload.from!.drive, upload.item!, upload.drive, upload.folder, upload.abort.signal)
         upload.state = 'done'
         upload.sent = upload.size
-        if (location.value?.drive === upload.drive && location.value.folder === upload.folder) await load()
+        const here = location.value
+        const at = (place?: { drive: string; folder: string | null }) => !!place && here?.drive === place.drive && here.folder === place.folder
+        if (at(upload) || at(upload.from)) await load()
       } catch (e) {
         if (upload.abort.signal.aborted) upload.state = 'canceled'
         else {
           upload.state = 'failed'
-          upload.error = e instanceof Error ? e.message : 'It couldn\'t be uploaded.'
+          upload.error = e instanceof Error ? e.message : upload.kind === 'upload' ? 'It couldn\'t be uploaded.' : `It couldn't be ${upload.kind === 'copy' ? 'copied' : 'moved'}.`
         }
       }
     }
@@ -354,6 +369,64 @@ const picked = (event: Event) => {
   const input = event.target as HTMLInputElement
   queue([...(input.files ?? [])])
   input.value = ''
+}
+
+// ---- Copy to… and Move to…: a folder of any drive, chosen in a dialog ----
+const sending = ref<{ mode: 'copy' | 'move'; items: ExplorerItem[]; from: ExplorerLocation } | null>(null)
+const sendOpen = computed({ get: () => !!sending.value, set: open => { if (!open) sending.value = null } })
+const sendSelected = ref<string | null>(null)
+const sendExpanded = ref<string[]>([])
+// The drives a copy or move can go to: read-only and unavailable ones can't take files.
+const sendNodes = computed<TreeNode[]>(() => drives.value.map(d => ({
+  id: nodeId(d.id, null), label: d.name, icon: d.icon ?? 'server-2', leaf: !!d.unavailable, disabled: d.readOnly || !!d.unavailable
+})))
+const canCopy = (list: ExplorerItem[]) => !!props.provider.copy && list.length > 0 && list.every(i => !i.folder)
+const canSend = (list: ExplorerItem[]) => (!!props.provider.transfer || !!props.provider.move) && list.length > 0 && list.every(i => i.can?.move !== false)
+function sendTo(mode: 'copy' | 'move', list: ExplorerItem[]) {
+  const at = location.value
+  if (!at) return
+  sendSelected.value = nodeId(at.drive, at.folder)
+  sendExpanded.value = [nodeId(at.drive, null), ...at.path.map(p => nodeId(at.drive, p.id))]
+  sending.value = { mode, items: [...list], from: at }
+}
+const sendTarget = computed(() => {
+  const id = sendSelected.value
+  if (!id) return null
+  const driveId = id.split('|')[0]!
+  const target = drives.value.find(d => d.id === driveId)
+  const place = places.get(id)
+  return target ? { drive: driveId, folder: place?.folder ?? null, label: [target.name, ...(place ? pathTo(id).map(p => p.name) : [])].join(' / '), writable: !target.readOnly && !target.unavailable } : null
+})
+// Why the chosen folder won't do; null when it will.
+const sendProblem = computed(() => {
+  const job = sending.value
+  const target = sendTarget.value
+  if (!job || !target) return 'Choose a folder.'
+  if (!target.writable) return 'That drive is read-only here.'
+  if (job.mode === 'move' && target.drive === job.from.drive && target.folder === job.from.folder) return 'They\'re in this folder already.'
+  if (job.mode === 'move' && target.drive !== job.from.drive) {
+    if (!props.provider.transfer) return 'Items move within their drive here.'
+    if (job.items.some(i => i.folder)) return 'Folders move within their drive; their files can go to another one.'
+  }
+  if (job.mode === 'move' && target.drive === job.from.drive && job.items.some(i => i.id === target.folder)) return 'A folder can\'t go inside itself.'
+  return null
+})
+async function confirmSend() {
+  const job = sending.value
+  const target = sendTarget.value
+  if (!job || !target || sendProblem.value) return
+  sending.value = null
+  // Within a drive, a move is the drive's own (folders too); otherwise each file is queued.
+  if (job.mode === 'move' && target.drive === job.from.drive) {
+    await moveTo(job.items, target.folder)
+    return
+  }
+  for (const item of job.items)
+    uploads.push({
+      id: ++uploadIds, kind: job.mode, name: item.name, size: item.size ?? 0, sent: 0, state: 'waiting', abort: new AbortController(),
+      drive: target.drive, folder: target.folder, item, from: { drive: job.from.drive, folder: job.from.folder }, to: target.label
+    })
+  void run()
 }
 
 // ---- Dragging: items onto folders (list or tree) to move; files from the computer to upload ----
@@ -423,6 +496,11 @@ function menuFor(event: MouseEvent | KeyboardEvent): ContextMenuItem[][] {
       ...(props.provider.rename && one ? [{ label: 'Rename', icon: 'pencil', kbd: 'F2', disabled: !canRename(one), reason: reasonFor(one, 'rename'), onSelect: () => startRename(one) }] : []),
       ...(props.provider.move ? [{ label: 'Cut', icon: 'scissors', kbd: 'Ctrl+X', disabled: !canMove(list), reason: list.length === 1 ? reasonFor(list[0]!, 'move') : undefined, onSelect: () => cut(list) }] : []),
       ...(clipboard.value && one?.folder ? [{ label: 'Paste into', icon: 'clipboard', onSelect: () => void paste(one.id) }] : [])
+    ], [
+      ...(props.provider.copy ? [{ label: 'Copy to…', icon: 'copy', disabled: !canCopy(list), reason: list.some(i => i.folder) ? 'Folders can\'t be copied yet' : undefined,
+        onSelect: () => sendTo('copy', list) }] : []),
+      ...(props.provider.transfer || props.provider.move ? [{ label: 'Move to…', icon: 'folder-share', disabled: !canSend(list),
+        reason: list.length === 1 ? reasonFor(list[0]!, 'move') : undefined, onSelect: () => sendTo('move', list) }] : [])
     ], ...(props.menu?.(list, at) ?? []), [
       ...(props.provider.remove ? [{ label: 'Delete', icon: 'trash', color: 'error' as const, kbd: 'Del', disabled: !canDelete(list), reason: list.length === 1 ? reasonFor(list[0]!, 'delete') : undefined, onSelect: () => askDelete(list) }] : [])
     ]]
@@ -565,21 +643,41 @@ const infoShown = ref(true)
           </div>
           <div v-if="uploads.length" class="t-explorer-uploads" aria-label="Uploads">
             <div class="d-flex align-items-center gap-2 mb-1">
-              <span class="small fw-medium flex-fill">Uploads</span>
+              <span class="small fw-medium flex-fill">{{ uploads.every(u => u.kind === 'upload') ? 'Uploads' : 'Uploads, copies and moves' }}</span>
               <TButton size="sm" variant="ghost" color="neutral" label="Clear finished" @click="clearUploads" />
             </div>
             <div v-for="u in uploads" :key="u.id" class="t-explorer-upload">
-              <TIcon :name="u.state === 'done' ? 'circle-check' : u.state === 'failed' ? 'alert-circle' : u.state === 'canceled' ? 'circle-x' : 'upload'"
+              <TIcon :name="u.state === 'done' ? 'circle-check' : u.state === 'failed' ? 'alert-circle' : u.state === 'canceled' ? 'circle-x' : u.kind === 'copy' ? 'copy' : u.kind === 'move' ? 'folder-share' : 'upload'"
                 :class="u.state === 'done' ? 'text-success' : u.state === 'failed' ? 'text-danger' : 'text-secondary'" />
               <span class="text-truncate small" style="min-width: 6rem; max-width: 16rem">{{ u.name }}</span>
-              <TProgress v-if="u.state === 'sending' || u.state === 'waiting'" :value="u.state === 'waiting' ? 0 : u.sent" :max="u.size || 1" size="sm" class="flex-fill" :label="`${u.name} sent`" />
-              <span v-else class="small text-secondary flex-fill text-truncate">{{ u.state === 'failed' ? u.error : u.state === 'canceled' ? 'Canceled' : sizeOf(u.size) }}</span>
+              <template v-if="u.kind === 'upload'">
+                <TProgress v-if="u.state === 'sending' || u.state === 'waiting'" :value="u.state === 'waiting' ? 0 : u.sent" :max="u.size || 1" size="sm" class="flex-fill" :label="`${u.name} sent`" />
+                <span v-else class="small text-secondary flex-fill text-truncate">{{ u.state === 'failed' ? u.error : u.state === 'canceled' ? 'Canceled' : sizeOf(u.size) }}</span>
+              </template>
+              <span v-else class="small text-secondary flex-fill text-truncate">
+                <TSpinner v-if="u.state === 'sending'" size="sm" class="me-1" />{{ u.state === 'failed' ? u.error : u.state === 'canceled' ? 'Canceled'
+                  : `${u.state === 'done' ? (u.kind === 'copy' ? 'Copied' : 'Moved') : u.state === 'waiting' ? 'Waiting' : (u.kind === 'copy' ? 'Copying' : 'Moving')} to ${u.to}` }}
+              </span>
               <TButton v-if="u.state === 'waiting' || u.state === 'sending'" size="sm" variant="ghost" color="neutral" icon="x" :aria-label="`Cancel ${u.name}`" @click="cancel(u)" />
             </div>
           </div>
         </div>
       </template>
     </TSplitter>
+    <TModal v-model:open="sendOpen" :title="sending?.mode === 'copy' ? 'Copy to…' : 'Move to…'" size="md">
+      <p class="small text-secondary">
+        {{ sending?.items.length === 1 ? sending.items[0]!.name : `${sending?.items.length} items` }}: choose the folder {{ sending?.mode === 'copy' ? 'for the copy' : 'to move to' }}.
+      </p>
+      <div class="t-explorer-send">
+        <TTree v-model:selected="sendSelected" v-model:expanded="sendExpanded" :nodes="sendNodes" :load="loadFolders" size="sm" :label="`${label}: where to`" />
+      </div>
+      <p v-if="sendTarget" class="small mt-2 mb-0"><TIcon name="folder" class="text-secondary" /> {{ sendTarget.label }}</p>
+      <p v-if="sendProblem && sendTarget" class="small text-danger mb-0">{{ sendProblem }}</p>
+      <template #footer>
+        <TButton color="neutral" variant="ghost" label="Cancel" @click="sending = null" />
+        <TButton :icon="sending?.mode === 'copy' ? 'copy' : 'folder-share'" :label="sending?.mode === 'copy' ? 'Copy here' : 'Move here'" :disabled="!!sendProblem" @click="confirmSend" />
+      </template>
+    </TModal>
     <TModal v-model:open="deleteOpen" title="Delete?" size="sm">
       <p class="mb-0">
         {{ deleting?.length === 1 ? `Delete ${deleting[0]!.name}?` : `Delete these ${deleting?.length} items?` }}
@@ -619,4 +717,5 @@ const infoShown = ref(true)
 .t-explorer-info { width: 18rem; flex: none; overflow: auto; border-inline-start: var(--tblr-border-width) solid var(--tblr-border-color); }
 .t-explorer-uploads { border-top: var(--tblr-border-width) solid var(--tblr-border-color); padding: .5rem .75rem; max-height: 11rem; overflow: auto; }
 .t-explorer-upload { display: flex; align-items: center; gap: .5rem; padding-block: .125rem; }
+.t-explorer-send { height: 18rem; overflow: auto; border: var(--tblr-border-width) solid var(--tblr-border-color); border-radius: var(--tblr-border-radius); padding: .375rem; }
 </style>

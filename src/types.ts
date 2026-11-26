@@ -127,6 +127,10 @@ export interface ExplorerProvider {
   move?(drive: string, items: ExplorerItem[], folder: string | null): Promise<void>
   remove?(drive: string, items: ExplorerItem[]): Promise<void>
   upload?(drive: string, folder: string | null, file: File, progress: (sent: number) => void, signal: AbortSignal): Promise<ExplorerItem>
+  /** Copies a file into a folder of any drive (its own too; null for the top): Copy to…. One file a call, queued like uploads. */
+  copy?(drive: string, item: ExplorerItem, toDrive: string, toFolder: string | null, signal: AbortSignal): Promise<ExplorerItem>
+  /** Moves a file into a folder of another drive (null for its top): Move to…. Within a drive, Move to… uses `move`. */
+  transfer?(drive: string, item: ExplorerItem, toDrive: string, toFolder: string | null, signal: AbortSignal): Promise<ExplorerItem>
   /** Where a file downloads from. */
   href?(drive: string, item: ExplorerItem): string
 }
