@@ -1,0 +1,41 @@
+Date,Employee,Category,Merchant,Amount,Status
+2026-10-01,Avery Lane,Travel,"Northline Rail",8.00,Approved
+2026-10-02,Jordan Pike,Meals,"Corner Bistro",45.13,Pending
+2026-10-03,Sam Ortiz,Lodging,"Harbor Inn",82.26,Reimbursed
+2026-10-04,Riley Chen,Supplies,"Paper & Co.",119.39,Rejected
+2026-10-05,Avery Lane,Software,"Cloudnote",156.52,Approved
+2026-10-06,Jordan Pike,Travel,"Northline Rail",193.65,Pending
+2026-10-07,Sam Ortiz,Meals,"Corner Bistro",230.78,Reimbursed
+2026-10-08,Riley Chen,Lodging,"Harbor Inn",267.91,Rejected
+2026-10-09,Avery Lane,Supplies,"Paper & Co.",305.04,Approved
+2026-10-10,Jordan Pike,Software,"Cloudnote",342.17,Pending
+2026-10-11,Sam Ortiz,Travel,"Northline Rail",379.30,Reimbursed
+2026-10-12,Riley Chen,Meals,"Corner Bistro",16.43,Rejected
+2026-10-13,Avery Lane,Lodging,"Harbor Inn",53.56,Approved
+2026-10-14,Jordan Pike,Supplies,"Paper & Co.",90.69,Pending
+2026-10-15,Sam Ortiz,Software,"Cloudnote",127.82,Reimbursed
+2026-10-16,Riley Chen,Travel,"Northline Rail",164.95,Rejected
+2026-10-17,Avery Lane,Meals,"Corner Bistro",202.08,Approved
+2026-10-18,Jordan Pike,Lodging,"Harbor Inn",239.21,Pending
+2026-10-19,Sam Ortiz,Supplies,"Paper & Co.",276.34,Reimbursed
+2026-10-20,Riley Chen,Software,"Cloudnote",313.47,Rejected
+2026-10-21,Avery Lane,Travel,"Northline Rail",350.60,Approved
+2026-10-22,Jordan Pike,Meals,"Corner Bistro",387.73,Pending
+2026-10-23,Sam Ortiz,Lodging,"Harbor Inn",24.86,Reimbursed
+2026-10-24,Riley Chen,Supplies,"Paper & Co.",61.99,Rejected
+2026-10-25,Avery Lane,Software,"Cloudnote",99.12,Approved
+2026-10-26,Jordan Pike,Travel,"Northline Rail",136.25,Pending
+2026-10-27,Sam Ortiz,Meals,"Corner Bistro",173.38,Reimbursed
+2026-10-28,Riley Chen,Lodging,"Harbor Inn",210.51,Rejected
+2026-10-01,Avery Lane,Supplies,"Paper & Co.",247.64,Approved
+2026-10-02,Jordan Pike,Software,"Cloudnote",284.77,Pending
+2026-10-03,Sam Ortiz,Travel,"Northline Rail",321.90,Reimbursed
+2026-10-04,Riley Chen,Meals,"Corner Bistro",359.03,Rejected
+2026-10-05,Avery Lane,Lodging,"Harbor Inn",396.16,Approved
+2026-10-06,Jordan Pike,Supplies,"Paper & Co.",33.29,Pending
+2026-10-07,Sam Ortiz,Software,"Cloudnote",70.42,Reimbursed
+2026-10-08,Riley Chen,Travel,"Northline Rail",107.55,Rejected
+2026-10-09,Avery Lane,Meals,"Corner Bistro",144.68,Approved
+2026-10-10,Jordan Pike,Lodging,"Harbor Inn",181.81,Pending
+2026-10-11,Sam Ortiz,Supplies,"Paper & Co.",218.94,Reimbursed
+2026-10-12,Riley Chen,Software,"Cloudnote",256.07,Rejected

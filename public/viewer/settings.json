@@ -1,0 +1,12 @@
+{
+  "name": "Expenses",
+  "currency": "USD",
+  "limits": {
+    "meals": 60,
+    "lodging": 200
+  },
+  "approvers": [
+    "manager@example.com"
+  ],
+  "remind": true
+}

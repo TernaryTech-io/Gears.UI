@@ -77,6 +77,7 @@ export const pages: ComponentPage[] = [
 
   { slug: 'advanced-select', name: 'Advanced select', group: 'Plugins', components: ['TAdvancedSelect'], description: 'Tom Select: type to filter, chips, new values.' },
   { slug: 'pdf-viewer', name: 'PDF viewer', group: 'Plugins', components: ['TPdfViewer'], description: 'PDF.js: pages, zoom and download.' },
+  { slug: 'file-viewer', name: 'File viewer', group: 'Plugins', components: ['TFileViewer', 'TFileView'], description: 'Files shown in the page: PDFs, Word, Excel, CSV, Markdown, text, images and media.' },
   { slug: 'chart', name: 'Chart', group: 'Plugins', components: ['TChart'], description: 'Apache ECharts, in the theme: lines, areas, bars, pies and donuts.' },
   { slug: 'clipboard', name: 'Clipboard', group: 'Plugins', components: ['TCopyButton'], description: 'Copy buttons, with Tabler\'s clipboard plugin.' },
   { slug: 'color-picker', name: 'Color picker', group: 'Plugins', components: ['TColorPicker'], description: 'Coloris: colors with swatches and transparency.' },
