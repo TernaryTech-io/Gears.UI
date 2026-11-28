@@ -1,10 +1,14 @@
 <script setup lang="ts">
 // Files shown one at a time (TFileView) under a toolbar: the file's name and size, previous and
-// next with a counter (and the arrow keys), Download, Share when `share` is on (it emits `share`;
-// the host shows its own dialog), any `actions`, and close (the button or Escape). v-model is the
-// one shown: its index in `files`, null when closed. Over the whole window by default, with focus
-// moved into it and back after; `inline` shows it in its box instead, always open, without close.
-import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
+// next with a counter (and the arrow keys), Download, Share, any `actions`, and close (the button
+// or Escape). v-model is the one shown: its index in `files`, null when closed. Over the whole
+// window by default, with focus moved into it and back after; `inline` shows it in its box
+// instead, always open, without close.
+// Share shows for every file when `share` is true, or for those it says yes to when it's a
+// function. It emits `share`, and opens the `panel` slot (v-model:panel) beside the file, inside
+// the viewer, for the host's own sharing: Escape closes the panel first. Without the slot, the
+// host does what it likes on `share`.
+import { computed, nextTick, onBeforeUnmount, ref, useSlots, watch } from 'vue'
 import TFileView from './TFileView.vue'
 import TIcon from './TIcon.vue'
 import { sizeText, viewerIcon, viewerKind, type ViewerFile } from '../plugins/viewers'
@@ -12,13 +16,15 @@ import { sizeText, viewerIcon, viewerKind, type ViewerFile } from '../plugins/vi
 const props = withDefaults(defineProps<{
   files: ViewerFile[]
   inline?: boolean
-  share?: boolean
+  share?: boolean | ((file: ViewerFile) => boolean)
   loop?: boolean
   // The inline viewer's height.
   height?: number | string
 }>(), { loop: false, height: 640 })
 const index = defineModel<number | null>({ default: null })
+const panel = defineModel<boolean>('panel', { default: false })
 const emit = defineEmits<{ share: [file: ViewerFile]; close: []; error: [file: ViewerFile, message: string] }>()
+const slots = useSlots()
 
 const at = computed(() => (props.inline ? Math.min(Math.max(index.value ?? 0, 0), props.files.length - 1) : index.value))
 const open = computed(() => at.value != null && at.value >= 0 && at.value < props.files.length)
@@ -28,6 +34,13 @@ const canBack = computed(() => many.value && (props.loop || (at.value ?? 0) > 0)
 const canOn = computed(() => many.value && (props.loop || (at.value ?? 0) < props.files.length - 1))
 const downloadHref = computed(() => (!file.value || file.value.download === false ? null : file.value.download ?? file.value.src))
 const cssHeight = computed(() => (typeof props.height === 'number' ? `${props.height}px` : props.height))
+const canShare = computed(() => !!file.value && (typeof props.share === 'function' ? props.share(file.value) : !!props.share))
+const panelShown = computed(() => panel.value && !!slots.panel)
+function shareClicked() {
+  if (!file.value) return
+  emit('share', file.value)
+  if (slots.panel) panel.value = !panel.value
+}
 
 function step(by: 1 | -1) {
   if (at.value == null || !many.value) return
@@ -37,16 +50,19 @@ function step(by: 1 | -1) {
 function close() {
   if (props.inline) return
   index.value = null
+  panel.value = false
   emit('close')
 }
 
-/** Keys that belong to what's in the file (a page number, a player) are left to it. */
+/** Keys that belong to what's in the file (a page number, a player), or to the panel, are left to them. */
 function typing(target: EventTarget | null) {
-  return target instanceof HTMLElement && (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT', 'VIDEO', 'AUDIO'].includes(target.tagName))
+  return target instanceof HTMLElement
+    && (target.isContentEditable || ['INPUT', 'TEXTAREA', 'SELECT', 'VIDEO', 'AUDIO'].includes(target.tagName) || !!target.closest('.t-file-viewer-panel'))
 }
 function key(event: KeyboardEvent) {
   if (!open.value || event.altKey || event.ctrlKey || event.metaKey) return
-  if (event.key === 'Escape' && !props.inline) close()
+  if (event.key === 'Escape' && panelShown.value) panel.value = false
+  else if (event.key === 'Escape' && !props.inline) close()
   else if (event.key === 'ArrowRight' && !typing(event.target) && canOn.value) step(1)
   else if (event.key === 'ArrowLeft' && !typing(event.target) && canBack.value) step(-1)
   else return
@@ -102,14 +118,20 @@ onBeforeUnmount(() => {
             <span class="t-file-viewer-divider" />
           </template>
           <slot name="actions" :file="file" />
-          <button v-if="share" type="button" class="btn btn-ghost-secondary" @click="emit('share', file)"><TIcon name="share" class="me-1" />Share</button>
+          <button v-if="canShare" type="button" :class="['btn', panelShown ? 'btn-secondary' : 'btn-ghost-secondary']" :aria-pressed="slots.panel ? panelShown : undefined"
+            @click="shareClicked"><TIcon name="share" class="me-1" />Share</button>
           <a v-if="downloadHref" :href="downloadHref" :download="file.name" class="btn btn-ghost-secondary"><TIcon name="download" class="me-1" />Download</a>
           <button v-if="!inline" type="button" class="btn btn-icon btn-ghost-secondary" aria-label="Close" title="Close (Esc)" @click="close">
             <TIcon name="x" />
           </button>
         </div>
       </div>
-      <TFileView :key="file.id ?? `${at}:${file.src}`" :file="file" class="t-file-viewer-body" @error="m => emit('error', file!, m)" />
+      <div class="t-file-viewer-main">
+        <TFileView :key="file.id ?? `${at}:${file.src}`" :file="file" class="t-file-viewer-body" @error="m => emit('error', file!, m)" />
+        <aside v-if="panelShown" class="t-file-viewer-panel" :aria-label="`Share ${file.name}`">
+          <slot name="panel" :file="file" :close="() => (panel = false)" />
+        </aside>
+      </div>
     </div>
   </Teleport>
 </template>
@@ -132,7 +154,15 @@ onBeforeUnmount(() => {
 .t-file-viewer-count { font-variant-numeric: tabular-nums; }
 .t-file-viewer-actions { display: flex; align-items: center; gap: 0.25rem; flex: none; }
 .t-file-viewer-divider { width: 1px; align-self: stretch; margin: 0.25rem 0.25rem; background: var(--tblr-border-color); }
-.t-file-viewer-body { flex: 1 1 auto; height: auto !important; }
+.t-file-viewer-main { position: relative; display: flex; flex: 1 1 auto; min-height: 0; }
+.t-file-viewer-body { flex: 1 1 auto; min-width: 0; height: auto !important; }
+.t-file-viewer-panel {
+  flex: none; width: 24rem; max-width: 100%; overflow: auto; overscroll-behavior: contain;
+  background: var(--tblr-bg-surface); border-left: 1px solid var(--tblr-border-color);
+}
+@media (max-width: 768px) {
+  .t-file-viewer-panel { position: absolute; inset: 0 0 0 auto; width: min(24rem, 100%); box-shadow: -8px 0 24px rgba(0, 0, 0, 0.15); }
+}
 @media (max-width: 576px) {
   .t-file-viewer-actions .btn:not(.btn-icon) { font-size: 0; padding-inline: 0.5rem; }
   .t-file-viewer-actions .btn:not(.btn-icon) :deep(.ti) { font-size: 1.25rem; margin: 0 !important; }

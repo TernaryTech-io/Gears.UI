@@ -11,7 +11,7 @@ import TPdfViewer from './TPdfViewer.vue'
 import TSpinner from './TSpinner.vue'
 import {
   codeLanguageOf, loadDocxPreview, loadExcelJs, loadMarkdown, parseCsv, readFile, sizeText, viewerColumns, viewerIcon, viewerKind,
-  sheetCellText, viewerLimits, viewerRows, type ViewerCell, type ViewerFile, type ViewerSheet
+  sheetCellText, ViewerReadError, viewerLimits, viewerRows, type ViewerCell, type ViewerFile, type ViewerSheet
 } from '../plugins/viewers'
 
 const props = withDefaults(defineProps<{ file: ViewerFile; height?: number | string }>(), { height: '100%' })
@@ -83,7 +83,7 @@ async function show() {
     if (at === reading) emit('load')
   } catch (e) {
     if (at !== reading) return
-    problem.value = e instanceof Error && /access|found/.test(e.message) ? e.message : `${props.file.name} couldn't be shown.`
+    problem.value = e instanceof ViewerReadError ? e.message : `${props.file.name} couldn't be shown.`
     emit('error', e instanceof Error ? e.message : problem.value)
   } finally {
     if (at === reading) loading.value = false
@@ -211,12 +211,18 @@ const imageFailed = () => { problem.value = `${props.file.name} couldn't be show
 .t-file-view-scroll { overflow: auto; overscroll-behavior: contain; }
 .t-file-view-code { min-height: 100%; border-radius: 0; }
 .t-file-view-markdown { max-width: 52rem; margin: 0 auto; padding: 2rem 1.5rem; background: var(--tblr-bg-surface); min-height: 100%; }
-.t-file-view-table { background: var(--tblr-bg-surface); width: max-content; min-width: 100%; font-size: 0.8125rem; }
+/* Separate borders (none between): sticky cells in a collapsed-border table let the rows under them show through in Chrome. */
+.t-file-view-table { background: var(--tblr-bg-surface); width: max-content; min-width: 100%; font-size: 0.8125rem; border-collapse: separate; border-spacing: 0; }
+.t-file-view-table th, .t-file-view-table td { border-width: 0 1px 1px 0; border-style: solid; border-color: var(--tblr-border-color); }
 .t-file-view-table th, .t-file-view-table td { white-space: pre; max-width: 32rem; overflow: hidden; text-overflow: ellipsis; }
-.t-file-view-table thead th { position: sticky; top: 0; z-index: 1; background: var(--tblr-bg-surface-tertiary); }
-.t-file-view-grid tbody th { position: sticky; left: 0; background: var(--tblr-bg-surface-tertiary); color: var(--tblr-secondary); font-weight: 400; text-align: right; }
+/* Tabler's tertiary surface is a see-through tint: laid over the solid surface, so rows scrolled under the sticky header and row numbers don't show through. */
+.t-file-view-table thead th, .t-file-view-grid tbody th {
+  background-color: var(--tblr-bg-surface); background-image: linear-gradient(var(--tblr-bg-surface-tertiary), var(--tblr-bg-surface-tertiary));
+}
+.t-file-view-table thead th { position: sticky; top: 0; z-index: 2; box-shadow: inset 0 -1px 0 var(--tblr-border-color); }
+.t-file-view-grid tbody th { position: sticky; left: 0; z-index: 1; color: var(--tblr-secondary); font-weight: 400; text-align: right; }
 .t-file-view-grid thead th { color: var(--tblr-secondary); font-weight: 400; text-align: center; text-transform: none; }
-.t-file-view-corner { left: 0; z-index: 2 !important; }
+.t-file-view-corner { left: 0; z-index: 3 !important; }
 .t-file-view-more { padding: 0.75rem 1rem; color: var(--tblr-secondary); font-size: 0.875rem; }
 .t-file-view-sheets { display: flex; flex-direction: column; }
 .t-file-view-sheets > .t-file-view-scroll { flex: 1 1 auto; min-height: 0; }

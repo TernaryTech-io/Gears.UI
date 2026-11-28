@@ -2,23 +2,10 @@
 // docx-preview (Apache-2.0) for Word, ExcelJS (MIT) for Excel, markdown-it (MIT) for Markdown; PDFs
 // through TPdfViewer (PDF.js); images, audio and video by the browser; text, code and CSV by Gears UI.
 import type { CodeLanguage } from '../codeTokens'
+import type { ViewerFile } from '../types'
 import { once } from './once'
 
-/** A file to view: its name, where its content is, and what's known of it. */
-export interface ViewerFile {
-  /** Its own key, when names repeat; the name otherwise. */
-  id?: string
-  name: string
-  /** The content's address: shown by the browser (images, media, PDFs) or read (everything else). */
-  src: string
-  /** Its media type, when known; the name's extension decides otherwise. */
-  type?: string | null
-  size?: number | null
-  /** Where Download gets it (the content's address by default); false for no Download. */
-  download?: string | false
-  /** Reads the content, for a source the browser can't just fetch (a header to send, another origin). */
-  load?: () => Promise<Blob>
-}
+export type { ViewerFile }
 
 export type ViewerKind = 'image' | 'video' | 'audio' | 'pdf' | 'markdown' | 'csv' | 'docx' | 'xlsx' | 'text' | 'none'
 
@@ -98,10 +85,28 @@ export function sizeText(bytes?: number | null) {
 /** Reads a file's content: its own `load`, or a fetch of `src` (with the page's cookies). */
 export async function readFile(file: ViewerFile): Promise<Blob> {
   if (file.load) return file.load()
-  const response = await fetch(file.src, { credentials: 'include' })
-  if (!response.ok) throw new Error(response.status === 404 ? 'The file wasn\'t found.' : response.status === 401 || response.status === 403 ? 'You don\'t have access to this file.' : `The file couldn't be read (${response.status}).`)
+  let response: Response
+  try {
+    response = await fetch(file.src, { credentials: 'include' })
+  } catch {
+    throw new ViewerReadError('The file couldn\'t be reached. Check the connection and try again.')
+  }
+  if (!response.ok) {
+    // The server's own reason, when it gives one (a problem's detail or title): a storage's refusal, say.
+    let reason = ''
+    try {
+      const body = await response.json() as { detail?: string; title?: string }
+      reason = (body.detail || body.title || '').trim()
+    } catch { /* not JSON */ }
+    const what = response.status === 404 ? 'The file wasn\'t found.' : response.status === 401 || response.status === 403 ? 'You don\'t have access to this file.'
+      : `The file couldn't be read (${response.status}).`
+    throw new ViewerReadError(reason && !what.includes(reason) ? `${what} ${reason}` : what)
+  }
   return response.blob()
 }
+
+/** A file that couldn't be read, saying why: shown as it is. */
+export class ViewerReadError extends Error {}
 
 /**
  * CSV (or tab-separated) text as rows of cells: quoted cells may hold the separator, quotes ("")

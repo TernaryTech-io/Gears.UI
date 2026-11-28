@@ -342,3 +342,19 @@ export interface ThemeSettings {
   footerText?: string
   container?: ThemeContainer
 }
+
+/** A file for TFileViewer and TFileView: its name, where its content is, and what's known of it. */
+export interface ViewerFile {
+  /** Its own key, when names repeat; the name otherwise. */
+  id?: string
+  name: string
+  /** The content's address: shown by the browser (images, media, PDFs) or read (everything else). */
+  src: string
+  /** Its media type, when known; the name's extension decides otherwise. */
+  type?: string | null
+  size?: number | null
+  /** Where Download gets it (the content's address by default); false for no Download. */
+  download?: string | false
+  /** Reads the content, for a source the browser can't just fetch (a header to send, another origin). */
+  load?: () => Promise<Blob>
+}

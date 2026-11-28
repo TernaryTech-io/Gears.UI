@@ -1,6 +1,6 @@
 <!-- `inline` shows the viewer in its box, always open: for a page that shows one file, such as a shared link. -->
 <script setup lang="ts">
-import type { ViewerFile } from '@ternarytech-io/gears-ui/plugins'
+import type { ViewerFile } from '@ternarytech-io/gears-ui'
 
 const files: ViewerFile[] = [
   { name: 'expenses.xlsx', src: '/viewer/expenses.xlsx', size: 9141 },
